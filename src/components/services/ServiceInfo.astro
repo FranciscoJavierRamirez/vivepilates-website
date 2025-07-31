@@ -1,0 +1,226 @@
+---
+import { getEntry } from 'astro:content';
+
+// Carga el contenido desde markdown
+let content;
+try {
+  // const entry = await getEntry('services', 'class-info'); // Preparado para futuro uso con content collections
+  content = {
+    duration: '55 minutos aproximados',
+    requirements: [
+      'Calcetines antideslizantes: La clase se realiza en calcetines, idealmente antideslizantes para evitar lesiones',
+      'Ropa cómoda: Buzo deportivo o ropa cómoda para ejercitarse',
+      'Importante: Pantalones sin bolsillos con cierre metálico para cuidar las máquinas',
+    ],
+    optionals: [
+      'Botella de agua: Puedes traer tu propia botella si lo prefieres',
+      'Toalla pequeña: Para tu comodidad durante la clase',
+      'Mat personal: Si tienes mat propio, puedes traerlo, aunque tenemos disponibles',
+    ],
+    recommendations: [
+      'Llegar con tiempo suficiente para prepararse',
+      'Comunicar cualquier lesión o limitación física al instructor',
+      'Mantener el celular en silencio durante la clase',
+    ],
+  };
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  content = {
+    duration: '55 minutos aproximados',
+    requirements: [
+      'Calcetines antideslizantes: La clase se realiza en calcetines, idealmente antideslizantes para evitar lesiones',
+      'Ropa cómoda: Buzo deportivo o ropa cómoda para ejercitarse',
+      'Importante: Pantalones sin bolsillos con cierre metálico para cuidar las máquinas',
+    ],
+    optionals: [
+      'Botella de agua: Puedes traer tu propia botella si lo prefieres',
+      'Toalla pequeña: Para tu comodidad durante la clase',
+      'Mat personal: Si tienes mat propio, puedes traerlo, aunque tenemos disponibles',
+    ],
+    recommendations: [
+      'Llegar con tiempo suficiente para prepararse',
+      'Comunicar cualquier lesión o limitación física al instructor',
+      'Mantener el celular en silencio durante la clase',
+    ],
+  };
+}
+---
+
+<section
+  class="py-12 bg-[var(--white)]"
+  role="region"
+  aria-labelledby="class-info-title"
+>
+  <div class="container mx-auto px-4 max-w-4xl">
+    <h2
+      id="class-info-title"
+      class="text-3xl font-bold text-center mb-4 text-[var(--deep-coral)]"
+    >
+      Información de la Clase
+    </h2>
+    <p
+      class="text-center text-lg text-[var(--charcoal-gray)] mb-12 max-w-2xl mx-auto"
+    >
+      Todo lo que necesitas saber para disfrutar al máximo tu experiencia en
+      VivePilates
+    </p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Duración y Requisitos -->
+      <div class="space-y-6">
+        <!-- Duración -->
+        <div class="bg-[var(--cream)] p-6 rounded-lg shadow-sm">
+          <div class="flex items-center gap-3 mb-4">
+            <div
+              class="w-12 h-12 bg-[var(--coral-primary)] rounded-full flex items-center justify-center"
+            >
+              <span class="text-white text-xl">⏱️</span>
+            </div>
+            <h3 class="text-xl font-bold text-[var(--deep-coral)]">
+              Duración de la Clase
+            </h3>
+          </div>
+          <p class="text-[var(--charcoal-gray)] text-lg">
+            Cada clase tiene una duración de <strong
+              class="text-[var(--coral-primary)]">{content.duration}</strong
+            >
+          </p>
+        </div>
+
+        <!-- Requisitos Obligatorios -->
+        <div class="bg-[var(--rose-pale)] p-6 rounded-lg shadow-sm">
+          <div class="flex items-center gap-3 mb-4">
+            <div
+              class="w-12 h-12 bg-[var(--deep-coral)] rounded-full flex items-center justify-center"
+            >
+              <span class="text-white text-xl">📋</span>
+            </div>
+            <h3 class="text-xl font-bold text-[var(--deep-coral)]">
+              Requisitos Obligatorios
+            </h3>
+          </div>
+          <ul class="space-y-3">
+            {
+              content.requirements.map(req => (
+                <li class="flex items-start gap-3">
+                  <span class="w-2 h-2 bg-[var(--deep-coral)] rounded-full mt-2 flex-shrink-0" />
+                  <span class="text-[var(--charcoal-gray)] leading-relaxed">
+                    {req}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <!-- Opcionales y Recomendaciones -->
+      <div class="space-y-6">
+        <!-- Elementos Opcionales -->
+        <div class="bg-[var(--warm-gray)] p-6 rounded-lg shadow-sm">
+          <div class="flex items-center gap-3 mb-4">
+            <div
+              class="w-12 h-12 bg-[var(--sage-green)] rounded-full flex items-center justify-center"
+            >
+              <span class="text-white text-xl">🎒</span>
+            </div>
+            <h3 class="text-xl font-bold text-[var(--deep-coral)]">
+              Elementos Opcionales
+            </h3>
+          </div>
+          <ul class="space-y-3">
+            {
+              content.optionals.map(opt => (
+                <li class="flex items-start gap-3">
+                  <span class="w-2 h-2 bg-[var(--sage-green)] rounded-full mt-2 flex-shrink-0" />
+                  <span class="text-[var(--charcoal-gray)] leading-relaxed">
+                    {opt}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <!-- Recomendaciones -->
+        <div
+          class="bg-[var(--white)] p-6 rounded-lg shadow-sm border-2 border-[var(--warm-gold)] border-opacity-30"
+        >
+          <div class="flex items-center gap-3 mb-4">
+            <div
+              class="w-12 h-12 bg-[var(--warm-gold)] rounded-full flex items-center justify-center"
+            >
+              <span class="text-white text-xl">💡</span>
+            </div>
+            <h3 class="text-xl font-bold text-[var(--deep-coral)]">
+              Recomendaciones
+            </h3>
+          </div>
+          <ul class="space-y-3">
+            {
+              content.recommendations.map(rec => (
+                <li class="flex items-start gap-3">
+                  <span class="w-2 h-2 bg-[var(--warm-gold)] rounded-full mt-2 flex-shrink-0" />
+                  <span class="text-[var(--charcoal-gray)] leading-relaxed">
+                    {rec}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checklist visual -->
+    <div
+      class="mt-12 p-6 bg-gradient-to-r from-[var(--cream)] to-[var(--rose-pale)] rounded-lg"
+    >
+      <h4 class="text-lg font-bold text-center mb-6 text-[var(--deep-coral)]">
+        ✅ Checklist para tu Clase
+      </h4>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        {
+          [
+            { icon: '🧦', label: 'Calcetines antideslizantes', required: true },
+            { icon: '👕', label: 'Ropa cómoda sin cierres', required: true },
+            { icon: '💧', label: 'Botella de agua', required: false },
+            { icon: '🤳', label: 'Celular en silencio', required: true },
+          ].map(item => (
+            <div
+              class={`p-3 rounded-lg ${item.required ? 'bg-[var(--coral-primary)]' : 'bg-[var(--sage-green)]'} bg-opacity-10 border border-current border-opacity-20`}
+            >
+              <div class="text-2xl mb-2">{item.icon}</div>
+              <div
+                class={`text-sm font-medium ${item.required ? 'text-[var(--coral-primary)]' : 'text-[var(--sage-green)]'}`}
+              >
+                {item.label}
+              </div>
+              <div class="text-xs text-[var(--charcoal-gray)] mt-1">
+                {item.required ? 'Obligatorio' : 'Opcional'}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Animaciones suaves para las cards */
+  .bg-cream,
+  .bg-rose-pale,
+  .bg-warm-gray {
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .bg-cream:hover,
+  .bg-rose-pale:hover,
+  .bg-warm-gray:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(238, 126, 112, 0.1);
+  }
+</style>

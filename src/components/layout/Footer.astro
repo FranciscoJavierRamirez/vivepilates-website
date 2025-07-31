@@ -1,0 +1,170 @@
+---
+import Container from '../ui/Container.astro';
+// Placeholder: Parsea footer-info.md
+const info = {
+  title: 'VivePilates',
+  address: 'Av. Kennedy 6800, Vitacura',
+  hours: 'Lunes a Viernes 8:00-20:00',
+  links: [
+    { label: '¿Por qué Pilates?', href: '/por-que-pilates' },
+    { label: 'Servicios', href: '/servicios' },
+    { label: 'Sobre Nosotros', href: '/sobre-nosotros' },
+    { label: 'Clase de Prueba', href: '/servicios#clase-prueba' },
+  ],
+  instagram: 'https://instagram.com/vivepilates',
+};
+const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
+---
+
+<footer class="bg-[var(--warm-gray)] text-[#333] py-12 mt-auto" role="contentinfo" aria-label="Información del pie de página">
+  <Container>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Columna 1: Info General con badge -->
+      <div role="region" aria-label="Información general">
+        <h3 class="font-bold text-xl mb-4 text-[var(--deep-coral)]">
+          {info.title}
+        </h3>
+        <p class="mb-2">{info.address}</p>
+        <p class="mb-4">{info.hours}</p>
+        <span
+          class="inline-block bg-[var(--warm-gold)] text-[var(--white)] px-3 py-1 rounded-full text-sm"
+        >
+          Profesionales Certificados
+        </span>
+      </div>
+
+      <!-- Columna 2: Enlaces Rápidos -->
+      <div role="region" aria-label="Enlaces de navegación">
+        <h3 class="font-bold text-xl mb-4 text-[var(--deep-coral)]">
+          Enlaces Rápidos
+        </h3>
+        <ul class="space-y-2">
+          {
+            info.links.map(link => (
+              <li>
+                <a
+                  href={link.href}
+                  class="hover:text-[var(--coral-primary)] transition-colors hover-lift"
+                  aria-label={`Ir a ${link.label}`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Columna 3: Contacto con CTA y Mapa pequeño -->
+      <div role="region" aria-label="Información de contacto">
+        <h3 class="font-bold text-xl mb-4 text-[var(--deep-coral)]">
+          Contacto
+        </h3>
+        <a
+          href="https://wa.me/56912345678?text=Hola,%20quiero%20más%20información"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center bg-[var(--sage-green)] text-white px-4 py-2 rounded-lg hover-lift mb-4"
+          aria-label="Contactar por WhatsApp"
+        >
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"
+            ></path>
+          </svg>
+          WhatsApp
+        </a>
+        <a
+          href={info.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block mb-4 hover:text-[var(--sage-green)] transition-colors"
+        >
+          Síguenos en Instagram
+        </a>
+        <a
+          href="/servicios#clase-prueba"
+          class="inline-block bg-[var(--coral-primary)] text-white px-6 py-2 rounded-lg hover-lift transition-all"
+        >
+          Agenda tu Clase de Prueba
+        </a>
+        <!-- Mapa embebido pequeño con lazy loading optimizado -->
+        <iframe
+          src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.5!2d-70.55!3d-33.38!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDIzJzA3LjAiUyA3MMKwMzMnMDAuMCJX!5e0!3m2!1sen!2sus!4v1627849200000&key=${mapKey || ''}`}
+          width="100%"
+          height="200"
+          loading="lazy"
+          class="mt-4 rounded-md shadow-md transition-opacity duration-300"
+          allowfullscreen=""
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Ubicación de VivePilates en Vitacura, Av. Kennedy 6800"
+          aria-label="Mapa interactivo mostrando la ubicación del estudio VivePilates"
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="text-center mt-8 border-t border-[var(--rose-pale)] pt-4">
+      <p class="text-sm">
+        &copy; 2025 VivePilates. Todos los derechos reservados. | <a
+          href="/privacidad"
+          class="hover:text-[var(--deep-coral)]">Política de Privacidad</a
+        >
+      </p>
+    </div>
+  </Container>
+</footer>
+
+<!-- JSON-LD Schema para LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://vivepilates.cl",
+  "name": "VivePilates",
+  "description": "Estudio de Pilates en Vitacura con clases personalizadas, profesionales certificados y atención a públicos diversos.",
+  "url": "https://vivepilates.cl",
+  "telephone": "+56912345678",
+  "email": "info@vivepilates.cl",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. Kennedy 6800",
+    "addressLocality": "Vitacura",
+    "addressRegion": "Región Metropolitana",
+    "postalCode": "7630000",
+    "addressCountry": "CL"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "-33.38",
+    "longitude": "-70.55"
+  },
+  "openingHours": "Mo-Fr 08:00-20:00",
+  "serviceType": "Pilates Studio",
+  "areaServed": {
+    "@type": "City",
+    "name": "Vitacura"
+  },
+  "hasCredential": "Profesionales Certificados",
+  "foundingDate": "2010",
+  "slogan": "Bienestar Real para tu Vida Real",
+  "sameAs": [
+    "https://instagram.com/vivepilates"
+  ]
+}
+</script>
+
+<style>
+  /* Progressive loading reveal */
+  footer {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: reveal 0.6s ease forwards 0.5s; /* Delay para carga */
+  }
+
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

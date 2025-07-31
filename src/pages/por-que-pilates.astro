@@ -1,0 +1,464 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OurTeam from '../components/why-pilates/OurTeam.astro';
+import PrinciplesGrid from '../components/why-pilates/PrinciplesGrid.astro';
+import BenefitsCategorized from '../components/why-pilates/BenefitsCategorized.tsx';
+import AudienceCards from '../components/why-pilates/AudienceCards.astro';
+import TestimonialsCarousel from '../components/why-pilates/TestimonialsCarousel.tsx';
+import CTAButton from '../components/etapa1/shared/CTAButton.astro';
+
+const title = '¿Por qué Pilates? - VivePilates';
+const description =
+  'Descubre los beneficios del Pilates para tu cuerpo, mente y salud. Conoce los principios fundamentales, testimonios reales y cómo se adapta a todas las edades en Vitacura.';
+const currentPage = 'por-que-pilates';
+
+// Datos para los componentes React (parsear de .md en producción)
+const benefits = [
+  // Físicos
+  {
+    text: 'Mejora la postura corporal',
+    category: 'physical',
+    audiences: ['general', 'seniors'],
+  },
+  {
+    text: 'Aumenta la flexibilidad muscular',
+    category: 'physical',
+    audiences: ['general', 'pregnant'],
+  },
+  {
+    text: 'Mejora la fuerza en piernas y espalda',
+    category: 'physical',
+    audiences: ['general', 'rehab'],
+  },
+  {
+    text: 'Aumenta la capacidad para activar el transverso abdominal',
+    category: 'physical',
+    audiences: ['pregnant', 'general'],
+  },
+  {
+    text: 'Fortalece el transverso abdominal – CORE',
+    category: 'physical',
+    audiences: ['general', 'pregnant'],
+  },
+  {
+    text: 'Equilibra la musculatura flexora y extensora de tronco',
+    category: 'physical',
+    audiences: ['rehab', 'general'],
+  },
+  {
+    text: 'Mejora el equilibrio y coordinación',
+    category: 'physical',
+    audiences: ['seniors', 'general'],
+  },
+
+  // Mentales
+  {
+    text: 'Mejora la calidad del sueño',
+    category: 'mental',
+    audiences: ['general', 'seniors'],
+  },
+  {
+    text: 'Aumenta la concentración y enfoque mental',
+    category: 'mental',
+    audiences: ['general', 'youth'],
+  },
+
+  // Médicos
+  {
+    text: 'Ayuda a disminuir algunos grados de escoliosis no estructural',
+    category: 'medical',
+    audiences: ['rehab', 'youth'],
+  },
+  {
+    text: 'Mejora problemas en la espalda y columna vertebral',
+    category: 'medical',
+    audiences: ['general', 'seniors', 'rehab'],
+  },
+];
+
+const testimonials = [
+  {
+    name: 'Inés Ariztía',
+    text: 'Me encanta ir a pilates, el mejor break de la semana. El servicio increíble, la Lore me transmite demasiada calma y paz en sus clases, me sirve mucho para despejarme y relajarme',
+    benefit: 'Relajación',
+    audience: 'general',
+    rating: 5,
+  },
+  {
+    name: 'Paola Giordani',
+    text: 'Me encanta, me siento mejor con más energía y más fuerza. Se nota mayor musculatura y mejor manejo de mi dolor',
+    benefit: 'Fuerza',
+    audience: 'general',
+    rating: 5,
+  },
+  {
+    name: 'Carolina Dibarrart',
+    text: 'Me ha ayudado mucho con mis dolores de espalda y me genera mucho relajo',
+    benefit: 'Dolor espalda',
+    audience: 'general',
+    rating: 5,
+  },
+  {
+    name: 'Viviana Navarrete',
+    text: 'Es un ambiente no tan solo para practicar deporte o una disciplina, sino que también es entretenido',
+    benefit: 'Entretenimiento',
+    audience: 'general',
+    rating: 5,
+  },
+  {
+    name: 'Simone Felix',
+    text: 'Llevo poco tiempo en el Pilates y me siento bien en las clases. La profesora Lorena es muy atenta y dedicada',
+    benefit: 'Atención',
+    audience: 'general',
+    rating: 5,
+  },
+  {
+    name: 'Cristian Rodriguez',
+    age: 62,
+    text: 'He visto mejorar mi elasticidad y agilidad',
+    benefit: 'Flexibilidad',
+    audience: 'seniors',
+    rating: 5,
+  },
+  {
+    name: 'Orietta Rossi',
+    text: 'Me ha dado cierta flexibilidad sobre todo altura de la cervical y sobre todo llena de energía después del pilates',
+    benefit: 'Flexibilidad',
+    audience: 'general',
+    rating: 5,
+  },
+  {
+    name: 'Gabriela Luco',
+    text: 'Beneficios como relajo, ejercicio, moverse son lo que me motiva seguir',
+    benefit: 'Relajo',
+    audience: 'general',
+    rating: 5,
+  },
+  {
+    name: 'Alejandra Concha',
+    text: 'Me encanta venir, las clases son entretenidas y el ambiente es super bueno',
+    benefit: 'Ambiente',
+    audience: 'general',
+    rating: 5,
+  },
+  {
+    name: 'Patricia Camus',
+    text: 'Me encanta, la puntualidad, el espacio los elementos, la rutina de cada clase siempre diferente',
+    benefit: 'Variedad',
+    audience: 'general',
+    rating: 5,
+  },
+];
+---
+
+<BaseLayout title={title} description={description} currentPage={currentPage}>
+  <!-- Hero Aspiracional -->
+  <section
+    class="py-20 bg-gradient-to-br from-[var(--cream)] via-[var(--rose-pale)] to-[var(--warm-gray)] text-center relative overflow-hidden"
+  >
+    <div class="container mx-auto px-4 relative z-10">
+      <h1
+        class="text-4xl md:text-5xl font-bold mb-6 text-[var(--deep-coral)] leading-tight"
+      >
+        Descubre el Poder Transformador del Pilates
+      </h1>
+      <p
+        class="text-xl md:text-2xl mt-4 text-[var(--trust-blue)] font-medium mb-6"
+      >
+        Bienestar integral para todos, en el corazón de Vitacura
+      </p>
+      <p
+        class="text-lg mt-4 text-[var(--charcoal-gray)] max-w-3xl mx-auto leading-relaxed"
+      >
+        Más que ejercicio, el Pilates es una filosofía de vida que conecta
+        cuerpo, mente y espíritu. Descubre cómo este método centenario puede
+        transformar tu bienestar.
+      </p>
+
+      <!-- CTA Hero -->
+      <div
+        class="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center"
+      >
+        <CTAButton
+          href="/servicios#clase-prueba"
+          variant="primary"
+          size="lg"
+          icon="sparkles"
+          tracking="why_pilates_hero_cta"
+        >
+          Prueba una Clase Gratuita
+        </CTAButton>
+        <CTAButton href="#principios" variant="outline" size="lg">
+          Conoce los Principios
+        </CTAButton>
+      </div>
+    </div>
+
+    <!-- Elementos decorativos animados -->
+    <div
+      class="absolute top-10 left-10 w-20 h-20 bg-[var(--coral-primary)] rounded-full opacity-20 animate-pulse"
+    >
+    </div>
+    <div
+      class="absolute bottom-10 right-10 w-32 h-32 bg-[var(--warm-gold)] rounded-full opacity-10 animate-pulse delay-1000"
+    >
+    </div>
+    <div
+      class="absolute top-1/2 left-1/4 w-16 h-16 bg-[var(--sage-green)] rounded-full opacity-15 animate-pulse delay-500"
+    >
+    </div>
+  </section>
+
+  <!-- Componentes principales -->
+  <div id="principios">
+    <PrinciplesGrid />
+  </div>
+
+  <BenefitsCategorized benefits={benefits} client:load />
+
+  <AudienceCards />
+
+  <TestimonialsCarousel testimonials={testimonials} client:load />
+
+  <OurTeam />
+
+  <!-- CTA Personalizado Final -->
+  <section class="py-16 bg-[var(--warm-gray)] text-center relative">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[var(--deep-coral)]">
+        ¿Listo para Transformar tu Vida?
+      </h2>
+      <p class="text-lg mb-8 text-[var(--charcoal-gray)] leading-relaxed">
+        Únete a nuestra comunidad y descubre por qué miles de personas han
+        elegido el Pilates como su camino hacia el bienestar. Tu primera clase
+        es completamente gratuita.
+      </p>
+
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
+      >
+        <CTAButton
+          href="/servicios#clase-prueba"
+          variant="primary"
+          size="lg"
+          icon="sparkles"
+          tracking="why_pilates_bottom_cta_trial"
+        >
+          Agenda tu Clase de Prueba Personalizada
+        </CTAButton>
+
+        <CTAButton
+          href="/servicios"
+          variant="outline"
+          size="lg"
+          icon="arrow-right"
+        >
+          Ver Todos Nuestros Servicios
+        </CTAButton>
+      </div>
+
+      <!-- Badges de confianza finales -->
+      <div class="flex flex-wrap justify-center gap-4">
+        <span
+          class="bg-[var(--sage-green)] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md"
+        >
+          🌿 15 años transformando vidas
+        </span>
+        <span
+          class="bg-[var(--trust-blue)] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md"
+        >
+          ✨ Profesionales certificados
+        </span>
+        <span
+          class="bg-[var(--warm-gold)] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md"
+        >
+          🏆 Método original de Joseph Pilates
+        </span>
+        <span
+          class="bg-[var(--coral-primary)] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md"
+        >
+          👥 Máximo 6 personas por clase
+        </span>
+      </div>
+
+      <!-- Estadística final -->
+      <div
+        class="mt-8 p-6 bg-[var(--white)] rounded-lg shadow-md max-w-2xl mx-auto"
+      >
+        <div class="grid grid-cols-3 gap-4 text-center">
+          <div>
+            <div class="text-2xl font-bold text-[var(--coral-primary)]">
+              98%
+            </div>
+            <div class="text-sm text-[var(--charcoal-gray)]">Satisfacción</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-[var(--sage-green)]">5.0</div>
+            <div class="text-sm text-[var(--charcoal-gray)]">
+              Rating promedio
+            </div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-[var(--trust-blue)]">500+</div>
+            <div class="text-sm text-[var(--charcoal-gray)]">
+              Vidas transformadas
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<!-- FAQ Schema para SEO -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cuáles son los principios fundamentales del Pilates?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Los 6 principios del Pilates son: Respiración (base del movimiento), Concentración (mente-cuerpo conectados), Centralización (core como centro), Control (movimiento consciente), Precisión (calidad sobre cantidad) y Fluidez (movimiento continuo)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué beneficios físicos ofrece el Pilates?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El Pilates mejora la postura corporal, aumenta la flexibilidad muscular, fortalece piernas y espalda, activa el transverso abdominal, fortalece el CORE, equilibra la musculatura del tronco y mejora el equilibrio y coordinación."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Quiénes pueden practicar Pilates?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El Pilates es para todos: jóvenes y adultos, menores de 15-17 años con supervisión, embarazadas desde el 2do trimestre con certificado médico, personas en rehabilitación bajo supervisión médica, y adultos mayores con autorización médica."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué beneficios mentales tiene el Pilates?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El Pilates mejora la calidad del sueño, aumenta la concentración y enfoque mental, reduce el estrés y promueve la relajación y bienestar general."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo ayuda el Pilates con problemas médicos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El Pilates puede ayudar a disminuir algunos grados de escoliosis no estructural y mejorar problemas en la espalda y columna vertebral, siempre bajo supervisión profesional y con autorización médica."
+        }
+      }
+    ]
+  }
+</script>
+
+<!-- Schema para el negocio -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ExerciseGym",
+    "@id": "https://vivepilates.cl",
+    "name": "VivePilates",
+    "description": "Estudio de Pilates en Vitacura especializado en el método original de Joseph Pilates",
+    "url": "https://vivepilates.cl",
+    "telephone": "+56 9 1234 5678",
+    "email": "info@vivepilates.cl",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Kennedy 6800",
+      "addressLocality": "Vitacura",
+      "addressRegion": "Región Metropolitana",
+      "addressCountry": "CL"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servicios de Pilates",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Clase de Pilates Grupal",
+            "description": "Clases grupales máximo 6 personas con método original"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Clase de Prueba Gratuita",
+            "description": "Primera clase gratuita para nuevos alumnos"
+          }
+        }
+      ]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "10"
+    },
+    "amenityFeature": [
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Máquinas Reformer",
+        "value": true
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Profesionales Certificados",
+        "value": true
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Clases Pequeñas",
+        "value": "Máximo 6 personas"
+      }
+    ]
+  }
+</script>
+
+<style>
+  /* Animaciones personalizadas para el hero */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Scroll suave para navegación interna */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Mejoras de accesibilidad */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-pulse,
+    .animate-float,
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Gradientes suaves */
+  section:first-of-type {
+    background-attachment: fixed;
+    background-size: cover;
+  }
+</style>

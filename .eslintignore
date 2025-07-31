@@ -1,0 +1,7 @@
+dist/
+.astro/
+node_modules/
+*.config.js
+*.config.mjs
+*.config.ts
+public/

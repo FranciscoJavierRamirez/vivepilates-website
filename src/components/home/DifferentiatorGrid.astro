@@ -1,0 +1,144 @@
+---
+import Container from '../ui/Container.astro';
+
+// Diferenciadores clave (en un proyecto real, esto vendría de content collections)
+const differentiators = [
+  {
+    title: 'Máximo 6 Personas',
+    description: 'Atención verdaderamente personalizada en cada clase',
+    icon: 'users',
+    color: 'coral',
+  },
+  {
+    title: 'Profesionales Certificados',
+    description: 'Salud + Educación = Seguridad garantizada',
+    icon: 'certificate',
+    color: 'sage-green',
+  },
+  {
+    title: 'Dos Salas Especializadas',
+    description: 'Reformer + Sillas + Correctores para todos los niveles',
+    icon: 'building',
+    color: 'warm-gold',
+  },
+  {
+    title: 'Metodología Personalizada',
+    description: 'Adaptamos cada clase a tus necesidades específicas',
+    icon: 'heart',
+    color: 'deep-coral',
+  },
+  {
+    title: 'Ambiente Acogedor',
+    description: 'Espacio diseñado para tu comodidad y concentración',
+    icon: 'home',
+    color: 'trust-blue',
+  },
+  {
+    title: 'Resultados Comprobados',
+    description: 'Transformaciones reales en nuestros estudiantes',
+    icon: 'star',
+    color: 'vital-green',
+  },
+];
+
+const getIcon = (iconName: string) => {
+  const icons: Record<string, string> = {
+    users:
+      'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+    certificate:
+      'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z',
+    building:
+      'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+    heart:
+      'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+    home: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+    star: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z',
+  };
+  return icons[iconName] || icons.star;
+};
+
+const getColorClasses = (color: string) => {
+  const colors: Record<string, { bg: string; text: string; border: string }> = {
+    coral: {
+      bg: 'bg-coral-100',
+      text: 'text-coral-500',
+      border: 'border-coral-200',
+    },
+    'sage-green': {
+      bg: 'bg-sage-green-100',
+      text: 'text-sage-green-500',
+      border: 'border-sage-green-200',
+    },
+    'warm-gold': {
+      bg: 'bg-warm-gold-100',
+      text: 'text-warm-gold-500',
+      border: 'border-warm-gold-200',
+    },
+    'deep-coral': {
+      bg: 'bg-deep-coral-100',
+      text: 'text-deep-coral-500',
+      border: 'border-deep-coral-200',
+    },
+    'trust-blue': {
+      bg: 'bg-trust-blue-100',
+      text: 'text-trust-blue-500',
+      border: 'border-trust-blue-200',
+    },
+    'vital-green': {
+      bg: 'bg-vital-green-100',
+      text: 'text-vital-green-500',
+      border: 'border-vital-green-200',
+    },
+  };
+  return colors[color] || colors.coral;
+};
+---
+
+<section class="section-padding bg-white">
+  <Container>
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-charcoal-gray-500 mb-4">
+        ¿Por qué elegir VivePilates?
+      </h2>
+      <p class="text-lg text-charcoal-gray-400 max-w-2xl mx-auto">
+        Nuestro enfoque personalizado y profesional te ayudará a alcanzar tus
+        objetivos de fitness
+      </p>
+    </div>
+
+    <div class="auto-grid">
+      {
+        differentiators.map(item => {
+          const colorClasses = getColorClasses(item.color);
+          return (
+            <div
+              class={`p-8 rounded-xl text-center hover:transform hover:scale-105 transition-transform duration-300 border ${colorClasses.border}`} style="background-color: var(--cream);"
+            >
+              <div
+                class={`w-16 h-16 ${colorClasses.bg} rounded-full flex items-center justify-center mx-auto mb-4`}
+              >
+                <svg
+                  class={`w-8 h-8 ${colorClasses.text}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d={getIcon(item.icon)}
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold mb-3 text-charcoal-gray-500">
+                {item.title}
+              </h3>
+              <p class="text-charcoal-gray-400">{item.description}</p>
+            </div>
+          );
+        })
+      }
+    </div>
+  </Container>
+</section>

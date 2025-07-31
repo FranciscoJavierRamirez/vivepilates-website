@@ -1,0 +1,124 @@
+---
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  currentPage?: string;
+}
+
+const { title, description, currentPage = 'home' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title} | VivePilates - Bienestar Real para tu Vida Real</title>
+    {description && <meta name="description" content={description} />}
+
+    <!-- Meta para SEO: Basado en planificación, optimiza para "Pilates Vitacura" -->
+    <meta
+      name="description"
+      content="Estudio de Pilates en Vitacura con clases personalizadas, profesionales certificados y atención a públicos diversos."
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts: Usa Roboto para profesionalismo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Estilos globales personalizados -->
+    <style is:global>
+      @import url('/src/styles/global.css');
+    </style>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="VivePilates" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+  </head>
+
+  <body class="antialiased">
+    <div class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <Header currentPage={currentPage} />
+
+      <!-- Main Content -->
+      <main class="flex-1">
+        <slot />
+      </main>
+
+      <!-- Footer -->
+      <Footer />
+    </div>
+  </body>
+</html>
+
+<script>
+  // Script para funcionalidades interactivas básicas
+  document.addEventListener('DOMContentLoaded', function () {
+    // Smooth scroll para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        const href = (e.target as HTMLAnchorElement).getAttribute('href');
+        if (href) {
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            });
+          }
+        }
+      });
+    });
+
+    // Lazy loading para imágenes
+    const images = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target as HTMLImageElement;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.classList.remove('loading');
+            observer.unobserve(img);
+          }
+        }
+      });
+    });
+
+    images.forEach(img => imageObserver.observe(img));
+
+    // Animaciones al hacer scroll
+    const animateOnScroll = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+        }
+      });
+    });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      animateOnScroll.observe(el);
+    });
+  });
+</script>

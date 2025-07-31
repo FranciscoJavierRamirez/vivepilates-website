@@ -1,0 +1,245 @@
+---
+import { getEntry } from 'astro:content';
+
+// Carga el contenido desde markdown
+let service;
+try {
+  // const entry = await getEntry('services', 'classes'); // Preparado para futuro uso con content collections
+  service = {
+    title: 'Clases Grupales de Pilates Personalizadas',
+    description:
+      'Atención individualizada en grupos reducidos donde cada alumno recibe seguimiento personalizado según sus necesidades y objetivos.',
+    capacity: 6,
+    duration: '55 minutos',
+    equipment: [
+      'Máquinas Reformer (sala principal)',
+      'Sillas multifuncionales',
+      'Barriles correctores posturales',
+      'Materiales complementarios',
+    ],
+    highlight: true,
+    images: ['/images/sala-reformer.jpg', '/images/sala-sillas.jpg'],
+    instagram: 'https://instagram.com/vivepilates',
+  };
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  service = {
+    title: 'Clases Grupales de Pilates Personalizadas',
+    description:
+      'Atención individualizada en grupos reducidos donde cada alumno recibe seguimiento personalizado según sus necesidades y objetivos.',
+    capacity: 6,
+    duration: '55 minutos',
+    equipment: [
+      'Máquinas Reformer (sala principal)',
+      'Sillas multifuncionales',
+      'Barriles correctores posturales',
+      'Materiales complementarios',
+    ],
+    highlight: true,
+    images: ['/images/sala-reformer.jpg', '/images/sala-sillas.jpg'],
+    instagram: 'https://instagram.com/vivepilates',
+  };
+}
+
+// Servicio nutricional (opcional)
+let nutritionalService;
+try {
+  // const nutritionalEntry = await getEntry('services', 'nutritional'); // Preparado para futuro uso con content collections
+  nutritionalService = {
+    title: 'Consultas Nutricionales',
+    description:
+      'Servicio opcional para complementar tu entrenamiento de Pilates con orientación nutricional personalizada.',
+    available: false,
+    note: 'Servicio bajo evaluación para futura implementación.',
+  };
+} catch (error) {
+  nutritionalService = null;
+}
+---
+
+<section
+  class="py-12 bg-[var(--white)]"
+  role="region"
+  aria-labelledby="services-title"
+>
+  <div class="container mx-auto px-4 max-w-6xl">
+    <h2
+      id="services-title"
+      class="text-3xl font-bold text-center mb-4 text-[var(--deep-coral)]"
+    >
+      Nuestros Servicios
+    </h2>
+    <p
+      class="text-center text-lg text-[var(--charcoal-gray)] mb-12 max-w-2xl mx-auto"
+    >
+      Servicios personalizados diseñados para tu bienestar y crecimiento
+      personal
+    </p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Servicio Principal: Clases Grupales -->
+      <div
+        class={`service-card p-8 rounded-lg shadow-md hover-lift transition-all duration-300 ${
+          service.highlight
+            ? 'border-2 border-[var(--coral-primary)] bg-[var(--rose-pale)]'
+            : 'bg-[var(--cream)]'
+        }`}
+      >
+        <!-- Header del servicio -->
+        <div class="mb-6">
+          <h3 class="font-bold text-2xl mb-3 text-[var(--coral-primary)]">
+            {service.title}
+          </h3>
+          {
+            service.highlight && (
+              <span class="bg-[var(--coral-primary)] text-white px-3 py-1 rounded-full text-sm font-medium">
+                ⭐ Servicio Principal
+              </span>
+            )
+          }
+        </div>
+
+        <!-- Descripción -->
+        <p class="text-[var(--charcoal-gray)] mb-6 leading-relaxed">
+          {service.description}
+        </p>
+
+        <!-- Badges informativos -->
+        <div class="flex flex-wrap gap-3 mb-6">
+          <div
+            class="capacity-badge bg-[var(--warm-gold)] text-white px-4 py-2 rounded-full inline-flex items-center gap-2 shadow-sm"
+          >
+            <span class="text-lg">👥</span>
+            <span class="font-medium">Máximo {service.capacity} personas</span>
+          </div>
+          <div
+            class="duration-badge bg-[var(--trust-blue)] text-white px-4 py-2 rounded-full inline-flex items-center gap-2 shadow-sm"
+          >
+            <span class="text-lg">⏱️</span>
+            <span class="font-medium">{service.duration}</span>
+          </div>
+        </div>
+
+        <!-- Equipamiento -->
+        <div class="mb-6">
+          <h4 class="font-semibold text-lg mb-3 text-[var(--deep-coral)]">
+            Equipamiento Disponible:
+          </h4>
+          <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {
+              service.equipment.map(eq => (
+                <li class="flex items-center gap-2 text-[var(--charcoal-gray)] text-sm">
+                  <span class="w-2 h-2 bg-[var(--sage-green)] rounded-full flex-shrink-0" />
+                  {eq}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <!-- Galería de salas -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+          {
+            service.images.map((_, index) => (
+              <div class="relative group">
+                {/* Placeholder para imagen */}
+                <div class="aspect-[4/3] bg-[var(--warm-gray)] rounded-lg shadow-sm flex items-center justify-center hover:bg-opacity-80 transition-all duration-300">
+                  <div class="text-center p-4">
+                    <span class="text-3xl mb-2 block">
+                      {index === 0 ? '🏋️‍♀️' : '🪑'}
+                    </span>
+                    <p class="text-xs text-[var(--charcoal-gray)]">
+                      {index === 0 ? 'Sala Reformer' : 'Sala Sillas'}
+                    </p>
+                  </div>
+                </div>
+                {/* Overlay con información */}
+                <div class="absolute inset-0 bg-[var(--coral-primary)] bg-opacity-0 group-hover:bg-opacity-20 rounded-lg transition-all duration-300 flex items-center justify-center">
+                  <span class="text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {index === 0 ? 'Máquinas Reformer' : 'Sillas y Barriles'}
+                  </span>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <!-- Enlaces sociales -->
+        <div
+          class="flex items-center justify-between pt-4 border-t border-[var(--warm-gold)] border-opacity-30"
+        >
+          <a
+            href={service.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-[var(--sage-green)] hover:text-[var(--deep-coral)] transition-colors duration-200 inline-flex items-center gap-2 font-medium"
+          >
+            <span class="text-lg">📸</span>
+            Ver fotos en Instagram
+          </a>
+          <div class="text-sm text-[var(--charcoal-gray)]">
+            <span class="font-medium">Ubicación:</span> Vitacura
+          </div>
+        </div>
+      </div>
+
+      <!-- Servicio Opcional: Nutricional -->
+      {
+        nutritionalService && (
+          <div class="service-card p-8 rounded-lg shadow-md bg-[var(--cream)] border border-[var(--warm-gold)] border-opacity-30">
+            <div class="text-center">
+              <h3 class="font-bold text-2xl mb-3 text-[var(--coral-primary)]">
+                {nutritionalService.title}
+              </h3>
+              <span class="bg-[var(--warm-gold)] bg-opacity-20 text-[var(--deep-coral)] px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
+                🔄 Próximamente
+              </span>
+              <p class="text-[var(--charcoal-gray)] mb-6 leading-relaxed">
+                {nutritionalService.description}
+              </p>
+              <div class="p-4 bg-[var(--white)] rounded-lg border border-dashed border-[var(--warm-gold)]">
+                <p class="text-sm text-[var(--trust-blue)] mb-2">
+                  <strong>Estado:</strong> {nutritionalService.note}
+                </p>
+                <p class="text-xs text-[var(--charcoal-gray)]">
+                  Mantente atento a nuestras redes sociales para novedades
+                </p>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    </div>
+
+    <!-- Nota informativa -->
+    <div class="mt-12 text-center p-6 bg-[var(--warm-gray)] rounded-lg">
+      <p class="text-[var(--charcoal-gray)] mb-2">
+        <strong class="text-[var(--coral-primary)]"
+          >¿Tienes dudas sobre nuestros servicios?</strong
+        >
+      </p>
+      <p class="text-sm">
+        Contáctanos para recibir información personalizada según tus necesidades
+        y objetivos.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(238, 126, 112, 0.15);
+  }
+
+  .service-card:hover .capacity-badge,
+  .service-card:hover .duration-badge {
+    transform: scale(1.05);
+  }
+
+  /* Animación para los badges */
+  .capacity-badge,
+  .duration-badge {
+    transition: transform 0.2s ease;
+  }
+</style>

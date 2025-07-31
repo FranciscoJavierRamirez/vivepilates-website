@@ -1,0 +1,75 @@
+---
+import { getEntry } from 'astro:content';
+
+// Carga el contenido desde markdown
+let content;
+try {
+  const entry = await getEntry('why-pilates', 'team');
+  content = {
+    text: 'Somos un equipo de profesionales certificados en la instrucción de pilates con máquinas de pilates, que vemos por brindar un servicio de calidad profesional y personalizado que se adecue a tu condición física y que te acompañe en el proceso de rehabilitación o embarazo en el caso de estarlo, te guiamos con variaciones durante la clase para ir mejorando y progresando.',
+  };
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  content = {
+    text: 'Somos un equipo de profesionales certificados en la instrucción de pilates con máquinas de pilates, que vemos por brindar un servicio de calidad profesional y personalizado que se adecue a tu condición física y que te acompañe en el proceso de rehabilitación o embarazo en el caso de estarlo, te guiamos con variaciones durante la clase para ir mejorando y progresando.',
+  };
+}
+---
+
+<section
+  class="py-12 bg-[var(--cream)]"
+  role="region"
+  aria-labelledby="team-title"
+>
+  <div class="container mx-auto px-4 max-w-4xl">
+    <h2
+      id="team-title"
+      class="text-3xl font-bold text-center mb-8 text-[var(--deep-coral)]"
+    >
+      Nuestro Equipo Profesional
+    </h2>
+    <div class="text-center">
+      <p class="text-lg leading-relaxed mb-6 text-[var(--charcoal-gray)]">
+        {content.text}
+      </p>
+
+      <!-- Grid de badges de confianza -->
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <span
+          class="bg-[var(--warm-gold)] text-[var(--white)] px-6 py-3 rounded-full text-sm font-medium uppercase tracking-wide shadow-md hover-lift transition-all duration-300"
+        >
+          ✨ Profesionales Certificados
+        </span>
+        <span
+          class="bg-[var(--sage-green)] text-[var(--white)] px-6 py-3 rounded-full text-sm font-medium uppercase tracking-wide shadow-md hover-lift transition-all duration-300"
+        >
+          🎯 Atención Personalizada
+        </span>
+        <span
+          class="bg-[var(--trust-blue)] text-[var(--white)] px-6 py-3 rounded-full text-sm font-medium uppercase tracking-wide shadow-md hover-lift transition-all duration-300"
+        >
+          🏆 Máximo 6 Personas por Clase
+        </span>
+      </div>
+
+      <!-- Placeholder para fotos del equipo (Etapa 2) -->
+      <div
+        class="mt-8 p-6 bg-[var(--white)] rounded-lg shadow-sm border-2 border-dashed border-[var(--warm-gold)]"
+      >
+        <p class="text-[var(--charcoal-gray)] text-sm mb-2">
+          📸 Próximamente: Fotos del Equipo
+        </p>
+        <p class="text-xs text-[var(--trust-blue)]">
+          Conoce a nuestros profesionales certificados
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(238, 126, 112, 0.2);
+  }
+</style>

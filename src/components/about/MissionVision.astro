@@ -1,0 +1,168 @@
+---
+import { getEntry } from 'astro:content';
+
+// Carga el contenido desde markdown
+let content;
+try {
+  const entry = await getEntry('about', 'mission-vision');
+  content = {
+    mission:
+      'Queremos entregar bienestar y atención personalizada a través del método pilates utilizando máquinas de pilates en un espacio acogedor que inspire siempre a la perseverancia y al desarrollo personal, mejorando así la calidad de vida de las personas.',
+    vision:
+      'Tener por objetivo lograr las metas personales de cada alumno, brindándoles las herramientas y apoyo para su propia superación personal a través del método pilates.',
+    values: [
+      {
+        name: 'Perseverancia',
+        description: 'Constancia en el logro de objetivos',
+        icon: 'target',
+      },
+      {
+        name: 'Disciplina',
+        description: 'Compromiso con la práctica regular',
+        icon: 'calendar',
+      },
+      {
+        name: 'Colaboración',
+        description: 'Trabajo en equipo y apoyo mutuo',
+        icon: 'users',
+      },
+      {
+        name: 'Entendimiento',
+        description: 'Empatía y comprensión hacia cada alumno',
+        icon: 'heart',
+      },
+    ],
+  };
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  content = {
+    mission:
+      'Queremos entregar bienestar y atención personalizada a través del método pilates utilizando máquinas de pilates en un espacio acogedor que inspire siempre a la perseverancia y al desarrollo personal, mejorando así la calidad de vida de las personas.',
+    vision:
+      'Tener por objetivo lograr las metas personales de cada alumno, brindándoles las herramientas y apoyo para su propia superación personal a través del método pilates.',
+    values: [
+      {
+        name: 'Perseverancia',
+        description: 'Constancia en el logro de objetivos',
+        icon: 'target',
+      },
+      {
+        name: 'Disciplina',
+        description: 'Compromiso con la práctica regular',
+        icon: 'calendar',
+      },
+      {
+        name: 'Colaboración',
+        description: 'Trabajo en equipo y apoyo mutuo',
+        icon: 'users',
+      },
+      {
+        name: 'Entendimiento',
+        description: 'Empatía y comprensión hacia cada alumno',
+        icon: 'heart',
+      },
+    ],
+  };
+}
+---
+
+<section
+  class="py-12 bg-[var(--cream)]"
+  role="region"
+  aria-labelledby="mission-vision-title"
+>
+  <div class="container mx-auto px-4 max-w-6xl">
+    <h2
+      id="mission-vision-title"
+      class="text-3xl font-bold text-center mb-8 text-[var(--deep-coral)]"
+    >
+      Nuestra Misión y Visión
+    </h2>
+
+    <!-- Misión -->
+    <div class="mb-8 p-6 bg-[var(--white)] rounded-lg shadow-md hover-lift">
+      <h3 class="text-2xl font-semibold mb-4 text-[var(--coral-primary)]">
+        Misión
+      </h3>
+      <p class="text-lg leading-relaxed">{content.mission}</p>
+    </div>
+
+    <!-- Visión -->
+    <div class="mb-8 p-6 bg-[var(--white)] rounded-lg shadow-md hover-lift">
+      <h3 class="text-2xl font-semibold mb-4 text-[var(--coral-primary)]">
+        Visión
+      </h3>
+      <p class="text-lg leading-relaxed">{content.vision}</p>
+    </div>
+
+    <!-- Valores en grid -->
+    <h3
+      class="text-2xl font-semibold text-center mb-6 text-[var(--coral-primary)]"
+    >
+      Nuestros Valores
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        content.values.map(value => (
+          <div
+            class="p-4 bg-[var(--rose-pale)] rounded-lg text-center hover-lift transition-all duration-300"
+            aria-label={`Valor: ${value.name}`}
+          >
+            {/* Icono: Usa emoji para simplicidad */}
+            <span class="text-4xl mb-2 block text-[var(--warm-gold)]">
+              {value.icon === 'target'
+                ? '🎯'
+                : value.icon === 'calendar'
+                  ? '📅'
+                  : value.icon === 'users'
+                    ? '👥'
+                    : '❤️'}
+            </span>
+            <h4 class="font-bold text-xl mb-2 text-[var(--deep-coral)]">
+              {value.name}
+            </h4>
+            <p class="text-sm text-[var(--charcoal-gray)]">
+              {value.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Progressive reveal */
+  section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Hover effects */
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(238, 126, 112, 0.15);
+  }
+</style>
+
+<script>
+  // Reveal on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  });
+
+  const section = document.querySelector('section[role="region"]');
+  if (section) {
+    observer.observe(section);
+  }
+</script>

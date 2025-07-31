@@ -1,0 +1,373 @@
+---
+import { getEntry } from 'astro:content';
+
+// Carga el contenido desde markdown
+let facilities;
+try {
+  const entry = await getEntry('services', 'facilities');
+  facilities = [
+    {
+      name: 'Recepción',
+      description:
+        'Área de espera de clase e hidratación. Espacio cómodo para esperar tu clase y hidratarte antes o después del entrenamiento.',
+      icon: 'lobby',
+      available: true,
+      details: 'Ambiente acogedor con vista panorámica',
+    },
+    {
+      name: 'Sala Principal Acondicionada',
+      description:
+        'Sala equipada para la práctica de pilates con máquinas Reformer. Ambiente climatizado con vista aérea, equipada con máquinas de última generación.',
+      icon: 'gym',
+      available: true,
+      details: 'Máquinas Reformer profesionales',
+    },
+    {
+      name: 'Sala Complementaria',
+      description:
+        'Espacio para sillas multifuncionales y barriles correctores. Sala adicional para ejercicios específicos con equipamiento especializado.',
+      icon: 'equipment',
+      available: true,
+      details: 'Sillas y barriles correctores',
+    },
+    {
+      name: 'Baño',
+      description:
+        'Instalaciones limpias y cómodas. Baño equipado para el cambio y aseo personal.',
+      icon: 'restroom',
+      available: true,
+      details: 'Instalaciones modernas y limpias',
+    },
+    {
+      name: 'Bicicletero',
+      description:
+        'Estacionamiento gratuito para bicicletas en subterráneo -2. Acceso seguro, debes traer tu propio candado.',
+      icon: 'bike',
+      available: true,
+      details: 'Gratuito - Trae tu candado',
+    },
+    {
+      name: 'Estacionamiento',
+      description:
+        'Estacionamientos pagados disponibles en el edificio. Opción cómoda y segura, también hay estacionamientos gratuitos en calles cercanas.',
+      icon: 'parking',
+      available: true,
+      details: 'Pagado en edificio, gratuito en calles',
+    },
+    {
+      name: 'Vista Panorámica',
+      description:
+        'Hermosa vista aérea de la ciudad desde nuestras salas. Ambiente inspirador que complementa tu experiencia de bienestar.',
+      icon: 'view',
+      available: true,
+      details: 'Vista aérea de Santiago',
+    },
+  ];
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  facilities = [
+    {
+      name: 'Recepción',
+      description:
+        'Área de espera de clase e hidratación. Espacio cómodo para esperar tu clase y hidratarte antes o después del entrenamiento.',
+      icon: 'lobby',
+      available: true,
+      details: 'Ambiente acogedor con vista panorámica',
+    },
+    {
+      name: 'Sala Principal Acondicionada',
+      description:
+        'Sala equipada para la práctica de pilates con máquinas Reformer. Ambiente climatizado con vista aérea, equipada con máquinas de última generación.',
+      icon: 'gym',
+      available: true,
+      details: 'Máquinas Reformer profesionales',
+    },
+    {
+      name: 'Sala Complementaria',
+      description:
+        'Espacio para sillas multifuncionales y barriles correctores. Sala adicional para ejercicios específicos con equipamiento especializado.',
+      icon: 'equipment',
+      available: true,
+      details: 'Sillas y barriles correctores',
+    },
+    {
+      name: 'Baño',
+      description:
+        'Instalaciones limpias y cómodas. Baño equipado para el cambio y aseo personal.',
+      icon: 'restroom',
+      available: true,
+      details: 'Instalaciones modernas y limpias',
+    },
+    {
+      name: 'Bicicletero',
+      description:
+        'Estacionamiento gratuito para bicicletas en subterráneo -2. Acceso seguro, debes traer tu propio candado.',
+      icon: 'bike',
+      available: true,
+      details: 'Gratuito - Trae tu candado',
+    },
+    {
+      name: 'Estacionamiento',
+      description:
+        'Estacionamientos pagados disponibles en el edificio. Opción cómoda y segura, también hay estacionamientos gratuitos en calles cercanas.',
+      icon: 'parking',
+      available: true,
+      details: 'Pagado en edificio, gratuito en calles',
+    },
+    {
+      name: 'Vista Panorámica',
+      description:
+        'Hermosa vista aérea de la ciudad desde nuestras salas. Ambiente inspirador que complementa tu experiencia de bienestar.',
+      icon: 'view',
+      available: true,
+      details: 'Vista aérea de Santiago',
+    },
+  ];
+}
+
+const iconMap = {
+  lobby: '🏢',
+  gym: '🏋️',
+  equipment: '⚙️',
+  restroom: '🚽',
+  bike: '🚲',
+  parking: '🅿️',
+  view: '🌆',
+};
+---
+
+<section
+  class="py-12 bg-[var(--cream)]"
+  role="region"
+  aria-labelledby="facilities-title"
+>
+  <div class="container mx-auto px-4 max-w-4xl">
+    <!-- Header de la sección -->
+    <div class="text-center mb-12">
+      <h2
+        id="facilities-title"
+        class="text-3xl font-bold mb-4 text-[var(--deep-coral)]"
+      >
+        Nuestro Espacio
+      </h2>
+      <p class="text-lg text-[var(--charcoal-gray)] max-w-2xl mx-auto">
+        Instalaciones diseñadas pensando en tu comodidad y bienestar, con una
+        hermosa vista aérea de la ciudad
+      </p>
+    </div>
+
+    <!-- Descripción general -->
+    <div class="bg-[var(--white)] rounded-lg p-6 mb-8 text-center shadow-sm">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <span class="text-3xl">🌆</span>
+        <h3 class="text-xl font-bold text-[var(--coral-primary)]">
+          Ambiente Inspirador
+        </h3>
+      </div>
+      <p class="text-[var(--charcoal-gray)] leading-relaxed">
+        Nuestras salas tienen una linda vista aérea de la ciudad, creando un
+        ambiente inspirador para tu práctica de Pilates. Tenemos a disposición
+        de nuestros clientes:
+      </p>
+    </div>
+
+    <!-- Accordion de facilities -->
+    <div class="accordion-group space-y-4">
+      {
+        facilities.map((facility, index) => (
+          <details class="facility-accordion bg-[var(--white)] rounded-lg shadow-md overflow-hidden group">
+            <summary class="p-6 font-semibold cursor-pointer flex items-center justify-between hover:bg-[var(--rose-pale)] transition-colors duration-200">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-[var(--warm-gold)] rounded-full flex items-center justify-center text-xl">
+                  {iconMap[facility.icon] || '📍'}
+                </div>
+                <div class="text-left">
+                  <h4 class="text-lg font-bold text-[var(--deep-coral)]">
+                    {facility.name}
+                  </h4>
+                  <p class="text-sm text-[var(--charcoal-gray)] opacity-75">
+                    {facility.details}
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                {facility.available && (
+                  <span class="bg-[var(--sage-green)] text-white px-2 py-1 rounded-full text-xs font-medium">
+                    ✓ Disponible
+                  </span>
+                )}
+                <svg
+                  class="w-5 h-5 text-[var(--coral-primary)] transform transition-transform group-open:rotate-180"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </div>
+            </summary>
+
+            <div class="accordion-content px-6 pb-6">
+              <div class="pt-4 border-t border-[var(--warm-gold)] border-opacity-20">
+                <p class="text-[var(--charcoal-gray)] leading-relaxed mb-4">
+                  {facility.description}
+                </p>
+
+                {/* Características específicas según el tipo */}
+                {facility.icon === 'gym' && (
+                  <div class="grid grid-cols-2 gap-3 mt-4">
+                    <div class="flex items-center gap-2 text-sm text-[var(--trust-blue)]">
+                      <span>❄️</span>
+                      <span>Climatizado</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-[var(--trust-blue)]">
+                      <span>🌟</span>
+                      <span>Equipos modernos</span>
+                    </div>
+                  </div>
+                )}
+
+                {facility.icon === 'parking' && (
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                    <div class="p-3 bg-[var(--cream)] rounded-lg">
+                      <h5 class="font-medium text-[var(--deep-coral)] mb-1">
+                        Edificio
+                      </h5>
+                      <p class="text-xs text-[var(--charcoal-gray)]">
+                        Estacionamiento pagado y seguro
+                      </p>
+                    </div>
+                    <div class="p-3 bg-[var(--cream)] rounded-lg">
+                      <h5 class="font-medium text-[var(--sage-green)] mb-1">
+                        Calles
+                      </h5>
+                      <p class="text-xs text-[var(--charcoal-gray)]">
+                        Opciones gratuitas cercanas
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {facility.icon === 'bike' && (
+                  <div class="mt-4 p-3 bg-[var(--sage-green)] bg-opacity-10 rounded-lg border-l-4 border-[var(--sage-green)]">
+                    <div class="flex items-center gap-2">
+                      <span class="text-lg">🔒</span>
+                      <p class="text-sm text-[var(--charcoal-gray)]">
+                        <strong>Recuerda:</strong> Traer tu propio candado para
+                        mayor seguridad
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {facility.icon === 'view' && (
+                  <div class="mt-4 flex items-center justify-center p-4 bg-gradient-to-r from-[var(--cream)] to-[var(--rose-pale)] rounded-lg">
+                    <div class="text-center">
+                      <span class="text-4xl mb-2 block">🏙️</span>
+                      <p class="text-sm text-[var(--charcoal-gray)]">
+                        Vista panorámica de Santiago
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+
+    <!-- Resumen visual -->
+    <div
+      class="mt-12 bg-gradient-to-r from-[var(--white)] to-[var(--rose-pale)] rounded-lg p-6"
+    >
+      <h4 class="text-lg font-bold text-center mb-6 text-[var(--deep-coral)]">
+        🏢 Resumen de Instalaciones
+      </h4>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {
+          facilities.slice(0, 4).map(facility => (
+            <div class="text-center p-3 bg-[var(--white)] rounded-lg shadow-sm">
+              <div class="text-2xl mb-2">{iconMap[facility.icon]}</div>
+              <div class="text-sm font-medium text-[var(--deep-coral)]">
+                {facility.name}
+              </div>
+              <div class="text-xs text-[var(--sage-green)] mt-1">
+                ✓ Disponible
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Estilos para el accordion nativo */
+  .facility-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .facility-accordion summary::-moz-list-bullet {
+    list-style-type: none;
+  }
+
+  .facility-accordion[open] summary {
+    background-color: var(--rose-pale);
+  }
+
+  .facility-accordion[open] summary svg {
+    transform: rotate(180deg);
+  }
+
+  /* Animación para el contenido del accordion */
+  .accordion-content {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Hover effects */
+  .facility-accordion:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(238, 126, 112, 0.1);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+</style>
+
+<script>
+  // Agregar funcionalidad adicional si es necesario
+  document.addEventListener('DOMContentLoaded', () => {
+    const accordions = document.querySelectorAll('.facility-accordion');
+
+    accordions.forEach(accordion => {
+      const summary = accordion.querySelector('summary');
+
+      summary?.addEventListener('click', e => {
+        // Cerrar otros accordions si se desea comportamiento exclusivo
+        // accordions.forEach(other => {
+        //   if (other !== accordion && other.hasAttribute('open')) {
+        //     other.removeAttribute('open');
+        //   }
+        // });
+      });
+    });
+  });
+</script>

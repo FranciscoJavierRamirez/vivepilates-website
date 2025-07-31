@@ -1,0 +1,209 @@
+---
+import { getEntry } from 'astro:content';
+
+// Carga el contenido desde markdown
+let principles;
+try {
+  const entry = await getEntry('why-pilates', 'principles');
+  principles = [
+    {
+      title: 'Respiración',
+      description:
+        'Base del movimiento - La respiración consciente oxigena el cuerpo y coordina cada movimiento.',
+      order: 1,
+      icon: '🫁',
+    },
+    {
+      title: 'Concentración',
+      description:
+        'Mente-cuerpo conectados - La atención plena en cada ejercicio maximiza los beneficios.',
+      order: 2,
+      icon: '🧠',
+    },
+    {
+      title: 'Centralización',
+      description:
+        'Core como centro - Todo movimiento se origina desde el centro de poder del cuerpo.',
+      order: 3,
+      icon: '⚡',
+    },
+    {
+      title: 'Control',
+      description:
+        'Movimiento consciente - Cada gesto debe ser deliberado y controlado, no aleatorio.',
+      order: 4,
+      icon: '🎯',
+    },
+    {
+      title: 'Precisión',
+      description:
+        'Calidad sobre cantidad - Es mejor hacer pocos movimientos perfectos que muchos imperfectos.',
+      order: 5,
+      icon: '🔍',
+    },
+    {
+      title: 'Fluidez',
+      description:
+        'Movimiento continuo - Los ejercicios fluyen de uno a otro con gracia y elegancia.',
+      order: 6,
+      icon: '🌊',
+    },
+  ];
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  principles = [
+    {
+      title: 'Respiración',
+      description:
+        'Base del movimiento - La respiración consciente oxigena el cuerpo y coordina cada movimiento.',
+      order: 1,
+      icon: '🫁',
+    },
+    {
+      title: 'Concentración',
+      description:
+        'Mente-cuerpo conectados - La atención plena en cada ejercicio maximiza los beneficios.',
+      order: 2,
+      icon: '🧠',
+    },
+    {
+      title: 'Centralización',
+      description:
+        'Core como centro - Todo movimiento se origina desde el centro de poder del cuerpo.',
+      order: 3,
+      icon: '⚡',
+    },
+    {
+      title: 'Control',
+      description:
+        'Movimiento consciente - Cada gesto debe ser deliberado y controlado, no aleatorio.',
+      order: 4,
+      icon: '🎯',
+    },
+    {
+      title: 'Precisión',
+      description:
+        'Calidad sobre cantidad - Es mejor hacer pocos movimientos perfectos que muchos imperfectos.',
+      order: 5,
+      icon: '🔍',
+    },
+    {
+      title: 'Fluidez',
+      description:
+        'Movimiento continuo - Los ejercicios fluyen de uno a otro con gracia y elegancia.',
+      order: 6,
+      icon: '🌊',
+    },
+  ];
+}
+---
+
+<section
+  class="py-12 bg-[var(--white)]"
+  role="region"
+  aria-labelledby="principles-title"
+>
+  <div class="container mx-auto px-4 max-w-6xl">
+    <h2
+      id="principles-title"
+      class="text-3xl font-bold text-center mb-4 text-[var(--deep-coral)]"
+    >
+      Los 6 Principios Fundamentales
+    </h2>
+    <p
+      class="text-center text-lg text-[var(--charcoal-gray)] mb-12 max-w-2xl mx-auto"
+    >
+      Cada clase de Pilates se basa en estos principios que Joseph Pilates
+      desarrolló para lograr el equilibrio perfecto entre cuerpo y mente.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        principles
+          .sort((a, b) => a.order - b.order)
+          .map((principle, index) => (
+            <div
+              class="principle-card p-6 rounded-lg shadow-md hover-lift transition-all duration-300 cursor-pointer text-center"
+              data-principle={principle.title}
+              style={`background: ${index % 2 === 0 ? 'var(--rose-pale)' : 'var(--cream)'};`}
+            >
+              {/* Número del principio */}
+              <div class="inline-flex items-center justify-center w-12 h-12 bg-[var(--coral-primary)] text-white rounded-full text-xl font-bold mb-4">
+                {principle.order}
+              </div>
+
+              {/* Icono */}
+              <div class="text-4xl mb-3 text-[var(--warm-gold)]">
+                {principle.icon}
+              </div>
+
+              {/* Título */}
+              <h3 class="font-bold text-xl text-[var(--coral-primary)] mb-3">
+                {principle.title}
+              </h3>
+
+              {/* Descripción (expandible en hover) */}
+              <div class="description overflow-hidden transition-all duration-300 max-h-0">
+                <p class="text-[var(--charcoal-gray)] text-sm leading-relaxed pt-2 border-t border-[var(--warm-gold)] border-opacity-30">
+                  {principle.description}
+                </p>
+              </div>
+
+              {/* Indicador de hover */}
+              <div class="mt-3 text-[var(--trust-blue)] text-xs opacity-70">
+                Pasa el cursor para ver más
+              </div>
+            </div>
+          ))
+      }
+    </div>
+
+    <!-- Nota informativa -->
+    <div class="mt-12 text-center p-6 bg-[var(--warm-gray)] rounded-lg">
+      <p class="text-[var(--charcoal-gray)] mb-2">
+        <strong class="text-[var(--coral-primary)]">¿Sabías que?</strong> Estos principios
+        fueron desarrollados por Joseph Pilates en los años 1920 y siguen siendo
+        la base de nuestra práctica hoy.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(238, 126, 112, 0.15);
+  }
+
+  .principle-card:hover .description {
+    max-height: 200px;
+  }
+
+  .principle-card:hover .description {
+    padding-top: 0.5rem;
+  }
+
+  /* Animación para el número */
+  .principle-card:hover .w-12 {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+  }
+</style>
+
+<script>
+  // Agregar interactividad adicional si es necesario
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.principle-card');
+
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        // Agregar clase para animaciones adicionales si es necesario
+        card.classList.add('active');
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.classList.remove('active');
+      });
+    });
+  });
+</script>

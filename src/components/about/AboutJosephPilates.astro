@@ -1,0 +1,130 @@
+---
+import { getEntry } from 'astro:content';
+
+// Carga el contenido desde markdown
+let content;
+try {
+  const entry = await getEntry('about', 'joseph-pilates');
+  content = {
+    text: 'Creador de un método de entrenamiento para desarrollar la fuerza y la flexibilidad del cuerpo junto con mejorar la postura, fortaleciendo el CORE lo que da como resultado la protección de la columna lumbar y un menor riesgo de lesiones. Él sufría de raquitismo, asma y fiebre reumática. Luego de crear un programa de ejercicios denominado contrología, adquirió un cuerpo musculoso y superó sus problemas de salud, y contribuyó a mejorar la calidad de vida de muchas personas dando a conocer su método de ejercicios, utilizando máquinas creadas por él mismo.',
+    image: '/images/joseph-pilates.jpg',
+    alt: 'Joseph Pilates practicando su método',
+  };
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  content = {
+    text: 'Creador de un método de entrenamiento para desarrollar la fuerza y la flexibilidad del cuerpo junto con mejorar la postura, fortaleciendo el CORE lo que da como resultado la protección de la columna lumbar y un menor riesgo de lesiones. Él sufría de raquitismo, asma y fiebre reumática. Luego de crear un programa de ejercicios denominado contrología, adquirió un cuerpo musculoso y superó sus problemas de salud, y contribuyó a mejorar la calidad de vida de muchas personas dando a conocer su método de ejercicios, utilizando máquinas creadas por él mismo.',
+    image: '/images/joseph-pilates.jpg',
+    alt: 'Joseph Pilates practicando su método',
+  };
+}
+---
+
+<section
+  class="py-12 bg-[var(--rose-pale)]"
+  role="region"
+  aria-labelledby="joseph-pilates-title"
+>
+  <div class="container mx-auto px-4 max-w-6xl">
+    <div class="flex flex-col lg:flex-row items-center gap-8">
+      <!-- Contenido de texto -->
+      <div class="lg:w-1/2">
+        <h2
+          id="joseph-pilates-title"
+          class="text-3xl font-bold mb-6 text-[var(--deep-coral)]"
+        >
+          Sobre Joseph Pilates y el Método
+        </h2>
+        <p class="text-lg leading-relaxed mb-6 text-[var(--charcoal-gray)]">
+          {content.text}
+        </p>
+
+        <!-- Datos destacados -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          <div class="p-4 bg-[var(--white)] rounded-lg shadow-sm">
+            <h4 class="font-semibold text-[var(--coral-primary)] mb-2">
+              Método Original
+            </h4>
+            <p class="text-sm text-[var(--charcoal-gray)]">
+              Ejercicios creados por Joseph Pilates
+            </p>
+          </div>
+          <div class="p-4 bg-[var(--white)] rounded-lg shadow-sm">
+            <h4 class="font-semibold text-[var(--coral-primary)] mb-2">
+              Equipo Auténtico
+            </h4>
+            <p class="text-sm text-[var(--charcoal-gray)]">
+              Máquinas diseñadas por el maestro
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+      <div class="lg:w-1/2">
+        <div class="relative">
+          <!-- Placeholder para imagen -->
+          <div
+            class="bg-[var(--warm-gray)] rounded-lg shadow-lg hover-lift transition-all duration-300 aspect-[4/3] flex items-center justify-center"
+          >
+            <div class="text-center p-8">
+              <span class="text-6xl mb-4 block">🧘‍♂️</span>
+              <p class="text-[var(--charcoal-gray)] text-sm">
+                Imagen de Joseph Pilates
+              </p>
+              <p class="text-[var(--coral-primary)] text-xs mt-2">
+                Practicando su método
+              </p>
+            </div>
+          </div>
+
+          <!-- Badge decorativo -->
+          <div
+            class="absolute -top-4 -right-4 bg-[var(--warm-gold)] text-[var(--white)] px-4 py-2 rounded-full text-sm font-medium shadow-lg"
+          >
+            Método Original
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cita inspiracional -->
+    <div class="mt-12 text-center p-8 bg-[var(--white)] rounded-lg shadow-md">
+      <blockquote class="text-xl font-medium text-[var(--deep-coral)] mb-4">
+        "La contrología es la coordinación completa de cuerpo, mente y espíritu"
+      </blockquote>
+      <cite class="text-[var(--trust-blue)] font-semibold"
+        >- Joseph Pilates</cite
+      >
+    </div>
+  </div>
+</section>
+
+<style>
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(238, 126, 112, 0.15);
+  }
+
+  blockquote {
+    position: relative;
+  }
+
+  blockquote::before {
+    content: '"';
+    font-size: 3rem;
+    color: var(--coral-primary);
+    position: absolute;
+    left: -20px;
+    top: -10px;
+  }
+
+  blockquote::after {
+    content: '"';
+    font-size: 3rem;
+    color: var(--coral-primary);
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+  }
+</style>

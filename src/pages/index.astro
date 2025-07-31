@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/home/HeroSection.astro';
+import DifferentiatorGrid from '../components/home/DifferentiatorGrid.astro';
+import BenefitsExpandable from '../components/home/BenefitsExpandable.astro';
+import TestimonialHighlighted from '../components/home/TestimonialHighlighted.astro';
+import Gallery from '../components/home/Gallery.astro';
+import OpeningHours from '../components/home/OpeningHours.astro';
+import ContactInfo from '../components/home/ContactInfo.astro';
+import WhatsAppButton from '../components/etapa1/shared/WhatsAppButton.astro';
+
+const title = 'VivePilates - Bienestar Real para tu Vida Real';
+const description =
+  'Clases de Pilates personalizadas en Vitacura. Máximo 6 personas por clase. Profesionales certificados.';
+const currentPage = 'home';
+---
+
+<BaseLayout title={title} description={description} currentPage={currentPage}>
+  <HeroSection />
+  <DifferentiatorGrid />
+  <BenefitsExpandable />
+  <TestimonialHighlighted />
+  <Gallery />
+  <OpeningHours />
+  <ContactInfo />
+  <WhatsAppButton context="trial" />
+</BaseLayout>

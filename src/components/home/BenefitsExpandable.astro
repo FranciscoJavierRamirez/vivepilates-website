@@ -1,0 +1,171 @@
+---
+import Container from '../ui/Container.astro';
+
+// Beneficios categorizados (en un proyecto real, esto vendría de content collections)
+const benefits = {
+  fisicos: [
+    'Mejora la postura y alineación corporal',
+    'Aumenta la flexibilidad y movilidad articular',
+    'Fortalece el core y mejora la estabilidad',
+    'Mejora la fuerza en piernas y espalda',
+    'Aumenta la resistencia muscular',
+    'Mejora el equilibrio y coordinación',
+  ],
+  mentales: [
+    'Reduce el estrés y la ansiedad',
+    'Mejora la calidad del sueño',
+    'Aumenta la concentración y claridad mental',
+    'Promueve la consciencia corporal',
+    'Mejora la respiración y relajación',
+    'Aumenta la confianza en sí mismo',
+  ],
+  medicos: [
+    'Mejora problemas en la espalda y cuello',
+    'Ayuda a disminuir algunos grados de escoliosis no estructural',
+    'Reduce dolores articulares',
+    'Mejora la circulación sanguínea',
+    'Ayuda en la rehabilitación post-lesiones',
+    'Previene lesiones deportivas',
+  ],
+};
+
+const categories = [
+  { id: 'fisicos', title: 'Físicos', icon: 'muscle', color: 'coral' },
+  { id: 'mentales', title: 'Mentales', icon: 'brain', color: 'sage-green' },
+  { id: 'medicos', title: 'Médicos', icon: 'heart', color: 'vital-green' },
+];
+
+const getIcon = (iconName: string) => {
+  const icons: Record<string, string> = {
+    muscle: 'M13 10V3L4 14h7v7l9-11h-7z',
+    brain:
+      'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+    heart:
+      'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+  };
+  return icons[iconName] || icons.muscle;
+};
+
+const getColorClasses = (color: string) => {
+  const colors: Record<string, { bg: string; text: string; border: string }> = {
+    coral: {
+      bg: 'bg-coral-100',
+      text: 'text-coral-500',
+      border: 'border-coral-200',
+    },
+    'sage-green': {
+      bg: 'bg-sage-green-100',
+      text: 'text-sage-green-500',
+      border: 'border-sage-green-200',
+    },
+    'vital-green': {
+      bg: 'bg-vital-green-100',
+      text: 'text-vital-green-500',
+      border: 'border-vital-green-200',
+    },
+  };
+  return colors[color] || colors.coral;
+};
+---
+
+<section class="section-padding" style="background-color: var(--rose-pale);">
+  <Container>
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-charcoal-gray-500 mb-4">
+        Beneficios por Categoría
+      </h2>
+      <p class="text-lg text-charcoal-gray-400 max-w-2xl mx-auto">
+        Descubre cómo el Pilates puede transformar tu vida en diferentes
+        aspectos
+      </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto space-y-4">
+      {
+        categories.map(category => {
+          const colorClasses = getColorClasses(category.color);
+          const categoryBenefits =
+            benefits[category.id as keyof typeof benefits];
+
+          return (
+            <details
+              class={`bg-white rounded-lg shadow-soft overflow-hidden ${colorClasses.border} border-2`}
+            >
+              <summary
+                class={`p-6 cursor-pointer flex items-center justify-between hover:bg-${category.color}-50 transition-colors duration-200`}
+              >
+                <div class="flex items-center space-x-4">
+                  <div
+                    class={`w-12 h-12 ${colorClasses.bg} rounded-full flex items-center justify-center`}
+                  >
+                    <svg
+                      class={`w-6 h-6 ${colorClasses.text}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d={getIcon(category.icon)}
+                      />
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-semibold text-charcoal-gray-500">
+                    {category.title}
+                  </h3>
+                </div>
+                <svg
+                  class="w-6 h-6 text-charcoal-gray-400 transform transition-transform duration-200"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </summary>
+              <div class="px-6 pb-6">
+                <ul class="space-y-3 mt-4">
+                  {categoryBenefits.map(benefit => (
+                    <li class="flex items-start space-x-3 text-charcoal-gray-600">
+                      <svg
+                        class="w-5 h-5 text-coral-500 mt-0.5 flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span>{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
+          );
+        })
+      }
+    </div>
+  </Container>
+</section>
+
+<style>
+  details[open] summary svg:last-child {
+    transform: rotate(180deg);
+  }
+
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

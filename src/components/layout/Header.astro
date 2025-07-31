@@ -1,0 +1,206 @@
+---
+import Container from '../ui/Container.astro';
+
+export interface Props {
+  currentPage?: string;
+}
+
+const { currentPage = 'home' } = Astro.props;
+
+// Placeholder: Parsea navbar-links.md
+const links = [
+  { label: 'Inicio', href: '/', current: currentPage === 'home' },
+  {
+    label: 'Sobre Nosotros',
+    href: '/sobre-nosotros',
+    current: currentPage === 'sobre-nosotros',
+  },
+  {
+    label: '¿Por qué Pilates?',
+    href: '/por-que-pilates',
+    current: currentPage === 'por-que-pilates',
+  },
+  {
+    label: 'Servicios',
+    href: '/servicios',
+    current: currentPage === 'servicios',
+  },
+]; // En producción, carga de .md
+---
+
+<header
+  class="sticky top-0 z-50 bg-[var(--coral-primary)] text-[var(--white)] shadow-md"
+>
+  <Container>
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo con hover micro-interacción -->
+      <!-- Logo con placeholder -->
+      <div class="flex-shrink-0">
+        <a href="/" class="font-bold text-2xl hover-lift transition-all flex items-center gap-2" aria-label="Ir a página de inicio">
+          <img 
+            src="/images/logo-white-placeholder.svg" 
+            alt="Logo VivePilates (Blanco)" 
+            width="150" 
+            height="40" 
+            class="object-contain" 
+            loading="eager"
+          />
+        </a>
+      </div>
+
+      <!-- Enlaces desktop -->
+      <nav class="hidden md:flex space-x-6">
+        {
+          links.map(link => (
+            <a
+              href={link.href}
+              class={`hover:text-[var(--warm-gold)] transition-colors ${
+                link.current ? 'text-[var(--warm-gold)] font-medium' : ''
+              }`}
+              aria-label={`Ir a ${link.label}`}
+              tabindex="0"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- Badge de confianza (Sistema de Diseño) -->
+      <span
+        class="hidden md:block bg-[var(--warm-gold)] text-[var(--white)] px-3 py-1 rounded-full text-sm"
+      >
+        Vitacura - 15 años de experiencia
+      </span>
+
+      <!-- Menú móvil (usa React para toggle si necesitas interactividad) -->
+      <button 
+        class="md:hidden p-2 rounded-md hover:bg-[var(--warm-gold)] transition-colors" 
+        id="menu-toggle" 
+        aria-label="Abrir menú de navegación"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <!-- Icono hamburguesa: Usa SVG -->
+        <svg
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </Container>
+
+  <!-- Menú móvil dropdown -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-[var(--coral-primary)] px-4 py-2"
+    role="navigation"
+    aria-label="Menú de navegación móvil"
+  >
+    <ul class="space-y-2">
+      {
+        links.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class={`block hover:text-[var(--warm-gold)] transition-colors ${
+                link.current ? 'text-[var(--warm-gold)] font-medium' : ''
+              }`}
+              aria-label={`Ir a ${link.label}`}
+              tabindex="0"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</header>
+
+<script>
+  // Toggle menú móvil (JS vanilla para simplicidad)
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isHidden = menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      
+      // Update aria-expanded for accessibility
+      toggle.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+      toggle.setAttribute('aria-label', isHidden ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+    });
+
+    // Cierra al click fuera (opcional)
+    document.addEventListener('click', e => {
+      if (
+        !toggle.contains(e.target as Node) &&
+        !menu.contains(e.target as Node) &&
+        !menu.classList.contains('hidden')
+      ) {
+        menu.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menú de navegación');
+      }
+    });
+
+    // Cierra con tecla Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menú de navegación');
+        toggle.focus(); // Return focus to toggle button
+      }
+    });
+  }
+</script>
+
+<style>
+  /* Estilos específicos */
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+  
+  /* Transición suave para menú móvil */
+  #mobile-menu {
+    transition: all 0.3s ease;
+    max-height: 0;
+    overflow: hidden;
+  }
+  
+  #mobile-menu:not(.hidden) {
+    max-height: 300px;
+  }
+  
+  /* Focus states para accesibilidad */
+  nav a:focus-visible {
+    outline: 2px solid var(--warm-gold);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  
+  /* Progressive enhancement - fade in on load */
+  header {
+    opacity: 0;
+    animation: fadeInHeader 0.5s ease forwards;
+  }
+  
+  @keyframes fadeInHeader {
+    to {
+      opacity: 1;
+    }
+  }
+</style>

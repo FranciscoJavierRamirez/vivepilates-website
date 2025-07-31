@@ -1,0 +1,52 @@
+---
+import { getEntry } from 'astro:content';
+
+// Carga el contenido desde markdown
+let content;
+try {
+  const entry = await getEntry('about', 'about-us');
+  content = {
+    text: 'Somos una comunidad formada por profesionales del área de la salud y de la educación certificados en la instrucción de pilates, que nace con el propósito de brindar un espacio cálido y vitalizador para sus alumnos en donde a través de la enseñanza y la práctica del método pilates buscamos apoyar a las personas a lograr sus metas y objetivos personales. En Vivepilates te enseñaremos a desarrollar los ejercicios propuestos por el maestro Joseph Pilates, creador del método, utilizando máquinas "reformer" o "camas de pilates", sillas "multifuncionales" y "correctores posturales", los cuales se usan con otros materiales, con el objetivo de optimizar la práctica y mejorar los resultados.',
+  };
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  content = {
+    text: 'Somos una comunidad formada por profesionales del área de la salud y de la educación certificados en la instrucción de pilates, que nace con el propósito de brindar un espacio cálido y vitalizador para sus alumnos en donde a través de la enseñanza y la práctica del método pilates buscamos apoyar a las personas a lograr sus metas y objetivos personales. En Vivepilates te enseñaremos a desarrollar los ejercicios propuestos por el maestro Joseph Pilates, creador del método, utilizando máquinas "reformer" o "camas de pilates", sillas "multifuncionales" y "correctores posturales", los cuales se usan con otros materiales, con el objetivo de optimizar la práctica y mejorar los resultados.',
+  };
+}
+---
+
+<section
+  class="py-12 bg-[var(--white)]"
+  role="region"
+  aria-labelledby="about-us-title"
+>
+  <div class="container mx-auto px-4 max-w-4xl">
+    <h2
+      id="about-us-title"
+      class="text-3xl font-bold text-center mb-8 text-[var(--deep-coral)]"
+    >
+      Sobre Nosotros
+    </h2>
+    <div class="text-center">
+      <p class="text-lg leading-relaxed mb-6 text-[var(--charcoal-gray)]">
+        {content.text}
+      </p>
+      <!-- Badge de confianza -->
+      <div class="flex justify-center">
+        <span
+          class="bg-[var(--trust-blue)] text-[var(--white)] px-6 py-3 rounded-full text-sm font-medium uppercase tracking-wide shadow-md hover-lift transition-all duration-300"
+        >
+          ✨ Certificados en Salud y Educación
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(122, 143, 163, 0.3);
+  }
+</style>

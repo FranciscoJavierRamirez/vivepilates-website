@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MissionVision from '../components/about/MissionVision.astro';
+import AboutUs from '../components/about/AboutUs.astro';
+import AboutJosephPilates from '../components/about/AboutJosephPilates.astro';
+import CTAButton from '../components/etapa1/shared/CTAButton.astro';
+
+const title = 'Sobre Nosotros - VivePilates';
+const description =
+  'Conoce nuestra misión, visión y valores. Somos una comunidad de profesionales certificados dedicados al bienestar a través del método Pilates en Vitacura.';
+const currentPage = 'sobre-nosotros';
+---
+
+<BaseLayout title={title} description={description} currentPage={currentPage}>
+  <!-- Hero inspiracional con cita de Joseph Pilates -->
+  <section
+    class="py-20 bg-gradient-to-br from-[var(--cream)] to-[var(--rose-pale)] text-center relative overflow-hidden"
+  >
+    <div class="container mx-auto px-4 relative z-10">
+      <h1
+        class="text-4xl md:text-5xl font-bold mb-6 text-[var(--deep-coral)] leading-tight"
+      >
+        "La contrología es la coordinación completa de cuerpo, mente y espíritu"
+      </h1>
+      <p class="text-xl md:text-2xl mt-4 text-[var(--trust-blue)] font-medium">
+        - Joseph Pilates
+      </p>
+      <p class="text-lg mt-6 text-[var(--charcoal-gray)] max-w-2xl mx-auto">
+        Descubre nuestra historia, misión y la filosofía que nos guía en
+        VivePilates
+      </p>
+    </div>
+
+    <!-- Elementos decorativos -->
+    <div
+      class="absolute top-10 left-10 w-20 h-20 bg-[var(--coral-primary)] rounded-full opacity-20 animate-pulse"
+    >
+    </div>
+    <div
+      class="absolute bottom-10 right-10 w-32 h-32 bg-[var(--warm-gold)] rounded-full opacity-10 animate-pulse delay-1000"
+    >
+    </div>
+  </section>
+
+  <!-- Componentes principales -->
+  <MissionVision />
+  <AboutUs />
+  <AboutJosephPilates />
+
+  <!-- CTA final para conversión -->
+  <section class="py-16 bg-[var(--warm-gray)] text-center relative">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[var(--deep-coral)]">
+        Únete a Nuestra Comunidad
+      </h2>
+      <p class="text-lg mb-8 text-[var(--charcoal-gray)] max-w-2xl mx-auto">
+        Comienza tu viaje hacia el bienestar con profesionales certificados que
+        entienden tus necesidades
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <CTAButton
+          href="/servicios#clase-prueba"
+          variant="primary"
+          size="lg"
+          icon="sparkles"
+          tracking="about_page_cta_trial"
+        >
+          Agenda tu Clase de Prueba Gratuita
+        </CTAButton>
+
+        <CTAButton
+          href="/servicios"
+          variant="outline"
+          size="lg"
+          icon="arrow-right"
+        >
+          Ver Nuestros Servicios
+        </CTAButton>
+      </div>
+
+      <!-- Badge de confianza adicional -->
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <span
+          class="bg-[var(--sage-green)] text-white px-4 py-2 rounded-full text-sm font-medium"
+        >
+          🌿 15 años de experiencia
+        </span>
+        <span
+          class="bg-[var(--trust-blue)] text-white px-4 py-2 rounded-full text-sm font-medium"
+        >
+          ✨ Profesionales certificados
+        </span>
+        <span
+          class="bg-[var(--warm-gold)] text-white px-4 py-2 rounded-full text-sm font-medium"
+        >
+          🏆 Método original de Joseph Pilates
+        </span>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<!-- Schema markup para SEO (LocalBusiness) -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://vivepilates.cl",
+    "name": "VivePilates",
+    "description": "Estudio de Pilates en Vitacura con enfoque en bienestar personalizado y método original de Joseph Pilates.",
+    "url": "https://vivepilates.cl",
+    "telephone": "+56 9 1234 5678",
+    "email": "info@vivepilates.cl",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Kennedy 6800",
+      "addressLocality": "Vitacura",
+      "addressRegion": "Región Metropolitana",
+      "addressCountry": "CL"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "-33.38",
+      "longitude": "-70.55"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "20:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "09:00",
+        "closes": "14:00"
+      }
+    ],
+    "sameAs": ["https://instagram.com/vivepilates"],
+    "founder": {
+      "@type": "Person",
+      "name": "Joseph Pilates",
+      "description": "Creador del método Pilates"
+    },
+    "serviceType": "Pilates Studio",
+    "areaServed": "Vitacura, Las Condes, Providencia",
+    "specialty": ["Pilates", "Rehabilitación", "Bienestar", "Fitness"]
+  }
+</script>
+
+<style>
+  /* Animaciones personalizadas para el hero */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Efecto parallax sutil en el hero */
+  section:first-of-type {
+    position: relative;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  /* Mejoras de accesibilidad */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-pulse,
+    .animate-float {
+      animation: none;
+    }
+  }
+</style>

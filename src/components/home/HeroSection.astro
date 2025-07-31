@@ -1,0 +1,146 @@
+---
+import Container from '../ui/Container.astro';
+import CTAButton from '../etapa1/shared/CTAButton.astro';
+
+// Frases de Joseph Pilates (en un proyecto real, esto vendría de content collections)
+const quotes = [
+  'Cada persona es el arquitecto de su propia felicidad',
+  'La aptitud física es el primer requisito de la felicidad',
+  'La contrología es la coordinación completa de cuerpo, mente y espíritu',
+  'La contrología no es un sistema de ejercicios al azar',
+  'La contrología desarrolla el cuerpo uniformemente',
+];
+---
+
+<section class="hero-gradient text-[var(--charcoal-gray)] py-20" aria-label="Sección principal">
+  <Container>
+    <div class="text-center">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in text-[var(--deep-coral)]">
+        Bienestar Real para tu Vida Real
+      </h1>
+
+      <!-- Quote Rotator -->
+      <div class="quote-container mb-8">
+        <blockquote
+          class="text-xl md:text-2xl italic text-[var(--coral-primary)] opacity-90 transition-opacity duration-500"
+          id="quote-display"
+          role="status"
+          aria-live="polite"
+          aria-label="Frase inspiracional rotativa"
+        >
+          {quotes[0]}
+        </blockquote>
+        <p class="text-sm text-[var(--sage-green)] mt-2 font-medium">- Joseph Pilates</p>
+      </div>
+
+      <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto opacity-90">
+        Descubre el poder del movimiento consciente con nuestras clases de
+        Pilates personalizadas
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <CTAButton
+          href="/servicios#clase-prueba"
+          variant="primary"
+          size="lg"
+          icon="sparkles"
+          tracking="hero_cta_click"
+        >
+          Agenda tu Clase de Prueba Gratis
+        </CTAButton>
+        <CTAButton
+          href="/servicios"
+          variant="outline"
+          size="lg"
+          class="text-[var(--coral-primary)] border-[var(--coral-primary)] hover:bg-[var(--rose-pale)]"
+        >
+          Conocer Servicios
+        </CTAButton>
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center" role="group" aria-label="Características destacadas">
+        <span class="inline-flex items-center bg-[var(--warm-gold)] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:bg-[var(--warm-gold)]/90 transition-colors">
+          <svg
+            class="w-4 h-4 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+            ></path>
+          </svg>
+          Máximo 6 Personas
+        </span>
+        <span class="inline-flex items-center bg-[var(--sage-green)] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:bg-[var(--sage-green)]/90 transition-colors">
+          <svg
+            class="w-4 h-4 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+            ></path>
+          </svg>
+          Profesionales Certificados
+        </span>
+        <span class="inline-flex items-center bg-[var(--trust-blue)] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:bg-[var(--trust-blue)]/90 transition-colors">
+          <svg
+            class="w-4 h-4 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+            ></path>
+          </svg>
+          Vitacura - 15 años
+        </span>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<script>
+  // Rotación de quotes
+  const quotes = [
+    'Cada persona es el arquitecto de su propia felicidad',
+    'La aptitud física es el primer requisito de la felicidad',
+    'La contrología es la coordinación completa de cuerpo, mente y espíritu',
+    'La contrología no es un sistema de ejercicios al azar',
+    'La contrología desarrolla el cuerpo uniformemente',
+  ];
+
+  const quoteDisplay = document.getElementById('quote-display');
+  let currentQuoteIndex = 0;
+
+  if (quoteDisplay) {
+    function rotateQuotes() {
+      quoteDisplay!.style.opacity = '0';
+
+      setTimeout(() => {
+        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        quoteDisplay!.textContent = quotes[currentQuoteIndex];
+        quoteDisplay!.style.opacity = '1';
+      }, 500);
+    }
+
+    // Rotar quotes cada 5 segundos
+    setInterval(rotateQuotes, 5000);
+  }
+</script>

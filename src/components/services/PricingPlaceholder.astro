@@ -1,0 +1,155 @@
+---
+import { getEntry } from 'astro:content';
+import WhatsAppButton from '../etapa1/shared/WhatsAppButton.astro';
+
+// Carga el contenido desde markdown
+let content;
+try {
+  const entry = await getEntry('services', 'pricing');
+  content = {
+    text: 'Puedes consultar sobre nuestros precios y planes personalizados directamente por WhatsApp. Ofrecemos diferentes opciones que se adaptan a tus necesidades y objetivos.',
+    whatsapp:
+      'https://wa.me/56912345678?text=Hola,%20quiero%20información%20sobre%20precios%20y%20planes',
+    note: 'Manejamos planes flexibles adaptados a cada alumno.',
+  };
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  content = {
+    text: 'Puedes consultar sobre nuestros precios y planes personalizados directamente por WhatsApp. Ofrecemos diferentes opciones que se adaptan a tus necesidades y objetivos.',
+    whatsapp:
+      'https://wa.me/56912345678?text=Hola,%20quiero%20información%20sobre%20precios%20y%20planes',
+    note: 'Manejamos planes flexibles adaptados a cada alumno.',
+  };
+}
+---
+
+<section
+  class="py-12 bg-[var(--cream)]"
+  role="region"
+  aria-labelledby="pricing-title"
+>
+  <div class="container mx-auto px-4 max-w-4xl">
+    <h2
+      id="pricing-title"
+      class="text-3xl font-bold text-center mb-4 text-[var(--deep-coral)]"
+    >
+      Planes y Precios
+    </h2>
+    <p
+      class="text-center text-lg text-[var(--charcoal-gray)] mb-8 max-w-2xl mx-auto"
+    >
+      Ofrecemos opciones flexibles que se adaptan a tu ritmo de vida y objetivos
+      personales
+    </p>
+
+    <div class="bg-[var(--white)] rounded-lg shadow-md p-8 text-center">
+      <!-- Icono principal -->
+      <div
+        class="w-20 h-20 bg-[var(--warm-gold)] bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6"
+      >
+        <span class="text-3xl">💬</span>
+      </div>
+
+      <!-- Contenido principal -->
+      <h3 class="text-2xl font-bold mb-4 text-[var(--coral-primary)]">
+        Consulta Personalizada
+      </h3>
+      <p class="text-[var(--charcoal-gray)] text-lg leading-relaxed mb-6">
+        {content.text}
+      </p>
+
+      <!-- Características de nuestros planes -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="p-4 bg-[var(--rose-pale)] rounded-lg">
+          <span class="text-2xl mb-2 block">🎯</span>
+          <h4 class="font-semibold text-[var(--deep-coral)] mb-1">
+            Personalizados
+          </h4>
+          <p class="text-sm text-[var(--charcoal-gray)]">
+            Adaptados a tus objetivos
+          </p>
+        </div>
+        <div class="p-4 bg-[var(--rose-pale)] rounded-lg">
+          <span class="text-2xl mb-2 block">⏰</span>
+          <h4 class="font-semibold text-[var(--deep-coral)] mb-1">Flexibles</h4>
+          <p class="text-sm text-[var(--charcoal-gray)]">
+            Horarios que se adaptan
+          </p>
+        </div>
+        <div class="p-4 bg-[var(--rose-pale)] rounded-lg">
+          <span class="text-2xl mb-2 block">👥</span>
+          <h4 class="font-semibold text-[var(--deep-coral)] mb-1">
+            Grupos Pequeños
+          </h4>
+          <p class="text-sm text-[var(--charcoal-gray)]">Máximo 6 personas</p>
+        </div>
+      </div>
+
+      <!-- Botón de WhatsApp -->
+      <div class="mb-6">
+        <WhatsAppButton context="pricing" floating={false} />
+      </div>
+
+      <!-- Nota adicional -->
+      <div
+        class="p-4 bg-[var(--warm-gray)] rounded-lg border-l-4 border-[var(--warm-gold)]"
+      >
+        <div class="flex items-start gap-3">
+          <span class="text-xl flex-shrink-0 mt-1">💡</span>
+          <div class="text-left">
+            <h5 class="font-semibold text-[var(--deep-coral)] mb-1">
+              Nota Importante
+            </h5>
+            <p class="text-sm text-[var(--charcoal-gray)] leading-relaxed">
+              {content.note} Nuestro equipo te ayudará a encontrar la opción perfecta
+              según tu disponibilidad, experiencia y metas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Beneficios incluidos -->
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {
+        [
+          {
+            icon: '✨',
+            title: 'Clase de Prueba',
+            desc: 'Primera clase gratuita',
+          },
+          {
+            icon: '👨‍🏫',
+            title: 'Profesores Certificados',
+            desc: 'Experiencia comprobada',
+          },
+          {
+            icon: '📱',
+            title: 'Soporte WhatsApp',
+            desc: 'Consultas permanentes',
+          },
+          {
+            icon: '🏆',
+            title: 'Seguimiento Personal',
+            desc: 'Progreso individualizado',
+          },
+        ].map(benefit => (
+          <div class="text-center p-4 bg-[var(--white)] rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+            <span class="text-2xl mb-2 block">{benefit.icon}</span>
+            <h6 class="font-medium text-[var(--deep-coral)] mb-1">
+              {benefit.title}
+            </h6>
+            <p class="text-xs text-[var(--charcoal-gray)]">{benefit.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(238, 126, 112, 0.2);
+  }
+</style>

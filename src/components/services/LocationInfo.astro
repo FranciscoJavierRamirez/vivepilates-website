@@ -1,0 +1,308 @@
+---
+import { getEntry } from 'astro:content';
+
+// Carga el contenido desde markdown
+let content;
+try {
+  const entry = await getEntry('services', 'location');
+  content = {
+    address: 'Av. Kennedy 6800, Vitacura',
+    fullAddress: 'Santiago, Región Metropolitana',
+    accesses: [
+      'Desde calle Kennedy: Ingreso principal por la avenida',
+      'Desde calle Fernando de Argüello: Acceso alternativo por esta calle',
+      'Bicicletero disponible: Ubicado en el subterráneo -2',
+      'Acceso en bicicleta: Desde la zona donde ingresan los autos',
+      'Estacionamiento del edificio: Estacionamientos pagados en el mismo edificio',
+      'Estacionamientos gratuitos: Calle Kennedy (vereda sur) y calles cercanas',
+    ],
+    publicTransport: [
+      'Metro: Línea 1, estación El Golf (combinación con bus/micro)',
+      'Buses: Líneas que circulan por Av. Kennedy',
+    ],
+    references: [
+      'Sector alto de Vitacura',
+      'Cerca de centros comerciales',
+      'Zona residencial tranquila',
+    ],
+  };
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  content = {
+    address: 'Av. Kennedy 6800, Vitacura',
+    fullAddress: 'Santiago, Región Metropolitana',
+    accesses: [
+      'Desde calle Kennedy: Ingreso principal por la avenida',
+      'Desde calle Fernando de Argüello: Acceso alternativo por esta calle',
+      'Bicicletero disponible: Ubicado en el subterráneo -2',
+      'Acceso en bicicleta: Desde la zona donde ingresan los autos',
+      'Estacionamiento del edificio: Estacionamientos pagados en el mismo edificio',
+      'Estacionamientos gratuitos: Calle Kennedy (vereda sur) y calles cercanas',
+    ],
+    publicTransport: [
+      'Metro: Línea 1, estación El Golf (combinación con bus/micro)',
+      'Buses: Líneas que circulan por Av. Kennedy',
+    ],
+    references: [
+      'Sector alto de Vitacura',
+      'Cerca de centros comerciales',
+      'Zona residencial tranquila',
+    ],
+  };
+}
+
+const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY || '';
+---
+
+<section
+  class="py-12 bg-[var(--white)]"
+  role="region"
+  aria-labelledby="location-title"
+>
+  <div class="container mx-auto px-4 max-w-6xl">
+    <!-- Header de la sección -->
+    <div class="text-center mb-12">
+      <h2
+        id="location-title"
+        class="text-3xl font-bold mb-4 text-[var(--deep-coral)]"
+      >
+        Ubicación y Cómo Llegar
+      </h2>
+      <p class="text-lg text-[var(--charcoal-gray)] max-w-2xl mx-auto">
+        Te esperamos en el corazón de Vitacura, con múltiples opciones de acceso
+        y estacionamiento
+      </p>
+    </div>
+
+    <!-- Dirección principal -->
+    <div class="bg-[var(--cream)] rounded-lg p-8 mb-8 text-center">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <span class="text-3xl">📍</span>
+        <h3 class="text-2xl font-bold text-[var(--coral-primary)]">
+          Nuestra Dirección
+        </h3>
+      </div>
+      <p class="text-xl font-semibold text-[var(--deep-coral)] mb-2">
+        {content.address}
+      </p>
+      <p class="text-[var(--charcoal-gray)]">
+        {content.fullAddress}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Información de accesos -->
+      <div class="space-y-6">
+        <!-- Accesos y Estacionamientos -->
+        <div class="bg-[var(--rose-pale)] rounded-lg p-6">
+          <div class="flex items-center gap-3 mb-6">
+            <div
+              class="w-12 h-12 bg-[var(--trust-blue)] rounded-full flex items-center justify-center"
+            >
+              <span class="text-white text-xl">🚗</span>
+            </div>
+            <h3 class="text-xl font-bold text-[var(--deep-coral)]">
+              Accesos y Estacionamientos
+            </h3>
+          </div>
+          <ul class="space-y-3">
+            {
+              content.accesses.map(access => (
+                <li class="flex items-start gap-3">
+                  <span class="w-2 h-2 bg-[var(--trust-blue)] rounded-full mt-2 flex-shrink-0" />
+                  <span class="text-[var(--charcoal-gray)] leading-relaxed text-sm">
+                    {access}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <!-- Transporte Público -->
+        <div class="bg-[var(--warm-gray)] rounded-lg p-6">
+          <div class="flex items-center gap-3 mb-6">
+            <div
+              class="w-12 h-12 bg-[var(--sage-green)] rounded-full flex items-center justify-center"
+            >
+              <span class="text-white text-xl">🚌</span>
+            </div>
+            <h3 class="text-xl font-bold text-[var(--deep-coral)]">
+              Transporte Público
+            </h3>
+          </div>
+          <ul class="space-y-3">
+            {
+              content.publicTransport.map(transport => (
+                <li class="flex items-start gap-3">
+                  <span class="w-2 h-2 bg-[var(--sage-green)] rounded-full mt-2 flex-shrink-0" />
+                  <span class="text-[var(--charcoal-gray)] leading-relaxed text-sm">
+                    {transport}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <!-- Referencias -->
+        <div
+          class="bg-[var(--white)] border-2 border-[var(--warm-gold)] border-opacity-30 rounded-lg p-6"
+        >
+          <div class="flex items-center gap-3 mb-6">
+            <div
+              class="w-12 h-12 bg-[var(--warm-gold)] rounded-full flex items-center justify-center"
+            >
+              <span class="text-white text-xl">🏙️</span>
+            </div>
+            <h3 class="text-xl font-bold text-[var(--deep-coral)]">
+              Referencias Cercanas
+            </h3>
+          </div>
+          <ul class="space-y-3">
+            {
+              content.references.map(reference => (
+                <li class="flex items-start gap-3">
+                  <span class="w-2 h-2 bg-[var(--warm-gold)] rounded-full mt-2 flex-shrink-0" />
+                  <span class="text-[var(--charcoal-gray)] leading-relaxed text-sm">
+                    {reference}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mapa -->
+      <div class="space-y-6">
+        <!-- Mapa embebido -->
+        <div class="bg-[var(--white)] rounded-lg shadow-md overflow-hidden">
+          <div class="p-4 bg-[var(--coral-primary)] text-white">
+            <h3 class="text-lg font-bold flex items-center gap-2">
+              <span>🗺️</span>
+              Ubicación en el Mapa
+            </h3>
+          </div>
+
+          {
+            mapKey ? (
+              <iframe
+                src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.5!2d-70.55!3d-33.38!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDIzJzA3LjAiUyA3MMKwMzMnMDAuMCJX!5e0!3m2!1sen!2sus!4v1627849200000&key=${mapKey}`}
+                width="100%"
+                height="400"
+                loading="lazy"
+                class="border-0"
+                allowfullscreen=""
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Ubicación de VivePilates en Vitacura"
+              />
+            ) : (
+              <div class="h-96 bg-[var(--warm-gray)] flex items-center justify-center">
+                {/* Placeholder del mapa */}
+                <div class="text-center p-8">
+                  <span class="text-6xl mb-4 block">🗺️</span>
+                  <h4 class="font-semibold text-[var(--deep-coral)] mb-2">
+                    Mapa Interactivo
+                  </h4>
+                  <p class="text-[var(--charcoal-gray)] text-sm">
+                    {content.address}
+                  </p>
+                  <p class="text-xs text-[var(--trust-blue)] mt-2">
+                    Configurar Google Maps API para mapa interactivo
+                  </p>
+                </div>
+              </div>
+            )
+          }
+        </div>
+
+        <!-- Opciones de transporte rápidas -->
+        <div class="grid grid-cols-2 gap-4">
+          <div
+            class="bg-[var(--cream)] p-4 rounded-lg text-center hover:bg-[var(--rose-pale)] transition-colors duration-200"
+          >
+            <span class="text-2xl mb-2 block">🚗</span>
+            <h4 class="font-semibold text-[var(--deep-coral)] text-sm mb-1">
+              En Auto
+            </h4>
+            <p class="text-xs text-[var(--charcoal-gray)]">
+              Estacionamiento disponible
+            </p>
+          </div>
+          <div
+            class="bg-[var(--cream)] p-4 rounded-lg text-center hover:bg-[var(--rose-pale)] transition-colors duration-200"
+          >
+            <span class="text-2xl mb-2 block">🚲</span>
+            <h4 class="font-semibold text-[var(--deep-coral)] text-sm mb-1">
+              En Bicicleta
+            </h4>
+            <p class="text-xs text-[var(--charcoal-gray)]">
+              Bicicletero gratuito
+            </p>
+          </div>
+          <div
+            class="bg-[var(--cream)] p-4 rounded-lg text-center hover:bg-[var(--rose-pale)] transition-colors duration-200"
+          >
+            <span class="text-2xl mb-2 block">🚶</span>
+            <h4 class="font-semibold text-[var(--deep-coral)] text-sm mb-1">
+              A Pie
+            </h4>
+            <p class="text-xs text-[var(--charcoal-gray)]">Múltiples accesos</p>
+          </div>
+          <div
+            class="bg-[var(--cream)] p-4 rounded-lg text-center hover:bg-[var(--rose-pale)] transition-colors duration-200"
+          >
+            <span class="text-2xl mb-2 block">🚌</span>
+            <h4 class="font-semibold text-[var(--deep-coral)] text-sm mb-1">
+              Transporte
+            </h4>
+            <p class="text-xs text-[var(--charcoal-gray)]">Metro + Bus</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Información adicional -->
+    <div
+      class="mt-12 bg-gradient-to-r from-[var(--cream)] to-[var(--rose-pale)] rounded-lg p-6"
+    >
+      <div class="text-center">
+        <h4 class="text-lg font-bold text-[var(--deep-coral)] mb-4">
+          💡 Recomendaciones para tu Visita
+        </h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div class="flex items-center gap-2 justify-center">
+            <span>⏰</span>
+            <span>Llega 5 minutos antes</span>
+          </div>
+          <div class="flex items-center gap-2 justify-center">
+            <span>🔒</span>
+            <span>Trae candado para bicicleta</span>
+          </div>
+          <div class="flex items-center gap-2 justify-center">
+            <span>💰</span>
+            <span>Estacionamiento gratuito disponible</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hover effects suaves */
+  .bg-rose-pale,
+  .bg-warm-gray,
+  .bg-white {
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .bg-rose-pale:hover,
+  .bg-warm-gray:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(238, 126, 112, 0.1);
+  }
+</style>

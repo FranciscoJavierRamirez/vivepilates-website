@@ -1,0 +1,262 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceCard from '../components/services/ServiceCard.astro';
+import PricingPlaceholder from '../components/services/PricingPlaceholder.astro';
+import ServiceInfo from '../components/services/ServiceInfo.astro';
+import TrialClassInfo from '../components/services/TrialClassInfo.astro';
+import LocationInfo from '../components/services/LocationInfo.astro';
+import FacilitiesAccordion from '../components/services/FacilitiesAccordion.astro';
+import CTAButton from '../components/etapa1/shared/CTAButton.astro';
+
+const title = 'Servicios - VivePilates';
+const description =
+  'Clases de Pilates personalizadas en Vitacura. Máximo 6 personas por clase, profesionales certificados y equipamiento de primera calidad.';
+const currentPage = 'servicios';
+---
+
+<BaseLayout title={title} description={description} currentPage={currentPage}>
+  <!-- Hero Aspiracional -->
+  <section
+    class="py-20 bg-gradient-to-br from-[var(--cream)] via-[var(--rose-pale)] to-[var(--warm-gray)] text-center relative overflow-hidden"
+  >
+    <div class="container mx-auto px-4 relative z-10">
+      <h1
+        class="text-4xl md:text-5xl font-bold mb-6 text-[var(--deep-coral)] leading-tight"
+      >
+        Servicios Personalizados para Tu Bienestar
+      </h1>
+      <p
+        class="text-xl md:text-2xl mt-4 text-[var(--trust-blue)] font-medium mb-6"
+      >
+        Clases en Vitacura con Atención Exclusiva
+      </p>
+      <p
+        class="text-lg mt-4 text-[var(--charcoal-gray)] max-w-3xl mx-auto leading-relaxed"
+      >
+        Ofrecemos una experiencia única de Pilates con grupos reducidos,
+        equipamiento profesional y la guía de instructores certificados en el
+        corazón de Vitacura.
+      </p>
+
+      <!-- Badges de valor -->
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <span
+          class="bg-[var(--warm-gold)] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md"
+        >
+          👥 Máximo 6 personas
+        </span>
+        <span
+          class="bg-[var(--sage-green)] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md"
+        >
+          ⏱️ 55 minutos por clase
+        </span>
+        <span
+          class="bg-[var(--trust-blue)] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md"
+        >
+          🏆 Profesionales certificados
+        </span>
+      </div>
+    </div>
+
+    <!-- Elementos decorativos -->
+    <div
+      class="absolute top-10 left-10 w-20 h-20 bg-[var(--coral-primary)] rounded-full opacity-20 animate-pulse"
+    >
+    </div>
+    <div
+      class="absolute bottom-10 right-10 w-32 h-32 bg-[var(--warm-gold)] rounded-full opacity-10 animate-pulse delay-1000"
+    >
+    </div>
+  </section>
+
+  <!-- Componentes principales siguiendo el instructivo -->
+  <ServiceCard />
+  <PricingPlaceholder />
+  <ServiceInfo />
+  <TrialClassInfo />
+  <LocationInfo />
+  <FacilitiesAccordion />
+
+  <!-- CTA Final -->
+  <section class="py-16 bg-[var(--warm-gray)] text-center relative">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[var(--deep-coral)]">
+        Comienza Tu Jornada de Bienestar
+      </h2>
+      <p class="text-lg mb-8 text-[var(--charcoal-gray)] leading-relaxed">
+        Todo está listo para recibirte. Da el primer paso hacia una vida más
+        saludable y equilibrada.
+      </p>
+
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
+      >
+        <CTAButton
+          href="#clase-prueba"
+          variant="primary"
+          size="lg"
+          icon="sparkles"
+          tracking="services_bottom_cta_trial"
+        >
+          Agenda tu Clase de Prueba
+        </CTAButton>
+
+        <CTAButton
+          href="/por-que-pilates"
+          variant="outline"
+          size="lg"
+          icon="arrow-right"
+        >
+          ¿Por qué Pilates?
+        </CTAButton>
+      </div>
+
+      <!-- Testimonio destacado -->
+      <div class="bg-[var(--white)] rounded-lg p-6 shadow-md max-w-2xl mx-auto">
+        <blockquote class="text-[var(--charcoal-gray)] italic mb-4">
+          "Me encanta ir a pilates, el mejor break de la semana. El servicio
+          increíble, la Lore me transmite demasiada calma y paz en sus clases."
+        </blockquote>
+        <cite class="text-[var(--trust-blue)] font-semibold"
+          >- Inés Ariztía, alumna VivePilates</cite
+        >
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<!-- Schema para SEO (LocalBusiness con services) -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://vivepilates.cl",
+    "name": "VivePilates",
+    "description": "Estudio de Pilates en Vitacura con clases personalizadas y grupos reducidos",
+    "url": "https://vivepilates.cl",
+    "telephone": "+56 9 1234 5678",
+    "email": "info@vivepilates.cl",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Kennedy 6800",
+      "addressLocality": "Vitacura",
+      "addressRegion": "Región Metropolitana",
+      "addressCountry": "CL"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "-33.38",
+      "longitude": "-70.55"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "20:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "09:00",
+        "closes": "14:00"
+      }
+    ],
+    "priceRange": "$$",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servicios de Pilates VivePilates",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Clases Grupales de Pilates",
+            "description": "Clases personalizadas con máximo 6 personas por sesión, 55 minutos de duración",
+            "provider": {
+              "@type": "Organization",
+              "name": "VivePilates"
+            }
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Clase de Prueba Gratuita",
+            "description": "Primera clase completamente gratuita para nuevos alumnos",
+            "provider": {
+              "@type": "Organization",
+              "name": "VivePilates"
+            }
+          }
+        }
+      ]
+    },
+    "amenityFeature": [
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Máquinas Reformer",
+        "value": true
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Sillas Multifuncionales",
+        "value": true
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Barriles Correctores",
+        "value": true
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Estacionamiento",
+        "value": true
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Bicicletero",
+        "value": true
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "10"
+    }
+  }
+</script>
+
+<style>
+  /* Animaciones personalizadas para el hero */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Mejoras de accesibilidad */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-pulse,
+    .animate-float,
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Gradientes suaves */
+  section:first-of-type {
+    background-attachment: fixed;
+    background-size: cover;
+  }
+</style>

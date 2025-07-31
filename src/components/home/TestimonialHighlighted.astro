@@ -1,0 +1,130 @@
+---
+import Container from '../ui/Container.astro';
+
+// Testimonio destacado (en un proyecto real, esto vendría de content collections)
+const testimonial = {
+  author: 'Inés Ariztía',
+  content:
+    'Me encanta ir a pilates, el mejor break de la semana. El servicio increíble, la Lore me transmite demasiada calma y paz en sus clases, me sirve mucho para despejarme y relajarme. Después de una clase me siento completamente renovada y con mucha más energía para enfrentar el resto del día.',
+  rating: 5,
+  benefit: 'Relajación y Energía',
+};
+---
+
+<section class="section-padding" style="background-color: var(--cream);">
+  <Container>
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-charcoal-gray-500 mb-4">
+        Lo que dicen nuestros estudiantes
+      </h2>
+      <p class="text-lg text-charcoal-gray-400 max-w-2xl mx-auto">
+        Descubre las experiencias reales de quienes han transformado su vida con
+        Pilates
+      </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-coral p-8 md:p-12 relative">
+        <!-- Quote Icon -->
+        <div class="absolute top-6 left-6 text-coral-200">
+          <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
+            ></path>
+          </svg>
+        </div>
+
+        <!-- Rating Stars -->
+        <div class="flex justify-center mb-6">
+          {
+            Array.from({ length: testimonial.rating }).map(() => (
+              <svg
+                class="w-6 h-6 text-warm-gold-500"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+              </svg>
+            ))
+          }
+        </div>
+
+        <!-- Testimonial Content -->
+        <blockquote
+          class="text-xl md:text-2xl text-charcoal-gray-600 italic leading-relaxed mb-8 text-center"
+        >
+          "{testimonial.content}"
+        </blockquote>
+
+        <!-- Author Info -->
+        <div class="text-center">
+          <div
+            class="inline-flex items-center space-x-2 bg-coral-100 text-coral-700 px-4 py-2 rounded-full text-sm font-medium mb-4"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            <span>{testimonial.benefit}</span>
+          </div>
+          <p class="text-lg font-semibold text-charcoal-gray-500">
+            {testimonial.author}
+          </p>
+        </div>
+      </div>
+
+      <!-- Additional Testimonials Preview -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+        <div class="bg-white rounded-lg p-6 shadow-soft">
+          <div class="flex items-center mb-4">
+            {
+              Array.from({ length: 5 }).map(() => (
+                <svg
+                  class="w-4 h-4 text-warm-gold-500"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+              ))
+            }
+          </div>
+          <p class="text-charcoal-gray-600 mb-4">
+            "Llevo 6 meses en VivePilates y he notado una mejora increíble en mi
+            postura. Los instructores son muy profesionales."
+          </p>
+          <p class="font-semibold text-charcoal-gray-500">María González</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 shadow-soft">
+          <div class="flex items-center mb-4">
+            {
+              Array.from({ length: 5 }).map(() => (
+                <svg
+                  class="w-4 h-4 text-warm-gold-500"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+              ))
+            }
+          </div>
+          <p class="text-charcoal-gray-600 mb-4">
+            "Excelente ambiente y atención. Las clases pequeñas permiten que te
+            enfoquen en tus necesidades específicas."
+          </p>
+          <p class="font-semibold text-charcoal-gray-500">Carlos Rodríguez</p>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

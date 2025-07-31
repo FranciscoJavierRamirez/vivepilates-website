@@ -1,0 +1,27 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "astro"
+  ],
+  "files.associations": {
+    "*.astro": "astro"
+  },
+  "prettier.documentSelectors": ["**/*.astro"],
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "tailwindCSS.includeLanguages": {
+    "astro": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["class:list\\s*=\\s*{([^}]*)}"],
+    ["class\\s*=\\s*['\"`]([^'\"`]*)['\"`]"]
+  ]
+}

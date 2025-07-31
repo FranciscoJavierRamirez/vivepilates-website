@@ -1,0 +1,227 @@
+---
+import { getEntry } from 'astro:content';
+
+// Carga el contenido desde markdown
+let audiences;
+try {
+  const entry = await getEntry('why-pilates', 'audiences');
+  audiences = [
+    {
+      title: 'Jóvenes y Adultos Jóvenes',
+      description:
+        'Pueden realizar pilates avalando estar con salud compatible a la actividad física.',
+      image: '/images/audience-general.jpg',
+      accent: 'var(--warm-gold)',
+      accentName: 'warm-gold',
+    },
+    {
+      title: 'Menores entre 15 a 17 años',
+      description:
+        'Acompañados por su apoderado, previamente informado por su médico de cabecera dependiendo de su período de crecimiento.',
+      image: '/images/audience-youth.jpg',
+      accent: 'var(--warm-gold)',
+      accentName: 'warm-gold',
+    },
+    {
+      title: 'Embarazadas',
+      description:
+        'Pueden realizar desde el 2do trimestre de embarazo clases de pilates con certificado médico al día.',
+      image: '/images/audience-pregnant.jpg',
+      accent: 'var(--sage-green)',
+      accentName: 'sage-green',
+    },
+    {
+      title: 'Personas en Rehabilitación Post Trauma o Post Operatorio',
+      description:
+        'Pueden realizar pilates bajo indicación y/o supervisión médica de ser necesario en conjunto a tratamiento kinesiológico.',
+      image: '/images/audience-rehab.jpg',
+      accent: 'var(--deep-coral)',
+      accentName: 'deep-coral',
+    },
+    {
+      title: 'Adultos Mayores',
+      description:
+        'Pueden realizar pilates indicando visita médica previa y autorización de su médico para realizar actividad física.',
+      image: '/images/audience-seniors.jpg',
+      accent: 'var(--trust-blue)',
+      accentName: 'trust-blue',
+    },
+  ];
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  audiences = [
+    {
+      title: 'Jóvenes y Adultos Jóvenes',
+      description:
+        'Pueden realizar pilates avalando estar con salud compatible a la actividad física.',
+      image: '/images/audience-general.jpg',
+      accent: 'var(--warm-gold)',
+      accentName: 'warm-gold',
+    },
+    {
+      title: 'Menores entre 15 a 17 años',
+      description:
+        'Acompañados por su apoderado, previamente informado por su médico de cabecera dependiendo de su período de crecimiento.',
+      image: '/images/audience-youth.jpg',
+      accent: 'var(--warm-gold)',
+      accentName: 'warm-gold',
+    },
+    {
+      title: 'Embarazadas',
+      description:
+        'Pueden realizar desde el 2do trimestre de embarazo clases de pilates con certificado médico al día.',
+      image: '/images/audience-pregnant.jpg',
+      accent: 'var(--sage-green)',
+      accentName: 'sage-green',
+    },
+    {
+      title: 'Personas en Rehabilitación Post Trauma o Post Operatorio',
+      description:
+        'Pueden realizar pilates bajo indicación y/o supervisión médica de ser necesario en conjunto a tratamiento kinesiológico.',
+      image: '/images/audience-rehab.jpg',
+      accent: 'var(--deep-coral)',
+      accentName: 'deep-coral',
+    },
+    {
+      title: 'Adultos Mayores',
+      description:
+        'Pueden realizar pilates indicando visita médica previa y autorización de su médico para realizar actividad física.',
+      image: '/images/audience-seniors.jpg',
+      accent: 'var(--trust-blue)',
+      accentName: 'trust-blue',
+    },
+  ];
+}
+
+const iconMap = {
+  'warm-gold': '🌟',
+  'sage-green': '🤱',
+  'deep-coral': '🏥',
+  'trust-blue': '👴',
+};
+---
+
+<section
+  class="py-12 bg-[var(--white)]"
+  role="region"
+  aria-labelledby="audiences-title"
+>
+  <div class="container mx-auto px-4 max-w-6xl">
+    <h2
+      id="audiences-title"
+      class="text-3xl font-bold text-center mb-4 text-[var(--deep-coral)]"
+    >
+      Pilates es para Todos
+    </h2>
+    <p
+      class="text-center text-lg text-[var(--charcoal-gray)] mb-12 max-w-3xl mx-auto"
+    >
+      Nuestro método se adapta a cada persona, sin importar la edad o condición
+      física. Descubre cómo el Pilates puede beneficiarte según tu perfil.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        audiences.map((audience, index) => (
+          <div
+            class="audience-card bg-[var(--cream)] rounded-lg shadow-md hover-lift transition-all duration-300 overflow-hidden group"
+            style={`border-left: 4px solid ${audience.accent};`}
+            data-audience={audience.accentName}
+          >
+            {/* Imagen Placeholder */}
+            <div
+              class="h-48 flex items-center justify-center text-center p-6 transition-all duration-300 group-hover:bg-opacity-90"
+              style={`background: linear-gradient(135deg, ${audience.accent}15, ${audience.accent}05);`}
+            >
+              <div>
+                <div class="text-6xl mb-3">
+                  {iconMap[audience.accentName] || '👥'}
+                </div>
+                <p class="text-xs text-[var(--charcoal-gray)]">
+                  Imagen: {audience.title}
+                </p>
+              </div>
+            </div>
+
+            {/* Contenido */}
+            <div class="p-6">
+              <h3 class="font-bold text-lg mb-3 text-[var(--coral-primary)] group-hover:text-[var(--deep-coral)] transition-colors">
+                {audience.title}
+              </h3>
+              <p class="text-[var(--charcoal-gray)] text-sm leading-relaxed mb-4">
+                {audience.description}
+              </p>
+
+              {/* Badge de categoría */}
+              <div class="flex justify-between items-center">
+                <span
+                  class="text-xs px-3 py-1 rounded-full text-white font-medium"
+                  style={`background-color: ${audience.accent};`}
+                >
+                  Apto para este perfil
+                </span>
+                <span
+                  class="text-2xl opacity-60 group-hover:opacity-100 transition-opacity"
+                  style={`color: ${audience.accent};`}
+                >
+                  ✓
+                </span>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    {/* Nota importante */}
+    <div
+      class="mt-12 p-6 bg-[var(--rose-pale)] rounded-lg border-l-4 border-[var(--coral-primary)]"
+    >
+      <div class="flex items-start space-x-3">
+        <span class="text-2xl flex-shrink-0">ℹ️</span>
+        <div>
+          <h4 class="font-semibold text-[var(--deep-coral)] mb-2">
+            Importante
+          </h4>
+          <p class="text-[var(--charcoal-gray)] text-sm leading-relaxed">
+            Siempre recomendamos consultar con un profesional de la salud antes
+            de iniciar cualquier programa de ejercicios. Nuestro equipo
+            certificado trabajará contigo para adaptar cada sesión a tus
+            necesidades específicas.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* CTA específico por audiencia */}
+    <div class="mt-8 text-center">
+      <p class="text-[var(--charcoal-gray)] mb-4">
+        ¿Te identificas con alguno de estos perfiles?
+      </p>
+      <a
+        href="/servicios#clase-prueba"
+        class="inline-flex items-center px-6 py-3 bg-[var(--coral-primary)] text-white rounded-lg hover:bg-[var(--deep-coral)] transition-colors duration-300 shadow-md hover:shadow-lg"
+      >
+        <span class="mr-2">📅</span>
+        Agenda tu Clase de Prueba Personalizada
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(238, 126, 112, 0.15);
+  }
+
+  .audience-card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Animación sutil en hover */
+  .audience-card:hover .text-6xl {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+  }
+</style>

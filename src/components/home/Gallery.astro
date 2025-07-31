@@ -1,0 +1,354 @@
+---
+import Container from '../ui/Container.astro';
+
+// Placeholder images - reemplazar con imágenes reales del estudio
+const galleryImages = [
+  {
+    src: '/images/sala-reformer.jpg',
+    alt: 'Sala de Pilates con Reformers',
+    title: 'Sala Principal con Reformers',
+    category: 'reformer'
+  },
+  {
+    src: '/images/sala-sillas.jpg', 
+    alt: 'Sala de Pilates con Sillas',
+    title: 'Sala Secundaria con Sillas',
+    category: 'chairs'
+  },
+  {
+    src: '/images/audience-general.jpg',
+    alt: 'Equipamiento de Pilates profesional',
+    title: 'Equipamiento Profesional',
+    category: 'space'
+  },
+  {
+    src: '/images/audience-youth.jpg',
+    alt: 'Clase de Pilates en grupo pequeño',
+    title: 'Clases Personalizadas',
+    category: 'team'
+  },
+  {
+    src: '/images/audience-seniors.jpg',
+    alt: 'Profesionales especializados',
+    title: 'Equipo Profesional',
+    category: 'team'
+  },
+  {
+    src: '/images/audience-pregnant.jpg',
+    alt: 'Espacio acogedor del estudio',
+    title: 'Ambiente Relajado',
+    category: 'space'
+  }
+];
+
+// Categorías para filtros
+const categories = [
+  { id: 'all', name: 'Todas', icon: '🏠' },
+  { id: 'reformer', name: 'Reformers', icon: '🏋️' },
+  { id: 'chairs', name: 'Sillas', icon: '🪑' },
+  { id: 'space', name: 'Espacio', icon: '🌿' },
+  { id: 'team', name: 'Equipo', icon: '👥' }
+];
+
+// Usar imágenes con categorías
+const images = galleryImages;
+---
+
+<section class="py-16 bg-white" aria-label="Galería de nuestro espacio">
+  <Container>
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-[var(--deep-coral)] mb-4">
+        Conoce Nuestro Espacio
+      </h2>
+      <p class="text-lg text-[var(--charcoal-gray)] max-w-2xl mx-auto">
+        Dos salas especializadas con equipamiento profesional para ofrecerte la mejor experiencia de Pilates
+      </p>
+    </div>
+
+    <!-- Filtros de categoría -->
+    <div class="flex flex-wrap justify-center gap-4 mb-8" role="tablist" aria-label="Filtros de galería">
+      {categories.map((category) => (
+        <button
+          data-category={category.id}
+          class="category-filter px-4 py-2 rounded-full border-2 border-[var(--warm-gold)] text-[var(--warm-gold)] hover:bg-[var(--warm-gold)] hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--coral-primary)] active"
+          role="tab"
+          aria-selected={category.id === 'all' ? 'true' : 'false'}
+          aria-controls="gallery-grid"
+          aria-label={`Filtrar por ${category.name}`}
+        >
+          <span class="mr-2">{category.icon}</span>
+          {category.name}
+        </button>
+      ))}
+    </div>
+
+    <!-- Galería Grid -->
+    <div id="gallery-grid" class="auto-grid gap-6 mb-8" role="tabpanel" aria-label="Imágenes de la galería">
+      {images.map((image, index) => (
+        <div 
+          class="gallery-item group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+          data-category={image.category}
+          data-index={index}
+          tabindex="0"
+          role="button"
+          aria-label={`Ver imagen: ${image.title}`}
+        >
+          <div class="aspect-w-4 aspect-h-3 bg-gray-200">
+            <img 
+              src={image.src} 
+              alt={image.alt}
+              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+              loading={index < 3 ? "eager" : "lazy"}
+            />
+          </div>
+
+          {/* Overlay con título y botón */}
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300">
+            <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+              <h3 class="font-semibold text-lg mb-2">{image.title}</h3>
+              <div class="flex items-center justify-between">
+                <span class="text-sm opacity-90">{image.alt}</span>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA para agendar visita -->
+    <div class="text-center">
+      <p class="text-[var(--charcoal-gray)] mb-4">
+        ¿Quieres conocer nuestro espacio en persona?
+      </p>
+      <a 
+        href="/servicios#clase-prueba" 
+        class="inline-flex items-center px-6 py-3 bg-[var(--coral-primary)] text-white font-semibold rounded-lg hover:bg-[var(--deep-coral)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--warm-gold)]"
+        aria-label="Agenda tu clase de prueba gratuita"
+      >
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Agenda tu Visita
+      </a>
+    </div>
+  </Container>
+
+  <!-- Gallery Modal - React Island -->
+  <div id="gallery-modal-root"></div>
+</section>
+
+<script>
+  // Gallery modal functionality with vanilla JS for better performance
+
+  // Gallery modal functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const categoryFilters = document.querySelectorAll('.category-filter');
+    const modalRoot = document.getElementById('gallery-modal-root');
+
+    // Image data for modal
+    const images = [
+      {
+        src: '/images/sala-reformer.jpg',
+        alt: 'Sala de Pilates con Reformers',
+        title: 'Sala Principal con Reformers',
+        category: 'reformer'
+      },
+      {
+        src: '/images/sala-sillas.jpg',
+        alt: 'Sala de Pilates con Sillas',
+        title: 'Sala Secundaria con Sillas',
+        category: 'chairs'
+      },
+      {
+        src: '/images/audience-general.jpg',
+        alt: 'Equipamiento de Pilates profesional',
+        title: 'Equipamiento Profesional',
+        category: 'space'
+      },
+      {
+        src: '/images/audience-youth.jpg',
+        alt: 'Clase de Pilates en grupo pequeño',
+        title: 'Clases Personalizadas',
+        category: 'team'
+      },
+      {
+        src: '/images/audience-seniors.jpg',
+        alt: 'Profesionales especializados',
+        title: 'Equipo Profesional',
+        category: 'team'
+      },
+      {
+        src: '/images/audience-pregnant.jpg',
+        alt: 'Espacio acogedor del estudio',
+        title: 'Ambiente Relajado',
+        category: 'space'
+      }
+    ];
+
+    let modalState = {
+      isOpen: false,
+      currentIndex: 0
+    };
+
+    // Modal functions
+    function openModal(index: number) {
+      modalState = { isOpen: true, currentIndex: index };
+      renderModal();
+    }
+
+    function closeModal() {
+      modalState = { isOpen: false, currentIndex: 0 };
+      renderModal();
+    }
+
+    function renderModal() {
+      if (modalRoot) {
+        // Simple modal implementation without React for better performance
+        if (modalState.isOpen) {
+          modalRoot.innerHTML = `
+            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" id="modal-overlay">
+              <div class="relative max-w-4xl max-h-screen mx-4 bg-white rounded-lg overflow-hidden shadow-2xl" id="modal-content">
+                <button id="modal-close" class="absolute top-4 right-4 z-10 p-2 bg-white/90 rounded-full hover:bg-white transition-colors duration-200">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                <img src="${images[modalState.currentIndex]?.src || ''}" alt="${images[modalState.currentIndex]?.alt || ''}" class="w-full h-96 md:h-[32rem] object-cover">
+                <div class="p-6">
+                  <h3 class="text-xl font-bold text-[var(--deep-coral)] mb-2">${images[modalState.currentIndex]?.title || ''}</h3>
+                  <p class="text-[var(--charcoal-gray)]">${images[modalState.currentIndex]?.alt || ''}</p>
+                </div>
+              </div>
+            </div>
+          `;
+
+          // Add event listeners for modal
+          document.getElementById('modal-close')?.addEventListener('click', closeModal);
+          document.getElementById('modal-overlay')?.addEventListener('click', (e: Event) => {
+            if (e.target && (e.target as HTMLElement).id === 'modal-overlay') closeModal();
+          });
+
+          // Escape key to close
+          const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+              closeModal();
+              document.removeEventListener('keydown', handleEscape);
+            }
+          };
+          document.addEventListener('keydown', handleEscape);
+        } else {
+          modalRoot.innerHTML = '';
+        }
+      }
+    }
+
+    // Category filter functionality
+    categoryFilters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        // Update active filter
+        categoryFilters.forEach(f => {
+          f.classList.remove('bg-[var(--warm-gold)]', 'text-white');
+          f.classList.add('text-[var(--warm-gold)]');
+          f.setAttribute('aria-selected', 'false');
+        });
+        
+        filter.classList.add('bg-[var(--warm-gold)]', 'text-white');
+        filter.classList.remove('text-[var(--warm-gold)]');
+        filter.setAttribute('aria-selected', 'true');
+
+        const category = (filter as HTMLElement).dataset.category;
+
+        // Filter gallery items
+        galleryItems.forEach(item => {
+          const htmlItem = item as HTMLElement;
+          if (category === 'all' || htmlItem.dataset.category === category) {
+            htmlItem.style.display = 'block';
+            htmlItem.style.opacity = '0';
+            setTimeout(() => {
+              htmlItem.style.opacity = '1';
+            }, 50);
+          } else {
+            htmlItem.style.opacity = '0';
+            setTimeout(() => {
+              htmlItem.style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+    });
+
+    // Gallery item click handlers
+    galleryItems.forEach((item, index) => {
+      const clickHandler = () => openModal(index);
+      
+      item.addEventListener('click', clickHandler);
+      item.addEventListener('keydown', (e) => {
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+          keyEvent.preventDefault();
+          clickHandler();
+        }
+      });
+    });
+
+    // Set initial active filter
+    categoryFilters[0]?.classList.add('bg-[var(--warm-gold)]', 'text-white');
+    categoryFilters[0]?.classList.remove('text-[var(--warm-gold)]');
+  });
+</script>
+
+<style>
+  .aspect-w-4 {
+    position: relative;
+    padding-bottom: 75%; /* 4:3 aspect ratio */
+  }
+  
+  .aspect-w-4 > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  /* Auto-responsive grid */
+  .auto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  /* Gallery item transitions */
+  .gallery-item {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Focus styles for accessibility */
+  .gallery-item:focus {
+    outline: 2px solid var(--warm-gold);
+    outline-offset: 2px;
+  }
+
+  .category-filter:focus {
+    outline: 2px solid var(--coral-primary);
+    outline-offset: 2px;
+  }
+
+  /* Progressive reveal animation */
+  section {
+    opacity: 0;
+    animation: fadeInGallery 1s ease forwards;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes fadeInGallery {
+    to {
+      opacity: 1;
+    }
+  }
+</style> 

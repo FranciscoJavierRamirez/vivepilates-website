@@ -1,0 +1,241 @@
+---
+import { getEntry } from 'astro:content';
+import WhatsAppButton from '../etapa1/shared/WhatsAppButton.astro';
+
+// Carga el contenido desde markdown
+let content;
+try {
+  const entry = await getEntry('services', 'trial-class');
+  content = {
+    description:
+      'La clase de prueba debe ser agendada por WhatsApp, donde se coordinará un horario disponible y se entregará toda la información respectiva. Al contratar un plan, comienzas a contar desde el día uno contratado tus sesiones. La clase de prueba tiene por objetivo que nos conozcas y puedas decidir en base a la experiencia si deseas contratar un plan con nosotros.',
+    instructions: [
+      'Llegar 5 minutos antes de la hora de clase para registro y orientación',
+      'Venir con buzo o ropa cómoda (sin cierres metálicos en bolsillos)',
+      'Traer calcetines antideslizantes para mayor seguridad',
+      'Opcional: Puedes traer una toalla personal y una botella de agua',
+    ],
+    expectations: [
+      'Evaluación inicial de tu condición física',
+      'Introducción a los principios básicos del Pilates',
+      'Uso guiado de las máquinas Reformer',
+      'Atención personalizada del instructor',
+      'Información sobre nuestros planes y servicios',
+    ],
+    whatsapp:
+      'https://wa.me/56912345678?text=Hola,%20quiero%20agendar%20una%20clase%20de%20prueba%20gratuita',
+  };
+} catch (error) {
+  // Fallback si no se puede cargar el archivo
+  content = {
+    description:
+      'La clase de prueba debe ser agendada por WhatsApp, donde se coordinará un horario disponible y se entregará toda la información respectiva. Al contratar un plan, comienzas a contar desde el día uno contratado tus sesiones. La clase de prueba tiene por objetivo que nos conozcas y puedas decidir en base a la experiencia si deseas contratar un plan con nosotros.',
+    instructions: [
+      'Llegar 5 minutos antes de la hora de clase para registro y orientación',
+      'Venir con buzo o ropa cómoda (sin cierres metálicos en bolsillos)',
+      'Traer calcetines antideslizantes para mayor seguridad',
+      'Opcional: Puedes traer una toalla personal y una botella de agua',
+    ],
+    expectations: [
+      'Evaluación inicial de tu condición física',
+      'Introducción a los principios básicos del Pilates',
+      'Uso guiado de las máquinas Reformer',
+      'Atención personalizada del instructor',
+      'Información sobre nuestros planes y servicios',
+    ],
+    whatsapp:
+      'https://wa.me/56912345678?text=Hola,%20quiero%20agendar%20una%20clase%20de%20prueba%20gratuita',
+  };
+}
+---
+
+<section
+  id="clase-prueba"
+  class="py-12 bg-[var(--rose-pale)]"
+  role="region"
+  aria-labelledby="trial-class-title"
+>
+  <div class="container mx-auto px-4 max-w-6xl">
+    <!-- Header de la sección -->
+    <div class="text-center mb-12">
+      <h2
+        id="trial-class-title"
+        class="text-3xl md:text-4xl font-bold mb-4 text-[var(--deep-coral)]"
+      >
+        Clase de Prueba Gratuita
+      </h2>
+      <p class="text-lg text-[var(--charcoal-gray)] max-w-2xl mx-auto">
+        Tu primera oportunidad de experimentar el método Pilates en VivePilates,
+        completamente gratis
+      </p>
+    </div>
+
+    <!-- Descripción principal -->
+    <div class="bg-[var(--white)] rounded-lg shadow-md p-8 mb-8">
+      <div class="flex items-start gap-4">
+        <div
+          class="w-16 h-16 bg-[var(--coral-primary)] rounded-full flex items-center justify-center flex-shrink-0"
+        >
+          <span class="text-white text-2xl">🎯</span>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-3 text-[var(--deep-coral)]">
+            ¿Qué es la Clase de Prueba?
+          </h3>
+          <p class="text-[var(--charcoal-gray)] leading-relaxed">
+            {content.description}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Instrucciones -->
+      <div class="bg-[var(--white)] rounded-lg shadow-md p-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div
+            class="w-12 h-12 bg-[var(--trust-blue)] rounded-full flex items-center justify-center"
+          >
+            <span class="text-white text-xl">📝</span>
+          </div>
+          <h3 class="text-xl font-bold text-[var(--deep-coral)]">
+            Instrucciones para tu Primera Clase
+          </h3>
+        </div>
+        <ul class="space-y-4">
+          {
+            content.instructions.map((instruction, index) => (
+              <li class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-[var(--trust-blue)] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-white text-sm font-bold">{index + 1}</span>
+                </div>
+                <span class="text-[var(--charcoal-gray)] leading-relaxed">
+                  {instruction}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Qué esperar -->
+      <div class="bg-[var(--white)] rounded-lg shadow-md p-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div
+            class="w-12 h-12 bg-[var(--sage-green)] rounded-full flex items-center justify-center"
+          >
+            <span class="text-white text-xl">✨</span>
+          </div>
+          <h3 class="text-xl font-bold text-[var(--deep-coral)]">
+            Qué Esperar en tu Clase
+          </h3>
+        </div>
+        <ul class="space-y-4">
+          {
+            content.expectations.map(expectation => (
+              <li class="flex items-start gap-3">
+                <span class="w-2 h-2 bg-[var(--sage-green)] rounded-full mt-2 flex-shrink-0" />
+                <span class="text-[var(--charcoal-gray)] leading-relaxed">
+                  {expectation}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div
+      class="mt-12 bg-gradient-to-r from-[var(--coral-primary)] to-[var(--deep-coral)] rounded-lg p-8 text-center text-white"
+    >
+      <h3 class="text-2xl font-bold mb-4">¿Listo para Comenzar?</h3>
+      <p class="text-lg mb-6 opacity-90">
+        Agenda tu clase de prueba gratuita y descubre cómo el Pilates puede
+        transformar tu vida
+      </p>
+      <div class="mb-6">
+        <WhatsAppButton context="trial" floating={false} />
+      </div>
+
+      <!-- Estadísticas de confianza -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 pt-6 border-t border-white border-opacity-20"
+      >
+        <div class="text-center">
+          <div class="text-3xl font-bold mb-1">100%</div>
+          <div class="text-sm opacity-80">Sin Compromiso</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold mb-1">55min</div>
+          <div class="text-sm opacity-80">Duración Completa</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold mb-1">15+</div>
+          <div class="text-sm opacity-80">Años de Experiencia</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Política de prueba -->
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+      {
+        [
+          {
+            icon: '🆓',
+            title: 'Completamente Gratis',
+            desc: 'Una clase de prueba gratuita por persona',
+          },
+          {
+            icon: '🤝',
+            title: 'Sin Compromiso',
+            desc: 'No hay obligación de contratación posterior',
+          },
+          {
+            icon: '📊',
+            title: 'Evaluación Incluida',
+            desc: 'Análisis personalizado de tu condición física',
+          },
+        ].map(policy => (
+          <div class="bg-[var(--white)] p-6 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow duration-200">
+            <div class="text-3xl mb-3">{policy.icon}</div>
+            <h4 class="font-semibold text-[var(--deep-coral)] mb-2">
+              {policy.title}
+            </h4>
+            <p class="text-sm text-[var(--charcoal-gray)] leading-relaxed">
+              {policy.desc}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Animaciones para hover */
+  .bg-white:hover {
+    transform: translateY(-2px);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  /* Gradiente animado para CTA */
+  .bg-gradient-to-r {
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+</style>

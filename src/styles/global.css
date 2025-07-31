@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* Variables CSS de VivePilates */
+:root {
+  --coral-primary: #EE7E70;
+  --warm-gold: #D4A574;
+  --deep-coral: #C65A47;
+  --sage-green: #9CAF88;
+  --rose-pale: #FEEBE6;
+  --trust-blue: #7A8FA3;
+  --cream: #FAF8F5;
+  --charcoal-gray: #4A4A4A;
+  --vital-green: #7CB342;
+  --white: #ffffff;
+}
+
+/* Estilos globales personalizados */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Roboto', system-ui, sans-serif;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--trust-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--deep-coral);
+}
+
+/* Focus visible para accesibilidad */
+*:focus-visible {
+  outline: 2px solid var(--coral-primary);
+  outline-offset: 2px;
+}
+
+/* Selección de texto personalizada */
+::selection {
+  background-color: var(--coral-primary);
+  color: white;
+}
+
+/* Utilidades específicas del proyecto */
+
+/* Navegación con línea animada */
+.nav-link {
+  @apply relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--coral-primary);
+  transition: width 0.2s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Gradiente hero personalizado */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--cream) 0%, var(--rose-pale) 100%);
+}
+
+/* Hover lift effect para cards */
+.hover-lift {
+  @apply transition-all duration-200 hover:-translate-y-1 hover:shadow-lg;
+}
+
+/* Grid auto-responsivo */
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  @apply gap-8;
+}
