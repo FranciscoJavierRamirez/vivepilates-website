@@ -39,9 +39,7 @@ const { title, description, currentPage = 'home' } = Astro.props;
     />
 
     <!-- Estilos globales personalizados -->
-    <style is:global>
-      @import url('/src/styles/global.css');
-    </style>
+    <link rel="stylesheet" href="/src/styles/global.css" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />

@@ -86,7 +86,7 @@ const images = galleryImages;
     <div id="gallery-grid" class="auto-grid gap-6 mb-8" role="tabpanel" aria-label="Imágenes de la galería">
       {images.map((image, index) => (
         <div 
-          class="gallery-item group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+          class="gallery-item group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover-lift"
           data-category={image.category}
           data-index={index}
           tabindex="0"
