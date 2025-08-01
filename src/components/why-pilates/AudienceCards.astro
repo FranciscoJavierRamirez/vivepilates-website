@@ -5,50 +5,14 @@ import { getEntry } from 'astro:content';
 let audiences;
 try {
   const entry = await getEntry('why-pilates', 'audiences');
-  audiences = [
-    {
-      title: 'Jóvenes y Adultos Jóvenes',
-      description:
-        'Pueden realizar pilates avalando estar con salud compatible a la actividad física.',
-      image: '/images/audience-general.jpg',
-      accent: 'var(--warm-gold)',
-      accentName: 'warm-gold',
-    },
-    {
-      title: 'Menores entre 15 a 17 años',
-      description:
-        'Acompañados por su apoderado, previamente informado por su médico de cabecera dependiendo de su período de crecimiento.',
-      image: '/images/audience-youth.jpg',
-      accent: 'var(--warm-gold)',
-      accentName: 'warm-gold',
-    },
-    {
-      title: 'Embarazadas',
-      description:
-        'Pueden realizar desde el 2do trimestre de embarazo clases de pilates con certificado médico al día.',
-      image: '/images/audience-pregnant.jpg',
-      accent: 'var(--sage-green)',
-      accentName: 'sage-green',
-    },
-    {
-      title: 'Personas en Rehabilitación Post Trauma o Post Operatorio',
-      description:
-        'Pueden realizar pilates bajo indicación y/o supervisión médica de ser necesario en conjunto a tratamiento kinesiológico.',
-      image: '/images/audience-rehab.jpg',
-      accent: 'var(--deep-coral)',
-      accentName: 'deep-coral',
-    },
-    {
-      title: 'Adultos Mayores',
-      description:
-        'Pueden realizar pilates indicando visita médica previa y autorización de su médico para realizar actividad física.',
-      image: '/images/audience-seniors.jpg',
-      accent: 'var(--trust-blue)',
-      accentName: 'trust-blue',
-    },
-  ];
+  if (entry?.data.audiences) {
+    audiences = entry.data.audiences;
+  } else {
+    throw new Error('No se encontraron datos de audiences en el archivo');
+  }
 } catch (error) {
-  // Fallback si no se puede cargar el archivo
+  console.warn('No se pudo cargar audiences.md:', error);
+  // Fallback mínimo - datos esenciales
   audiences = [
     {
       title: 'Jóvenes y Adultos Jóvenes',
@@ -62,7 +26,7 @@ try {
       title: 'Menores entre 15 a 17 años',
       description:
         'Acompañados por su apoderado, previamente informado por su médico de cabecera dependiendo de su período de crecimiento.',
-      image: '/images/audience-youth.jpg',
+      image: '/images/pilates_teens.webp',
       accent: 'var(--warm-gold)',
       accentName: 'warm-gold',
     },
@@ -78,7 +42,7 @@ try {
       title: 'Personas en Rehabilitación Post Trauma o Post Operatorio',
       description:
         'Pueden realizar pilates bajo indicación y/o supervisión médica de ser necesario en conjunto a tratamiento kinesiológico.',
-      image: '/images/audience-rehab.jpg',
+      image: '/images/pilates_rehabilitacion.jpg',
       accent: 'var(--deep-coral)',
       accentName: 'deep-coral',
     },
@@ -86,14 +50,14 @@ try {
       title: 'Adultos Mayores',
       description:
         'Pueden realizar pilates indicando visita médica previa y autorización de su médico para realizar actividad física.',
-      image: '/images/audience-seniors.jpg',
+      image: '/images/pilates_adulto_mayor.jpg',
       accent: 'var(--trust-blue)',
       accentName: 'trust-blue',
     },
   ];
 }
 
-const iconMap = {
+const iconMap: Record<string, string> = {
   'warm-gold': '🌟',
   'sage-green': '🤱',
   'deep-coral': '🏥',
@@ -122,24 +86,31 @@ const iconMap = {
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {
-        audiences.map((audience, index) => (
+        audiences.map(audience => (
           <div
             class="audience-card bg-[var(--cream)] rounded-lg shadow-md hover-lift transition-all duration-300 overflow-hidden group"
             style={`border-left: 4px solid ${audience.accent};`}
             data-audience={audience.accentName}
           >
-            {/* Imagen Placeholder */}
-            <div
-              class="h-48 flex items-center justify-center text-center p-6 transition-all duration-300 group-hover:bg-opacity-90"
-              style={`background: linear-gradient(135deg, ${audience.accent}15, ${audience.accent}05);`}
-            >
-              <div>
-                <div class="text-6xl mb-3">
-                  {iconMap[audience.accentName] || '👥'}
+            {/* Imagen real */}
+            <div class="h-48 relative overflow-hidden transition-all duration-300 group-hover:scale-105">
+              <img
+                src={audience.image}
+                alt={audience.title}
+                class={`w-full h-full object-cover transition-all duration-300 group-hover:opacity-90 ${
+                  audience.accentName === 'trust-blue'
+                    ? 'object-[center_30%]'
+                    : ''
+                }`}
+                loading="lazy"
+              />
+              {/* Overlay con gradiente y icono */}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end justify-start p-4">
+                <div class="text-white">
+                  <div class="text-2xl mb-1">
+                    {iconMap[audience.accentName] || '👥'}
+                  </div>
                 </div>
-                <p class="text-xs text-[var(--charcoal-gray)]">
-                  Imagen: {audience.title}
-                </p>
               </div>
             </div>
 

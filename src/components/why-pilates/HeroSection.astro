@@ -1,0 +1,114 @@
+---
+import CTAButton from '../etapa1/shared/CTAButton.astro';
+import { getEntry } from 'astro:content';
+
+// Cargar contenido desde markdown
+let heroContent = {
+  title: 'Descubre el Poder Transformador del Pilates',
+  subtitle: 'Bienestar integral para todos, en el corazón de Vitacura',
+  description:
+    'Más que ejercicio, el Pilates es una filosofía de vida que conecta cuerpo, mente y espíritu. Descubre cómo este método centenario puede transformar tu bienestar.',
+};
+
+try {
+  // En el futuro se puede crear un archivo why-pilates/hero.md para el contenido
+  const entry = await getEntry('why-pilates', 'hero');
+  if (entry?.data) {
+    const data = entry.data as any;
+    heroContent = {
+      title: data.title || heroContent.title,
+      subtitle: data.subtitle || heroContent.subtitle,
+      description: data.description || heroContent.description,
+    };
+  }
+} catch (error) {
+  // Usar contenido por defecto
+}
+---
+
+<section
+  class="py-20 bg-gradient-to-br from-[var(--cream)] via-[var(--rose-pale)] to-[var(--warm-gray)] text-center relative overflow-hidden"
+>
+  <div class="container mx-auto px-4 relative z-10">
+    <h1
+      class="text-4xl md:text-5xl font-bold mb-6 text-[var(--deep-coral)] leading-tight"
+    >
+      {heroContent.title}
+    </h1>
+    <p
+      class="text-xl md:text-2xl mt-4 text-[var(--trust-blue)] font-medium mb-6"
+    >
+      {heroContent.subtitle}
+    </p>
+    <p
+      class="text-lg mt-4 text-[var(--charcoal-gray)] max-w-3xl mx-auto leading-relaxed"
+    >
+      {heroContent.description}
+    </p>
+
+    <!-- CTA Hero -->
+    <div
+      class="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center"
+    >
+      <CTAButton
+        href="/servicios#clase-prueba"
+        variant="primary"
+        size="lg"
+        icon="sparkles"
+        tracking="why_pilates_hero_cta"
+      >
+        Prueba una Clase Gratuita
+      </CTAButton>
+      <CTAButton href="#principios" variant="outline" size="lg">
+        Conoce los Principios
+      </CTAButton>
+    </div>
+  </div>
+
+  <!-- Elementos decorativos animados -->
+  <div
+    class="absolute top-10 left-10 w-20 h-20 bg-[var(--coral-primary)] rounded-full opacity-20 animate-pulse"
+  >
+  </div>
+  <div
+    class="absolute bottom-10 right-10 w-32 h-32 bg-[var(--warm-gold)] rounded-full opacity-10 animate-pulse delay-1000"
+  >
+  </div>
+  <div
+    class="absolute top-1/2 left-1/4 w-16 h-16 bg-[var(--sage-green)] rounded-full opacity-15 animate-pulse delay-500"
+  >
+  </div>
+</section>
+
+<style>
+  /* Animaciones personalizadas para el hero */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Mejoras de accesibilidad */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-pulse,
+    .animate-float,
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Gradientes suaves */
+  section {
+    background-attachment: fixed;
+    background-size: cover;
+  }
+</style>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import type { TestimonialCarouselProps, Testimonial } from '@/types';
+import type { TestimonialCarouselProps } from '@/types';
 
-const audienceNames = {
+const audienceNames: Record<string, string> = {
   general: 'General',
   seniors: 'Adultos Mayores',
   pregnant: 'Embarazadas',
@@ -9,7 +9,7 @@ const audienceNames = {
   youth: 'Jóvenes',
 };
 
-const benefitColors = {
+const benefitColors: Record<string, string> = {
   Relajación: 'var(--sage-green)',
   Fuerza: 'var(--trust-blue)',
   Flexibilidad: 'var(--coral-primary)',
@@ -24,6 +24,11 @@ const benefitColors = {
 export default function TestimonialsCarousel({
   testimonials,
 }: TestimonialCarouselProps) {
+  // Si no hay testimonios, no renderizar el componente
+  if (!testimonials || testimonials.length === 0) {
+    return null;
+  }
+
   const [filter, setFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 3;

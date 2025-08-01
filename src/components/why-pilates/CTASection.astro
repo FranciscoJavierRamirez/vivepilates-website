@@ -1,0 +1,134 @@
+---
+import CTAButton from '../etapa1/shared/CTAButton.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  primaryCTA?: {
+    text: string;
+    href: string;
+    tracking?: string;
+  };
+  secondaryCTA?: {
+    text: string;
+    href: string;
+  };
+  showStats?: boolean;
+  showBadges?: boolean;
+}
+
+const {
+  title = '¿Listo para Transformar tu Vida?',
+  description = 'Únete a nuestra comunidad y descubre por qué miles de personas han elegido el Pilates como su camino hacia el bienestar. Tu primera clase es completamente gratuita.',
+  primaryCTA = {
+    text: 'Agenda tu Clase de Prueba Personalizada',
+    href: '/servicios#clase-prueba',
+    tracking: 'why_pilates_bottom_cta_trial',
+  },
+  secondaryCTA = {
+    text: 'Ver Todos Nuestros Servicios',
+    href: '/servicios',
+  },
+  showStats = true,
+  showBadges = true,
+} = Astro.props;
+---
+
+<section class="py-16 bg-[var(--warm-gray)] text-center relative">
+  <div class="container mx-auto px-4 max-w-4xl">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[var(--deep-coral)]">
+      {title}
+    </h2>
+    <p class="text-lg mb-8 text-[var(--charcoal-gray)] leading-relaxed">
+      {description}
+    </p>
+
+    <div
+      class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
+    >
+      {primaryCTA.tracking ? (
+        <CTAButton
+          href={primaryCTA.href}
+          variant="primary"
+          size="lg"
+          icon="sparkles"
+          tracking={primaryCTA.tracking}
+        >
+          {primaryCTA.text}
+        </CTAButton>
+      ) : (
+        <CTAButton
+          href={primaryCTA.href}
+          variant="primary"
+          size="lg"
+          icon="sparkles"
+        >
+          {primaryCTA.text}
+        </CTAButton>
+      )}
+
+      <CTAButton
+        href={secondaryCTA.href}
+        variant="outline"
+        size="lg"
+        icon="arrow-right"
+      >
+        {secondaryCTA.text}
+      </CTAButton>
+    </div>
+
+    {showBadges && (
+      <!-- Badges de confianza -->
+      <div class="flex flex-wrap justify-center gap-4 mb-8">
+        <span
+          class="bg-[var(--sage-green)] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md"
+        >
+          🌿 15 años transformando vidas
+        </span>
+        <span
+          class="bg-[var(--trust-blue)] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md"
+        >
+          ✨ Profesionales certificados
+        </span>
+        <span
+          class="bg-[var(--warm-gold)] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md"
+        >
+          🏆 Método original de Joseph Pilates
+        </span>
+        <span
+          class="bg-[var(--coral-primary)] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md"
+        >
+          👥 Máximo 6 personas por clase
+        </span>
+      </div>
+    )}
+
+    {showStats && (
+      <!-- Estadística final -->
+      <div
+        class="p-6 bg-[var(--white)] rounded-lg shadow-md max-w-2xl mx-auto"
+      >
+        <div class="grid grid-cols-3 gap-4 text-center">
+          <div>
+            <div class="text-2xl font-bold text-[var(--coral-primary)]">
+              98%
+            </div>
+            <div class="text-sm text-[var(--charcoal-gray)]">Satisfacción</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-[var(--sage-green)]">5.0</div>
+            <div class="text-sm text-[var(--charcoal-gray)]">
+              Rating promedio
+            </div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-[var(--trust-blue)]">500+</div>
+            <div class="text-sm text-[var(--charcoal-gray)]">
+              Vidas transformadas
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+</section>

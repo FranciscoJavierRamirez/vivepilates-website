@@ -1,0 +1,256 @@
+---
+import { getEntry } from 'astro:content';
+
+// Cargar testimonios desde archivo de contenido
+let testimonials: any[] = [];
+
+// Datos de respaldo para testimonios
+const fallbackTestimonials = [
+  {
+    name: 'Inés Ariztía',
+    text: 'Me encanta ir a pilates, el mejor break de la semana. El servicio increíble, la Lore me transmite demasiada calma y paz en sus clases, me sirve mucho para despejarme y relajarme',
+    benefit: 'Relajación',
+    audience: 'general',
+    rating: 5,
+  },
+  {
+    name: 'Paola Giordani',
+    text: 'Me encanta, me siento mejor con más energía y más fuerza. Se nota mayor musculatura y mejor manejo de mi dolor',
+    benefit: 'Fuerza',
+    audience: 'general',
+    rating: 5,
+  },
+  {
+    name: 'Carolina Dibarrart',
+    text: 'Me ha ayudado mucho con mis dolores de espalda y me genera mucho relajo',
+    benefit: 'Dolor espalda',
+    audience: 'general',
+    rating: 5,
+  },
+];
+
+try {
+  const testimonialsEntry = await getEntry('why-pilates', 'testimonials');
+  if (testimonialsEntry?.data.testimonials) {
+    testimonials = testimonialsEntry.data.testimonials;
+  } else {
+    testimonials = fallbackTestimonials;
+  }
+} catch (error) {
+  console.warn('No se pudo cargar testimonials.mdx:', error);
+  testimonials = fallbackTestimonials;
+}
+
+// Mapeo de colores para beneficios (usando sistema de diseño VivePilates)
+const benefitColors: Record<string, string> = {
+  'Relajación': 'var(--sage-green)',
+  'Fuerza': 'var(--trust-blue)', 
+  'Flexibilidad': 'var(--coral-primary)',
+  'Dolor espalda': 'var(--deep-coral)',
+  'Atención': 'var(--warm-gold)',
+  'Entretenimiento': 'var(--warm-gold)',
+  'Relajo': 'var(--sage-green)',
+  'Ambiente': 'var(--trust-blue)',
+  'Variedad': 'var(--coral-primary)',
+};
+
+// Mapeo de nombres de audiencias
+const audienceNames: Record<string, string> = {
+  'general': 'General',
+  'seniors': 'Adultos Mayores',
+  'pregnant': 'Embarazadas',
+  'rehab': 'Rehabilitación',
+  'youth': 'Jóvenes',
+};
+---
+
+<section class="py-12 bg-[var(--rose-pale)]">
+  <div class="container mx-auto px-4 max-w-6xl">
+    <h2 class="text-3xl font-bold text-center mb-4 text-[var(--deep-coral)]">
+      Testimonios Reales
+    </h2>
+    <p class="text-center text-lg text-[var(--charcoal-gray)] mb-8 max-w-2xl mx-auto">
+      Conoce las experiencias de nuestros alumnos y cómo el Pilates ha
+      transformado sus vidas
+    </p>
+
+    <!-- Filtros rápidos -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8" id="testimonials-filters">
+      <button 
+        class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-[var(--coral-primary)] text-white transition-all duration-200"
+        data-filter="all"
+      >
+        Todos ({testimonials.length})
+      </button>
+      {[...new Set(testimonials.map(t => t.audience))].map(audience => (
+        <button 
+          class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-[var(--white)] text-[var(--charcoal-gray)] hover:bg-[var(--cream)] transition-all duration-200"
+          data-filter={audience}
+        >
+          {audienceNames[audience] || audience} ({testimonials.filter(t => t.audience === audience).length})
+        </button>
+      ))}
+    </div>
+
+    <!-- Grid de testimonios -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" id="testimonials-grid">
+      {testimonials.map((testimonial) => (
+        <div 
+          class="testimonial-card bg-[var(--white)] p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:transform hover:scale-105"
+          data-audience={testimonial.audience}
+        >
+          <!-- Header con nombre y rating -->
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h4 class="font-semibold text-[var(--deep-coral)]">{testimonial.name}</h4>
+              {testimonial.age && (
+                <span class="text-sm text-[var(--charcoal-gray)]">{testimonial.age} años</span>
+              )}
+            </div>
+            <div class="text-right">
+              <div class="text-lg">
+                {'⭐'.repeat(testimonial.rating)}
+              </div>
+              <div class="text-xs text-[var(--charcoal-gray)]">
+                {testimonial.rating}/5
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonio -->
+          <blockquote class="italic text-[var(--charcoal-gray)] mb-4 leading-relaxed">
+            "{testimonial.text}"
+          </blockquote>
+
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-2">
+            <span 
+              class="text-xs px-2 py-1 rounded-full text-white font-medium"
+              style={`background-color: ${benefitColors[testimonial.benefit] || 'var(--coral-primary)'}`}
+            >
+              {testimonial.benefit}
+            </span>
+            <span class="text-xs px-2 py-1 rounded-full bg-[var(--cream)] text-[var(--charcoal-gray)]">
+              {audienceNames[testimonial.audience] || testimonial.audience}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="mt-8 text-center">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+        <div class="bg-[var(--white)] p-4 rounded-lg shadow-soft">
+          <div class="text-2xl font-bold text-[var(--coral-primary)]">
+            {testimonials.length}
+          </div>
+          <div class="text-sm text-[var(--charcoal-gray)]">
+            Testimonios reales
+          </div>
+        </div>
+        <div class="bg-[var(--white)] p-4 rounded-lg shadow-soft">
+          <div class="text-2xl font-bold text-[var(--sage-green)]">
+            {(testimonials.reduce((acc, t) => acc + t.rating, 0) / testimonials.length).toFixed(1)}
+          </div>
+          <div class="text-sm text-[var(--charcoal-gray)]">
+            Rating promedio
+          </div>
+        </div>
+        <div class="bg-[var(--white)] p-4 rounded-lg shadow-soft">
+          <div class="text-2xl font-bold text-[var(--trust-blue)]">
+            {testimonials.length}
+          </div>
+          <div class="text-sm text-[var(--charcoal-gray)]">
+            Beneficios reportados
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  // Funcionalidad de filtrado de testimonios
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    
+    filterButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        const filter = button.getAttribute('data-filter');
+        
+        // Actualizar botones activos
+        filterButtons.forEach(function(btn) {
+          btn.classList.remove('active');
+        });
+        button.classList.add('active');
+        
+        // Filtrar testimonios
+        testimonialCards.forEach(function(card) {
+          const cardAudience = card.getAttribute('data-audience');
+          const shouldShow = filter === 'all' || cardAudience === filter;
+          
+          if (shouldShow) {
+            card.classList.remove('hidden');
+            card.style.display = 'block';
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+    
+    // Establecer estado inicial
+    document.querySelector('[data-filter="all"]').classList.add('active');
+  });
+</script>
+
+<style>
+  .testimonial-card {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .testimonial-card.hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+  }
+  
+  .filter-btn {
+    transition: all 0.2s ease;
+  }
+  
+  .filter-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .filter-btn.active {
+    background-color: var(--coral-primary) !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .filter-btn:not(.active) {
+    background-color: var(--white) !important;
+    color: var(--charcoal-gray) !important;
+  }
+  
+  /* Efecto de hover suave para cards */
+  .testimonial-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .testimonial-card.hidden:hover {
+    transform: translateY(-10px);
+  }
+  
+  /* Grid con transición suave */
+  #testimonials-grid {
+    transition: all 0.2s ease;
+  }
+</style>

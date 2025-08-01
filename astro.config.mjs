@@ -10,4 +10,15 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  image: {
+    // Habilitar imágenes responsivas automáticamente
+    responsiveStyles: true,
+    layout: 'constrained',
+    // Autorizar dominios externos si usas CDNs
+    domains: [],
+    // Formatos de salida optimizados
+    formats: ['webp', 'jpg'],
+    // Calidad de compresión
+    quality: 85,
+  },
 });

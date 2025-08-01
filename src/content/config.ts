@@ -67,6 +67,18 @@ const whyPilatesCollection = defineCollection({
         })
       )
       .optional(),
+    // Datos para audiencias
+    audiences: z
+      .array(
+        z.object({
+          title: z.string(),
+          description: z.string(),
+          image: z.string(),
+          accent: z.string(),
+          accentName: z.string(),
+        })
+      )
+      .optional(),
   }),
 });
 

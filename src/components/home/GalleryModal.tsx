@@ -12,12 +12,23 @@ interface GalleryModalProps {
   currentIndex: number;
 }
 
-export default function GalleryModal({ isOpen, onClose, images, currentIndex }: GalleryModalProps) {
+export default function GalleryModal({
+  isOpen,
+  onClose,
+  images,
+  currentIndex,
+}: GalleryModalProps) {
   const [current, setCurrent] = useState(currentIndex);
 
   useEffect(() => {
     setCurrent(currentIndex);
   }, [currentIndex]);
+
+  const currentImage = images[current];
+
+  if (!currentImage) {
+    return null;
+  }
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -49,19 +60,17 @@ export default function GalleryModal({ isOpen, onClose, images, currentIndex }: 
 
   if (!isOpen) return null;
 
-  const currentImage = images[current];
-
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="Galería de imágenes"
     >
-      <div 
+      <div
         className="relative max-w-4xl max-h-screen mx-4 bg-white rounded-lg overflow-hidden shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
         {/* Close button */}
         <button
@@ -69,8 +78,18 @@ export default function GalleryModal({ isOpen, onClose, images, currentIndex }: 
           className="absolute top-4 right-4 z-10 p-2 bg-white/90 rounded-full hover:bg-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--coral-primary)]"
           aria-label="Cerrar galería"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
 
@@ -81,20 +100,40 @@ export default function GalleryModal({ isOpen, onClose, images, currentIndex }: 
             className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white/90 rounded-full hover:bg-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--coral-primary)]"
             aria-label="Imagen anterior"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
         )}
-        
+
         {current < images.length - 1 && (
           <button
             onClick={() => setCurrent(current + 1)}
             className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white/90 rounded-full hover:bg-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--coral-primary)]"
             aria-label="Siguiente imagen"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
         )}
@@ -114,16 +153,14 @@ export default function GalleryModal({ isOpen, onClose, images, currentIndex }: 
           <h3 className="text-xl font-bold text-[var(--deep-coral)] mb-2">
             {currentImage.title}
           </h3>
-          <p className="text-[var(--charcoal-gray)]">
-            {currentImage.alt}
-          </p>
-          
+          <p className="text-[var(--charcoal-gray)]">{currentImage.alt}</p>
+
           {/* Image counter */}
           <div className="flex justify-between items-center mt-4">
             <span className="text-sm text-[var(--sage-green)]">
               {current + 1} de {images.length}
             </span>
-            
+
             {/* Thumbnails navigation */}
             <div className="flex space-x-2 overflow-x-auto max-w-xs">
               {images.map((_, index) => (
@@ -131,14 +168,14 @@ export default function GalleryModal({ isOpen, onClose, images, currentIndex }: 
                   key={index}
                   onClick={() => setCurrent(index)}
                   className={`w-12 h-8 rounded border-2 transition-colors duration-200 ${
-                    index === current 
-                      ? 'border-[var(--coral-primary)]' 
+                    index === current
+                      ? 'border-[var(--coral-primary)]'
                       : 'border-gray-300 hover:border-[var(--warm-gold)]'
                   }`}
                   aria-label={`Ir a imagen ${index + 1}`}
                 >
                   <img
-                    src={images[index].src}
+                    src={images[index]?.src || ''}
                     alt=""
                     className="w-full h-full object-cover rounded"
                   />

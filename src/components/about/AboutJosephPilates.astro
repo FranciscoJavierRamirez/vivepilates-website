@@ -60,19 +60,17 @@ try {
       <!-- Imagen -->
       <div class="lg:w-1/2">
         <div class="relative">
-          <!-- Placeholder para imagen -->
+          <!-- Imagen de Joseph Pilates -->
           <div
-            class="bg-[var(--warm-gray)] rounded-lg shadow-lg hover-lift transition-all duration-300 aspect-[4/3] flex items-center justify-center"
+            class="rounded-lg shadow-lg hover-lift transition-all duration-300 overflow-hidden"
           >
-            <div class="text-center p-8">
-              <span class="text-6xl mb-4 block">🧘‍♂️</span>
-              <p class="text-[var(--charcoal-gray)] text-sm">
-                Imagen de Joseph Pilates
-              </p>
-              <p class="text-[var(--coral-primary)] text-xs mt-2">
-                Practicando su método
-              </p>
-            </div>
+            <img
+              src="/images/jopilates.jpg"
+              alt={content.alt}
+              class="w-full h-auto object-cover aspect-[4/3] filter sepia-[0.2] contrast-[1.1]"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
 
           <!-- Badge decorativo -->
