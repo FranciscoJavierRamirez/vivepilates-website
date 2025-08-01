@@ -33,7 +33,3 @@ coverage/
 # temporary files
 .tmp/
 temp/
-
-*.jpg
-
-images/
