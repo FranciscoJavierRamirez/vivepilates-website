@@ -23,11 +23,20 @@ try {
 ---
 
 <section
-  class="hero-gradient text-[var(--charcoal-gray)] py-24 md:py-32"
+  class="hero-section text-[var(--charcoal-gray)] py-12 md:py-16 relative"
   aria-label="Sección principal"
 >
+  <!-- Imagen de fondo animada -->
+  <div class="hero-background-animated absolute inset-0"></div>
+
+  <!-- Overlay rosa atenuante -->
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-[var(--rose-pale)] via-[var(--cream)] to-[var(--warm-gray)] opacity-85 z-10"
+  >
+  </div>
+
   <Container>
-    <div class="text-center">
+    <div class="text-center relative z-20">
       <h1
         class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in text-[var(--deep-coral)]"
       >
@@ -166,4 +175,94 @@ try {
     // Rotar quotes cada 5 segundos
     setInterval(rotateQuotes, 5000);
   }
+
+  // Controlar la animación de fondo completamente con JavaScript
+  document.addEventListener('DOMContentLoaded', () => {
+    const heroBackground = document.querySelector('.hero-background-animated');
+    if (heroBackground) {
+      // Desactivar animación CSS para controlar con JS
+      heroBackground.style.animation = 'none';
+
+      let startTime = Date.now();
+      const cycleDuration = 20000; // 20 segundos
+
+      function animateBackground() {
+        const elapsed = (Date.now() - startTime) % cycleDuration;
+        const progress = elapsed / cycleDuration; // 0 a 1
+
+        // Calcular posición vertical (0% = abajo, 100% = arriba)
+        let verticalPosition;
+        let opacity;
+
+        if (progress <= 0.15) {
+          // 0% a 15%: aparece gradualmente en la parte inferior
+          verticalPosition = 0;
+          opacity = 0.1 + (progress / 0.15) * 0.6; // 0.1 a 0.7
+        } else if (progress <= 0.85) {
+          // 15% a 85%: se mueve de abajo hacia arriba
+          const moveProgress = (progress - 0.15) / 0.7; // 0 a 1
+          verticalPosition = moveProgress * 100; // 0% a 100%
+          opacity = 0.7;
+        } else {
+          // 85% a 100%: desvanece en la parte superior
+          verticalPosition = 100;
+          opacity = 0.7 - ((progress - 0.85) / 0.15) * 0.6; // 0.7 a 0.1
+        }
+
+        // Aplicar las propiedades
+        heroBackground.style.backgroundPosition = `center ${verticalPosition}%`;
+        heroBackground.style.opacity = opacity.toString();
+
+        requestAnimationFrame(animateBackground);
+      }
+
+      // Establecer estado inicial
+      heroBackground.style.backgroundPosition = 'center 0%';
+      heroBackground.style.opacity = '0.1';
+
+      // Iniciar animación después de un breve delay
+      setTimeout(() => {
+        animateBackground();
+      }, 100);
+    }
+  });
 </script>
+
+<style>
+  /* Capa de imagen de fondo animada */
+  .hero-background-animated {
+    background-image: url('/images/hersosectioninicio.JPG');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center 0%; /* Empezar desde abajo */
+    opacity: 0.1;
+    z-index: 1;
+    pointer-events: none; /* Evitar interferencias del mouse */
+    will-change: background-position, opacity;
+    transform: translateZ(0); /* Optimizar rendering */
+  }
+
+  /* Responsive: cambiar background-attachment en móviles */
+  @media (max-width: 768px) {
+    .hero-background-animated {
+      background-attachment: scroll;
+    }
+  }
+
+  /* Mejorar contraste del texto sobre la imagen */
+  .hero-section h1,
+  .hero-section p,
+  .hero-section blockquote {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Respeta las preferencias de movimiento reducido */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-background-animated {
+      animation: none;
+      background-position: center bottom;
+      opacity: 0.7;
+    }
+  }
+</style>

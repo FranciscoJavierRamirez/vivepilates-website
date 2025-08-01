@@ -5,7 +5,7 @@ import WhatsAppButton from '../etapa1/shared/WhatsAppButton.astro';
 // Carga el contenido desde markdown
 let content;
 try {
-  const entry = await getEntry('services', 'pricing');
+  await getEntry('services', 'pricing');
   content = {
     text: 'Puedes consultar sobre nuestros precios y planes personalizados directamente por WhatsApp. Ofrecemos diferentes opciones que se adaptan a tus necesidades y objetivos.',
     whatsapp:

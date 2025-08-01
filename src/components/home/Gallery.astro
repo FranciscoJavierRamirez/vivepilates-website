@@ -1,6 +1,4 @@
 ---
-import Container from '../ui/Container.astro';
-
 // Placeholder images - reemplazar con imágenes reales del estudio
 const galleryImages = [
   {
@@ -54,128 +52,121 @@ const categories = [
 const images = galleryImages;
 ---
 
-<section
-  class="section-padding bg-white"
-  aria-label="Galería de nuestro espacio"
+<div class="text-center mb-16" aria-label="Galería de nuestro espacio">
+  <h2 class="text-3xl md:text-4xl font-bold text-[var(--deep-coral)] mb-4">
+    Conoce Nuestro Espacio
+  </h2>
+  <p class="text-lg text-[var(--charcoal-gray)] max-w-2xl mx-auto">
+    Dos salas especializadas con equipamiento profesional para ofrecerte la
+    mejor experiencia de Pilates
+  </p>
+</div>
+
+<!-- Filtros de categoría -->
+<div
+  class="flex flex-wrap justify-center gap-4 mb-8"
+  role="tablist"
+  aria-label="Filtros de galería"
 >
-  <Container>
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-[var(--deep-coral)] mb-4">
-        Conoce Nuestro Espacio
-      </h2>
-      <p class="text-lg text-[var(--charcoal-gray)] max-w-2xl mx-auto">
-        Dos salas especializadas con equipamiento profesional para ofrecerte la
-        mejor experiencia de Pilates
-      </p>
-    </div>
+  {
+    categories.map(category => (
+      <button
+        data-category={category.id}
+        class="category-filter px-4 py-2 rounded-full border-2 border-[var(--warm-gold)] text-[var(--warm-gold)] hover:bg-[var(--warm-gold)] hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--coral-primary)] active"
+        role="tab"
+        aria-selected={category.id === 'all' ? 'true' : 'false'}
+        aria-controls="gallery-grid"
+        aria-label={`Filtrar por ${category.name}`}
+      >
+        <span class="mr-2">{category.icon}</span>
+        {category.name}
+      </button>
+    ))
+  }
+</div>
 
-    <!-- Filtros de categoría -->
-    <div
-      class="flex flex-wrap justify-center gap-4 mb-8"
-      role="tablist"
-      aria-label="Filtros de galería"
-    >
-      {
-        categories.map(category => (
-          <button
-            data-category={category.id}
-            class="category-filter px-4 py-2 rounded-full border-2 border-[var(--warm-gold)] text-[var(--warm-gold)] hover:bg-[var(--warm-gold)] hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--coral-primary)] active"
-            role="tab"
-            aria-selected={category.id === 'all' ? 'true' : 'false'}
-            aria-controls="gallery-grid"
-            aria-label={`Filtrar por ${category.name}`}
-          >
-            <span class="mr-2">{category.icon}</span>
-            {category.name}
-          </button>
-        ))
-      }
-    </div>
+<!-- Galería Grid -->
+<div
+  id="gallery-grid"
+  class="auto-grid gap-6 mb-8"
+  role="tabpanel"
+  aria-label="Imágenes de la galería"
+>
+  {
+    images.map((image, index) => (
+      <div
+        class="gallery-item group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover-lift"
+        data-category={image.category}
+        data-index={index}
+        tabindex="0"
+        role="button"
+        aria-label={`Ver imagen: ${image.title}`}
+      >
+        <div class="aspect-w-4 aspect-h-3 bg-gray-200">
+          <img
+            src={image.src}
+            alt={image.alt}
+            class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+            loading={index < 3 ? 'eager' : 'lazy'}
+          />
+        </div>
 
-    <!-- Galería Grid -->
-    <div
-      id="gallery-grid"
-      class="auto-grid gap-6 mb-8"
-      role="tabpanel"
-      aria-label="Imágenes de la galería"
-    >
-      {
-        images.map((image, index) => (
-          <div
-            class="gallery-item group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover-lift"
-            data-category={image.category}
-            data-index={index}
-            tabindex="0"
-            role="button"
-            aria-label={`Ver imagen: ${image.title}`}
-          >
-            <div class="aspect-w-4 aspect-h-3 bg-gray-200">
-              <img
-                src={image.src}
-                alt={image.alt}
-                class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
-                loading={index < 3 ? 'eager' : 'lazy'}
-              />
-            </div>
-
-            {/* Overlay con título y botón */}
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300">
-              <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
-                <h3 class="font-semibold text-lg mb-2">{image.title}</h3>
-                <div class="flex items-center justify-between">
-                  <span class="text-sm opacity-90">{image.alt}</span>
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                    />
-                  </svg>
-                </div>
-              </div>
+        {/* Overlay con título y botón */}
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300">
+          <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+            <h3 class="font-semibold text-lg mb-2">{image.title}</h3>
+            <div class="flex items-center justify-between">
+              <span class="text-sm opacity-90">{image.alt}</span>
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                />
+              </svg>
             </div>
           </div>
-        ))
-      }
-    </div>
+        </div>
+      </div>
+    ))
+  }
+</div>
 
-    <!-- CTA para agendar visita -->
-    <div class="text-center">
-      <p class="text-[var(--charcoal-gray)] mb-4">
-        ¿Quieres conocer nuestro espacio en persona?
-      </p>
-      <a
-        href="/servicios#clase-prueba"
-        class="inline-flex items-center px-6 py-3 bg-[var(--coral-primary)] text-white font-semibold rounded-lg hover:bg-[var(--deep-coral)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--warm-gold)]"
-        aria-label="Agenda tu clase de prueba gratuita"
-      >
-        <svg
-          class="w-5 h-5 mr-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-          ></path>
-        </svg>
-        Agenda tu Visita
-      </a>
-    </div>
-  </Container>
+<!-- CTA para agendar visita -->
+<div class="text-center">
+  <p class="text-[var(--charcoal-gray)] mb-4">
+    ¿Quieres conocer nuestro espacio en persona?
+  </p>
+  <a
+    href="/servicios#clase-prueba"
+    class="inline-flex items-center px-6 py-3 bg-[var(--coral-primary)] text-white font-semibold rounded-lg hover:bg-[var(--deep-coral)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--warm-gold)]"
+    aria-label="Agenda tu clase de prueba gratuita"
+  >
+    <svg
+      class="w-5 h-5 mr-2"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+      ></path>
+    </svg>
+    Agenda tu Visita
+  </a>
+</div>
 
-  <!-- Gallery Modal - React Island -->
-  <div id="gallery-modal-root"></div>
-</section>
+<!-- Gallery Modal - React Island -->
+<div id="gallery-modal-root"></div>
 
 <script>
   // Gallery modal functionality with vanilla JS for better performance
@@ -396,4 +387,3 @@ const images = galleryImages;
     }
   }
 </style>
-

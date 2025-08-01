@@ -16,12 +16,85 @@ const currentPage = 'home';
 ---
 
 <BaseLayout title={title} description={description} currentPage={currentPage}>
-  <HeroSection />
-  <DifferentiatorGrid />
-  <BenefitsExpandable />
-  <TestimonialHighlighted />
-  <Gallery />
-  <OpeningHours />
-  <ContactInfo />
-  <WhatsAppButton context="trial" />
+  <!-- Hero Section -->
+  <main>
+    <section class="relative">
+      <HeroSection />
+    </section>
+
+    <!-- Diferenciadores Section -->
+    <section class="relative bg-white py-16">
+      <div class="container mx-auto px-4">
+        <DifferentiatorGrid />
+      </div>
+    </section>
+
+    <!-- Beneficios Section -->
+    <section class="relative py-16" style="background-color: var(--rose-pale);">
+      <div class="container mx-auto px-4">
+        <BenefitsExpandable />
+      </div>
+    </section>
+
+    <!-- Testimonios Section -->
+    <section class="relative py-16" style="background-color: var(--cream);">
+      <div class="container mx-auto px-4">
+        <TestimonialHighlighted />
+      </div>
+    </section>
+
+    <!-- Galería Section -->
+    <section class="relative bg-white py-16">
+      <div class="container mx-auto px-4">
+        <Gallery />
+      </div>
+    </section>
+
+    <!-- Información de Horarios y Contacto -->
+    <section class="relative py-16" style="background-color: var(--warm-gray);">
+      <div class="container mx-auto px-4">
+        <div class="space-y-8">
+          <!-- Horarios de Clases -->
+          <div class="bg-white rounded-2xl shadow-lg p-6">
+            <OpeningHours />
+          </div>
+
+          <!-- Información Práctica (Contacto) -->
+          <div class="bg-white rounded-2xl shadow-lg p-6">
+            <ContactInfo />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- WhatsApp Button -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <WhatsAppButton context="trial" />
+  </div>
 </BaseLayout>
+
+<style>
+  /* Espaciado consistente entre secciones (excluyendo hero) */
+  section:not(.hero-section) {
+    transition: all 0.3s ease;
+  }
+
+  /* Sombras suaves para las cards */
+  .shadow-lg {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Hover effects sutiles (excluyendo hero) */
+  section:hover:not(.hero-section) {
+    transform: translateY(-1px);
+  }
+
+  /* Responsive spacing */
+  @media (max-width: 768px) {
+    section {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+  }
+</style>

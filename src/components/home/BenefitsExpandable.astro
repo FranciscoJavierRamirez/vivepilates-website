@@ -1,5 +1,4 @@
 ---
-import Container from '../ui/Container.astro';
 import { getEntry } from 'astro:content';
 
 // Cargar beneficios desde archivo de contenido
@@ -39,7 +38,7 @@ let categories = [
 try {
   const benefitsEntry = await getEntry('home', 'benefits');
   if (benefitsEntry?.data.benefits) {
-    benefits = benefitsEntry.data.benefits;
+    benefits = benefitsEntry.data.benefits as typeof benefits;
   }
   if (benefitsEntry?.data.categories) {
     categories = benefitsEntry.data.categories;
@@ -81,57 +80,35 @@ const getColorClasses = (color: string) => {
 };
 ---
 
-<section class="section-padding" style="background-color: var(--rose-pale);">
-  <Container>
-    <div class="text-center mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-charcoal-gray-500 mb-4">
-        Beneficios por Categoría
-      </h2>
-      <p class="text-lg text-charcoal-gray-400 max-w-2xl mx-auto">
-        Descubre cómo el Pilates puede transformar tu vida en diferentes
-        aspectos
-      </p>
-    </div>
+<div class="text-center mb-16">
+  <h2 class="text-3xl md:text-4xl font-bold text-charcoal-gray-500 mb-4">
+    Beneficios por Categoría
+  </h2>
+  <p class="text-lg text-charcoal-gray-400 max-w-2xl mx-auto">
+    Descubre cómo el Pilates puede transformar tu vida en diferentes aspectos
+  </p>
+</div>
 
-    <div class="max-w-4xl mx-auto space-y-8">
-      {
-        categories.map(category => {
-          const colorClasses = getColorClasses(category.color);
-          if (!colorClasses) return null;
-          const categoryBenefits =
-            benefits[category.id as keyof typeof benefits];
+<div class="max-w-4xl mx-auto space-y-8">
+  {
+    categories.map(category => {
+      const colorClasses = getColorClasses(category.color);
+      if (!colorClasses) return null;
+      const categoryBenefits = benefits[category.id as keyof typeof benefits];
 
-          return (
-            <details
-              class={`bg-white rounded-lg shadow-soft overflow-hidden ${colorClasses.border} border-2`}
-            >
-              <summary
-                class={`p-10 cursor-pointer flex items-center justify-between hover:bg-${category.color}-50 transition-colors duration-200`}
+      return (
+        <details
+          class={`bg-white rounded-lg shadow-soft overflow-hidden ${colorClasses.border} border-2`}
+        >
+          <summary
+            class={`p-10 cursor-pointer flex items-center justify-between hover:bg-${category.color}-50 transition-colors duration-200`}
+          >
+            <div class="flex items-center space-x-6">
+              <div
+                class={`w-14 h-14 ${colorClasses.bg} rounded-full flex items-center justify-center`}
               >
-                <div class="flex items-center space-x-6">
-                  <div
-                    class={`w-14 h-14 ${colorClasses.bg} rounded-full flex items-center justify-center`}
-                  >
-                    <svg
-                      class={`w-7 h-7 ${colorClasses.text}`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d={getIcon(category.icon)}
-                      />
-                    </svg>
-                  </div>
-                  <h3 class="text-2xl font-semibold text-charcoal-gray-500">
-                    {category.title}
-                  </h3>
-                </div>
                 <svg
-                  class="w-7 h-7 text-charcoal-gray-400 transform transition-transform duration-200"
+                  class={`w-7 h-7 ${colorClasses.text}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -140,39 +117,55 @@ const getColorClasses = (color: string) => {
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    d="M19 9l-7 7-7-7"
+                    d={getIcon(category.icon)}
                   />
                 </svg>
-              </summary>
-              <div class="px-10 pb-10">
-                <ul class="space-y-5 mt-8">
-                  {categoryBenefits.map(benefit => (
-                    <li class="flex items-start space-x-4 text-charcoal-gray-600">
-                      <svg
-                        class="w-6 h-6 text-coral-500 mt-0.5 flex-shrink-0"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      <span class="text-lg">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
-            </details>
-          );
-        })
-      }
-    </div>
-  </Container>
-</section>
+              <h3 class="text-2xl font-semibold text-charcoal-gray-500">
+                {category.title}
+              </h3>
+            </div>
+            <svg
+              class="w-7 h-7 text-charcoal-gray-400 transform transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </summary>
+          <div class="px-10 pb-10">
+            <ul class="space-y-5 mt-8">
+              {categoryBenefits.map(benefit => (
+                <li class="flex items-start space-x-4 text-charcoal-gray-600">
+                  <svg
+                    class="w-6 h-6 text-coral-500 mt-0.5 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span class="text-lg">{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </details>
+      );
+    })
+  }
+</div>
 
 <style>
   details[open] summary svg:last-child {

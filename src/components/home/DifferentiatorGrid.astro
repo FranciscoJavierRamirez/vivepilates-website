@@ -1,5 +1,4 @@
 ---
-import Container from '../ui/Container.astro';
 import { getEntry } from 'astro:content';
 
 // Cargar diferenciadores desde archivo de contenido
@@ -104,55 +103,51 @@ const getColorClasses = (color: string) => {
 };
 ---
 
-<section class="section-padding bg-white">
-  <Container>
-    <div class="text-center mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-charcoal-gray-500 mb-4">
-        ¿Por qué elegir VivePilates?
-      </h2>
-      <p class="text-lg text-charcoal-gray-400 max-w-2xl mx-auto">
-        Nuestro enfoque personalizado y profesional te ayudará a alcanzar tus
-        objetivos de fitness
-      </p>
-    </div>
+<div class="text-center mb-16">
+  <h2 class="text-3xl md:text-4xl font-bold text-charcoal-gray-500 mb-4">
+    ¿Por qué elegir VivePilates?
+  </h2>
+  <p class="text-lg text-charcoal-gray-400 max-w-2xl mx-auto">
+    Nuestro enfoque personalizado y profesional te ayudará a alcanzar tus
+    objetivos de fitness
+  </p>
+</div>
 
-    <div class="auto-grid gap-12">
-      {
-        differentiators.map(item => {
-          const colorClasses = getColorClasses(item.color);
-          if (!colorClasses) return null;
-          return (
-            <div
-              class={`p-12 rounded-xl text-center hover:transform hover:scale-105 transition-transform duration-300 border ${colorClasses.border}`}
-              style="background-color: var(--cream);"
+<div class="auto-grid gap-8">
+  {
+    differentiators.map(item => {
+      const colorClasses = getColorClasses(item.color);
+      if (!colorClasses) return null;
+      return (
+        <div
+          class={`p-12 rounded-xl text-center hover:transform hover:scale-105 transition-transform duration-300 border ${colorClasses.border}`}
+          style="background-color: var(--cream);"
+        >
+          <div
+            class={`w-20 h-20 ${colorClasses.bg} rounded-full flex items-center justify-center mx-auto mb-8`}
+          >
+            <svg
+              class={`w-10 h-10 ${colorClasses.text}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <div
-                class={`w-20 h-20 ${colorClasses.bg} rounded-full flex items-center justify-center mx-auto mb-8`}
-              >
-                <svg
-                  class={`w-10 h-10 ${colorClasses.text}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d={getIcon(item.icon)}
-                  />
-                </svg>
-              </div>
-              <h3 class="text-2xl font-semibold mb-6 text-charcoal-gray-500">
-                {item.title}
-              </h3>
-              <p class="text-lg text-charcoal-gray-400 leading-relaxed">
-                {item.description}
-              </p>
-            </div>
-          );
-        })
-      }
-    </div>
-  </Container>
-</section>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d={getIcon(item.icon)}
+              />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold mb-6 text-charcoal-gray-500">
+            {item.title}
+          </h3>
+          <p class="text-lg text-charcoal-gray-400 leading-relaxed">
+            {item.description}
+          </p>
+        </div>
+      );
+    })
+  }
+</div>
