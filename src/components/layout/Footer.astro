@@ -16,16 +16,20 @@ const info = {
 const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
 ---
 
-<footer class="bg-[var(--warm-gray)] text-[#333] py-12 mt-auto" role="contentinfo" aria-label="Información del pie de página">
+<footer
+  class="bg-[var(--charcoal-gray)] text-white py-12 mt-auto"
+  role="contentinfo"
+  aria-label="Información del pie de página"
+>
   <Container>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Columna 1: Info General con badge -->
       <div role="region" aria-label="Información general">
-        <h3 class="font-bold text-xl mb-4 text-[var(--deep-coral)]">
+        <h3 class="font-bold text-xl mb-4 text-[var(--coral-primary)]">
           {info.title}
         </h3>
-        <p class="mb-2">{info.address}</p>
-        <p class="mb-4">{info.hours}</p>
+        <p class="mb-2 text-gray-300">{info.address}</p>
+        <p class="mb-4 text-gray-300">{info.hours}</p>
         <span
           class="inline-block bg-[var(--warm-gold)] text-[var(--white)] px-3 py-1 rounded-full text-sm"
         >
@@ -35,7 +39,7 @@ const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
 
       <!-- Columna 2: Enlaces Rápidos -->
       <div role="region" aria-label="Enlaces de navegación">
-        <h3 class="font-bold text-xl mb-4 text-[var(--deep-coral)]">
+        <h3 class="font-bold text-xl mb-4 text-[var(--coral-primary)]">
           Enlaces Rápidos
         </h3>
         <ul class="space-y-2">
@@ -44,7 +48,7 @@ const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
               <li>
                 <a
                   href={link.href}
-                  class="hover:text-[var(--coral-primary)] transition-colors hover-lift"
+                  class="text-gray-300 hover:text-[var(--coral-primary)] transition-colors hover-lift"
                   aria-label={`Ir a ${link.label}`}
                 >
                   {link.label}
@@ -57,7 +61,7 @@ const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
 
       <!-- Columna 3: Contacto con CTA y Mapa pequeño -->
       <div role="region" aria-label="Información de contacto">
-        <h3 class="font-bold text-xl mb-4 text-[var(--deep-coral)]">
+        <h3 class="font-bold text-xl mb-4 text-[var(--coral-primary)]">
           Contacto
         </h3>
         <a
@@ -78,7 +82,7 @@ const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
           href={info.instagram}
           target="_blank"
           rel="noopener noreferrer"
-          class="block mb-4 hover:text-[var(--sage-green)] transition-colors"
+          class="block mb-4 text-gray-300 hover:text-[var(--sage-green)] transition-colors"
         >
           Síguenos en Instagram
         </a>
@@ -103,11 +107,11 @@ const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
       </div>
     </div>
 
-    <div class="text-center mt-8 border-t border-[var(--rose-pale)] pt-4">
-      <p class="text-sm">
+    <div class="text-center mt-8 border-t border-gray-600 pt-4">
+      <p class="text-sm text-gray-300">
         &copy; 2025 VivePilates. Todos los derechos reservados. | <a
           href="/privacidad"
-          class="hover:text-[var(--deep-coral)]">Política de Privacidad</a
+          class="hover:text-[var(--coral-primary)]">Política de Privacidad</a
         >
       </p>
     </div>
@@ -116,41 +120,39 @@ const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
 
 <!-- JSON-LD Schema para LocalBusiness -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": "https://vivepilates.cl",
-  "name": "VivePilates",
-  "description": "Estudio de Pilates en Vitacura con clases personalizadas, profesionales certificados y atención a públicos diversos.",
-  "url": "https://vivepilates.cl",
-  "telephone": "+56912345678",
-  "email": "info@vivepilates.cl",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Av. Kennedy 6800",
-    "addressLocality": "Vitacura",
-    "addressRegion": "Región Metropolitana",
-    "postalCode": "7630000",
-    "addressCountry": "CL"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "-33.38",
-    "longitude": "-70.55"
-  },
-  "openingHours": "Mo-Fr 08:00-20:00",
-  "serviceType": "Pilates Studio",
-  "areaServed": {
-    "@type": "City",
-    "name": "Vitacura"
-  },
-  "hasCredential": "Profesionales Certificados",
-  "foundingDate": "2010",
-  "slogan": "Bienestar Real para tu Vida Real",
-  "sameAs": [
-    "https://instagram.com/vivepilates"
-  ]
-}
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://vivepilates.cl",
+    "name": "VivePilates",
+    "description": "Estudio de Pilates en Vitacura con clases personalizadas, profesionales certificados y atención a públicos diversos.",
+    "url": "https://vivepilates.cl",
+    "telephone": "+56912345678",
+    "email": "info@vivepilates.cl",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Kennedy 6800",
+      "addressLocality": "Vitacura",
+      "addressRegion": "Región Metropolitana",
+      "postalCode": "7630000",
+      "addressCountry": "CL"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "-33.38",
+      "longitude": "-70.55"
+    },
+    "openingHours": "Mo-Fr 08:00-20:00",
+    "serviceType": "Pilates Studio",
+    "areaServed": {
+      "@type": "City",
+      "name": "Vitacura"
+    },
+    "hasCredential": "Profesionales Certificados",
+    "foundingDate": "2010",
+    "slogan": "Bienestar Real para tu Vida Real",
+    "sameAs": ["https://instagram.com/vivepilates"]
+  }
 </script>
 
 <style>

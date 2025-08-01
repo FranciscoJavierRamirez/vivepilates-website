@@ -1,0 +1,179 @@
+---
+import Container from '../ui/Container.astro';
+
+// Información de la fundadora
+const founder = {
+  name: 'Lorena Martínez',
+  title: 'Fundadora y Directora',
+  credentials: 'Instructora Certificada en Pilates',
+  experience: '15+ años de experiencia',
+  image: '/images/fundadora.jpg',
+  bio: 'Lorena es una apasionada instructora de Pilates con más de 15 años de experiencia en el método original de Joseph Pilates. Su formación en salud y educación le permite crear un ambiente único donde cada estudiante recibe atención personalizada y profesional.',
+  specialties: [
+    'Pilates Clásico',
+    'Pilates Terapéutico',
+    'Rehabilitación Postural',
+    'Pilates Prenatal',
+  ],
+  certifications: [
+    'Certificación Internacional en Pilates',
+    'Especialización en Rehabilitación',
+    'Formación en Pilates Prenatal',
+  ],
+  ctaText: 'Agenda tu Clase con Lorena',
+  ctaLink: '/servicios#clase-prueba',
+};
+---
+
+<section
+  class="section-padding bg-[var(--cream)]"
+  aria-label="Perfil de la fundadora"
+>
+  <Container>
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-[var(--deep-coral)] mb-4">
+        Nuestra Fundadora
+      </h2>
+      <p class="text-lg text-[var(--charcoal-gray)] max-w-2xl mx-auto">
+        Conoce a la profesional detrás de VivePilates
+      </p>
+    </div>
+
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Imagen de la fundadora -->
+        <div class="relative">
+          <div class="relative overflow-hidden rounded-2xl shadow-2xl">
+            <img
+              src={founder.image}
+              alt={`${founder.name}, ${founder.title} de VivePilates`}
+              class="w-full h-[500px] object-cover transition-transform duration-500 hover:scale-105"
+              loading="lazy"
+            />
+            <!-- Overlay decorativo -->
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"
+            >
+            </div>
+          </div>
+
+          <!-- Badge de experiencia -->
+          <div
+            class="absolute -bottom-4 -right-4 bg-[var(--coral-primary)] text-white px-6 py-3 rounded-full shadow-lg"
+          >
+            <span class="font-bold text-lg">{founder.experience}</span>
+          </div>
+        </div>
+
+        <!-- Información de la fundadora -->
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-3xl font-bold text-[var(--deep-coral)] mb-2">
+              {founder.name}
+            </h3>
+            <p class="text-xl text-[var(--trust-blue)] font-semibold mb-1">
+              {founder.title}
+            </p>
+            <p class="text-lg text-[var(--sage-green)] font-medium">
+              {founder.credentials}
+            </p>
+          </div>
+
+          <p class="text-lg leading-relaxed text-[var(--charcoal-gray)]">
+            {founder.bio}
+          </p>
+
+          <!-- Especialidades -->
+          <div>
+            <h4 class="text-xl font-semibold text-[var(--deep-coral)] mb-3">
+              Especialidades
+            </h4>
+            <div class="flex flex-wrap gap-2">
+              {
+                founder.specialties.map((specialty: string) => (
+                  <span class="bg-[var(--rose-pale)] text-[var(--deep-coral)] px-3 py-1 rounded-full text-sm font-medium">
+                    {specialty}
+                  </span>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- Certificaciones -->
+          <div>
+            <h4 class="text-xl font-semibold text-[var(--deep-coral)] mb-3">
+              Certificaciones
+            </h4>
+            <ul class="space-y-2">
+              {
+                founder.certifications.map((cert: string) => (
+                  <li class="flex items-center text-[var(--charcoal-gray)]">
+                    <svg
+                      class="w-5 h-5 text-[var(--sage-green)] mr-2 flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                      />
+                    </svg>
+                    {cert}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <!-- CTA personalizado -->
+          <div class="pt-4">
+            <a
+              href={founder.ctaLink}
+              class="inline-flex items-center bg-[var(--coral-primary)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--deep-coral)] transition-colors duration-200 hover-lift"
+              aria-label="Agenda una clase con Lorena"
+            >
+              <svg
+                class="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                ></path>
+              </svg>
+              {founder.ctaText}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  /* Animación sutil para la imagen */
+  img {
+    transition: transform 0.5s ease;
+  }
+
+  img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Efecto de elevación para el badge */
+  .shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-all duration-200 hover:-translate-y-1 hover:shadow-lg;
+  }
+</style>

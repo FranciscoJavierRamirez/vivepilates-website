@@ -70,7 +70,7 @@ const getColorClasses = (color: string) => {
 
 <section class="section-padding" style="background-color: var(--rose-pale);">
   <Container>
-    <div class="text-center mb-16">
+    <div class="text-center mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-charcoal-gray-500 mb-4">
         Beneficios por Categoría
       </h2>
@@ -84,6 +84,7 @@ const getColorClasses = (color: string) => {
       {
         categories.map(category => {
           const colorClasses = getColorClasses(category.color);
+          if (!colorClasses) return null;
           const categoryBenefits =
             benefits[category.id as keyof typeof benefits];
 

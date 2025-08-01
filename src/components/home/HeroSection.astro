@@ -12,10 +12,15 @@ const quotes = [
 ];
 ---
 
-<section class="hero-gradient text-[var(--charcoal-gray)] py-20" aria-label="Sección principal">
+<section
+  class="hero-gradient text-[var(--charcoal-gray)] py-24 md:py-32"
+  aria-label="Sección principal"
+>
   <Container>
     <div class="text-center">
-      <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in text-[var(--deep-coral)]">
+      <h1
+        class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in text-[var(--deep-coral)]"
+      >
         Bienestar Real para tu Vida Real
       </h1>
 
@@ -30,7 +35,9 @@ const quotes = [
         >
           {quotes[0]}
         </blockquote>
-        <p class="text-sm text-[var(--sage-green)] mt-2 font-medium">- Joseph Pilates</p>
+        <p class="text-sm text-[var(--sage-green)] mt-2 font-medium">
+          - Joseph Pilates
+        </p>
       </div>
 
       <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto opacity-90">
@@ -59,8 +66,14 @@ const quotes = [
       </div>
 
       <!-- Trust Badges -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center" role="group" aria-label="Características destacadas">
-        <span class="inline-flex items-center bg-[var(--warm-gold)] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:bg-[var(--warm-gold)]/90 transition-colors">
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center"
+        role="group"
+        aria-label="Características destacadas"
+      >
+        <span
+          class="inline-flex items-center bg-[var(--warm-gold)] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:bg-[var(--warm-gold)]/90 transition-colors"
+        >
           <svg
             class="w-4 h-4 mr-2"
             fill="none"
@@ -77,7 +90,9 @@ const quotes = [
           </svg>
           Máximo 6 Personas
         </span>
-        <span class="inline-flex items-center bg-[var(--sage-green)] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:bg-[var(--sage-green)]/90 transition-colors">
+        <span
+          class="inline-flex items-center bg-[var(--sage-green)] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:bg-[var(--sage-green)]/90 transition-colors"
+        >
           <svg
             class="w-4 h-4 mr-2"
             fill="none"
@@ -94,7 +109,9 @@ const quotes = [
           </svg>
           Profesionales Certificados
         </span>
-        <span class="inline-flex items-center bg-[var(--trust-blue)] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:bg-[var(--trust-blue)]/90 transition-colors">
+        <span
+          class="inline-flex items-center bg-[var(--trust-blue)] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:bg-[var(--trust-blue)]/90 transition-colors"
+        >
           <svg
             class="w-4 h-4 mr-2"
             fill="none"
@@ -131,13 +148,17 @@ const quotes = [
 
   if (quoteDisplay) {
     function rotateQuotes() {
-      quoteDisplay!.style.opacity = '0';
+      if (quoteDisplay) {
+        quoteDisplay.style.opacity = '0';
 
-      setTimeout(() => {
-        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-        quoteDisplay!.textContent = quotes[currentQuoteIndex];
-        quoteDisplay!.style.opacity = '1';
-      }, 500);
+        setTimeout(() => {
+          currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+          if (quoteDisplay) {
+            quoteDisplay.textContent = quotes[currentQuoteIndex] || '';
+            quoteDisplay.style.opacity = '1';
+          }
+        }, 500);
+      }
     }
 
     // Rotar quotes cada 5 segundos
