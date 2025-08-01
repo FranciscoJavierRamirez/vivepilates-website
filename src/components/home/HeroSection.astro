@@ -38,13 +38,13 @@ try {
   <Container>
     <div class="text-center relative z-20">
       <h1
-        class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in text-[var(--deep-coral)]"
+        class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in text-[var(--deep-coral)] hero-fade-in-up"
       >
         Bienestar Real para tu Vida Real
       </h1>
 
       <!-- Quote Rotator -->
-      <div class="quote-container mb-8">
+      <div class="quote-container mb-8 hero-fade-in-up hero-delay-300">
         <blockquote
           class="text-xl md:text-2xl italic text-[var(--coral-primary)] opacity-90 transition-opacity duration-500"
           id="quote-display"
@@ -59,12 +59,16 @@ try {
         </p>
       </div>
 
-      <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto opacity-90">
+      <p
+        class="text-lg md:text-xl mb-8 max-w-3xl mx-auto opacity-90 hero-fade-in-up hero-delay-600"
+      >
         Descubre el poder del movimiento consciente con nuestras clases de
         Pilates personalizadas
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center mb-8 hero-fade-in-up hero-delay-900"
+      >
         <CTAButton
           href="/servicios#clase-prueba"
           variant="primary"
@@ -86,7 +90,7 @@ try {
 
       <!-- Trust Badges -->
       <div
-        class="flex flex-col sm:flex-row gap-4 justify-center"
+        class="flex flex-col sm:flex-row gap-4 justify-center hero-fade-in-up hero-delay-1200"
         role="group"
         aria-label="Características destacadas"
       >
@@ -229,6 +233,44 @@ try {
 </script>
 
 <style>
+  /* ===== ANIMACIONES DE ENTRADA DE TEXTO (SOLO PARA HERO) ===== */
+
+  /* Animación fadeInUp específica para el hero */
+  @keyframes heroFadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .hero-fade-in-up {
+    animation: heroFadeInUp 1s ease-out forwards;
+    opacity: 0;
+  }
+
+  /* Delays específicos para elementos del hero */
+  .hero-delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  .hero-delay-600 {
+    animation-delay: 0.6s;
+  }
+
+  .hero-delay-900 {
+    animation-delay: 0.9s;
+  }
+
+  .hero-delay-1200 {
+    animation-delay: 1.2s;
+  }
+
+  /* ===== ESTILOS ORIGINALES DE FONDO (PRESERVADOS) ===== */
+
   /* Capa de imagen de fondo animada */
   .hero-background-animated {
     /* Imagen optimizada para móvil por defecto */
@@ -269,12 +311,21 @@ try {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   }
 
+  /* ===== ACCESIBILIDAD (PRESERVANDO COMPORTAMIENTOS EXISTENTES) ===== */
+
   /* Respeta las preferencias de movimiento reducido */
   @media (prefers-reduced-motion: reduce) {
     .hero-background-animated {
       animation: none;
       background-position: center bottom;
       opacity: 0.7;
+    }
+
+    /* Desactivar animaciones de entrada si el usuario prefiere menos movimiento */
+    .hero-fade-in-up {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 </style>

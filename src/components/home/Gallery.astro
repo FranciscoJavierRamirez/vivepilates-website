@@ -50,7 +50,15 @@ const categories = [
 
 // Usar imágenes con categorías
 const images = galleryImages;
+
+// Preload críticas imágenes (primeras 3)
+const criticalImages = images.slice(0, 3);
 ---
+
+<!-- Preload critical images -->
+{criticalImages.map(img => (
+  <link rel="preload" as="image" href={img.src} />
+))}
 
 <div class="text-center mb-16" aria-label="Galería de nuestro espacio">
   <h2 class="text-3xl md:text-4xl font-bold text-[var(--deep-coral)] mb-4">
@@ -102,12 +110,16 @@ const images = galleryImages;
         role="button"
         aria-label={`Ver imagen: ${image.title}`}
       >
-        <div class="aspect-w-4 aspect-h-3 bg-gray-200">
+        <div class="aspect-w-4 aspect-h-3 bg-gray-200 relative">
+          <div class="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse loading-skeleton"></div>
           <img
             src={image.src}
             alt={image.alt}
-            class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
-            loading={index < 3 ? 'eager' : 'lazy'}
+            class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105 opacity-0"
+            loading={index < 4 ? 'eager' : 'lazy'}
+            decoding="async"
+            onload="this.style.opacity='1'; this.parentElement.querySelector('.loading-skeleton').style.display='none';"
+            onerror="this.parentElement.querySelector('.loading-skeleton').innerHTML='<div class=&quot;flex items-center justify-center h-full text-gray-400&quot;><svg class=&quot;w-8 h-8&quot; fill=&quot;currentColor&quot; viewBox=&quot;0 0 20 20&quot;><path fill-rule=&quot;evenodd&quot; d=&quot;M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z&quot; clip-rule=&quot;evenodd&quot; /></svg></div>';"
           />
         </div>
 
@@ -177,7 +189,7 @@ const images = galleryImages;
     const categoryFilters = document.querySelectorAll('.category-filter');
     const modalRoot = document.getElementById('gallery-modal-root');
 
-    // Image data for modal - imágenes reales del estudio
+    // Image data for modal - debe coincidir exactamente con galleryImages
     const images = [
       {
         src: '/images/sala-reformer.jpg',
@@ -192,7 +204,7 @@ const images = galleryImages;
         category: 'chairs',
       },
       {
-        src: '/images/DSCF5082.JPG',
+        src: '/images/reformer.JPG',
         alt: 'Ambiente profesional del estudio de Pilates',
         title: 'Nuestro Espacio Profesional',
         category: 'space',
@@ -214,18 +226,6 @@ const images = galleryImages;
         alt: 'Atención profesional y dedicada',
         title: 'Atención Profesional',
         category: 'team',
-      },
-      {
-        src: '/images/fundadora.jpg',
-        alt: 'Fundadora y equipo profesional de VivePilates',
-        title: 'Nuestro Equipo',
-        category: 'team',
-      },
-      {
-        src: '/images/IMG_0807.JPG',
-        alt: 'Ambiente acogedor y relajante del estudio',
-        title: 'Ambiente Acogedor',
-        category: 'space',
       },
     ];
 
@@ -257,7 +257,10 @@ const images = galleryImages;
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
-                <img src="${images[modalState.currentIndex]?.src || ''}" alt="${images[modalState.currentIndex]?.alt || ''}" class="w-full h-96 md:h-[32rem] object-cover">
+                <div class="relative w-full h-96 md:h-[32rem] bg-gray-200">
+                  <div class="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse" id="modal-loading"></div>
+                  <img src="${images[modalState.currentIndex]?.src || ''}" alt="${images[modalState.currentIndex]?.alt || ''}" class="w-full h-96 md:h-[32rem] object-cover opacity-0" onload="this.style.opacity='1'; document.getElementById('modal-loading').style.display='none';" decoding="async">
+                </div>
                 <div class="p-6">
                   <h3 class="text-xl font-bold text-[var(--deep-coral)] mb-2">${images[modalState.currentIndex]?.title || ''}</h3>
                   <p class="text-[var(--charcoal-gray)]">${images[modalState.currentIndex]?.alt || ''}</p>
@@ -326,9 +329,28 @@ const images = galleryImages;
       });
     });
 
+    // Image preloading
+    const preloadedImages = new Set<string>();
+    
+    function preloadImage(src: string) {
+      if (!preloadedImages.has(src)) {
+        const img = new Image();
+        img.src = src;
+        preloadedImages.add(src);
+      }
+    }
+
     // Gallery item click handlers
     galleryItems.forEach((item, index) => {
       const clickHandler = () => openModal(index);
+
+      // Preload image on hover
+      item.addEventListener('mouseenter', () => {
+        const img = images[index];
+        if (img?.src) {
+          preloadImage(img.src);
+        }
+      });
 
       item.addEventListener('click', clickHandler);
       item.addEventListener('keydown', e => {
@@ -387,6 +409,30 @@ const images = galleryImages;
     transition:
       opacity 0.3s ease,
       transform 0.3s ease;
+  }
+
+  /* Image loading transitions */
+  .gallery-item img {
+    transition: opacity 0.4s ease-in-out;
+  }
+
+  /* Loading skeleton animation */
+  .loading-skeleton {
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 1000px 100%;
   }
 
   /* Focus styles for accessibility */
