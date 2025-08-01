@@ -1,7 +1,4 @@
 ---
-import salaReformerImg from '../../assets/images/sala-reformer.jpg';
-import salaSillasImg from '../../assets/images/sala-sillas.jpg';
-
 // Carga el contenido desde markdown
 let service;
 try {
@@ -19,7 +16,7 @@ try {
       'Materiales complementarios',
     ],
     highlight: true,
-    images: [salaReformerImg.src, salaSillasImg.src],
+
     instagram: 'https://instagram.com/vivepilates',
   };
 } catch (error) {
@@ -37,7 +34,7 @@ try {
       'Materiales complementarios',
     ],
     highlight: true,
-    images: [salaReformerImg.src, salaSillasImg.src],
+
     instagram: 'https://instagram.com/vivepilates',
   };
 }
@@ -136,33 +133,6 @@ try {
               ))
             }
           </ul>
-        </div>
-
-        <!-- Galería de salas -->
-        <div class="grid grid-cols-2 gap-4 mb-6">
-          {
-            service.images.map((_, index) => (
-              <div class="relative group">
-                {/* Placeholder para imagen */}
-                <div class="aspect-[4/3] bg-[var(--warm-gray)] rounded-lg shadow-sm flex items-center justify-center hover:bg-opacity-80 transition-all duration-300">
-                  <div class="text-center p-4">
-                    <span class="text-3xl mb-2 block">
-                      {index === 0 ? '🏋️‍♀️' : '🪑'}
-                    </span>
-                    <p class="text-xs text-[var(--charcoal-gray)]">
-                      {index === 0 ? 'Sala Reformer' : 'Sala Sillas'}
-                    </p>
-                  </div>
-                </div>
-                {/* Overlay con información */}
-                <div class="absolute inset-0 bg-[var(--coral-primary)] bg-opacity-0 group-hover:bg-opacity-20 rounded-lg transition-all duration-300 flex items-center justify-center">
-                  <span class="text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {index === 0 ? 'Máquinas Reformer' : 'Sillas y Barriles'}
-                  </span>
-                </div>
-              </div>
-            ))
-          }
         </div>
 
         <!-- Enlaces sociales -->
