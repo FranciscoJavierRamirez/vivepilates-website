@@ -1,43 +1,21 @@
 ---
 import Container from '../ui/Container.astro';
 import CTAButton from '../etapa1/shared/CTAButton.astro';
+import { getEntry } from 'astro:content';
 
-// En producción, esto vendría de content collections MDX
-// Por ahora usamos contenido estático con los mismos estilos
-const openingHours = {
-  title: 'Horarios de Clases',
-  weekly: [
-    {
-      days: 'Lunes a Viernes',
-      type: 'Días Laborables',
-      hours: '8:00 AM - 8:00 PM',
-    },
-    {
-      days: 'Sábados',
-      type: 'Fin de Semana',
-      hours: '9:00 AM - 1:00 PM',
-    },
-    {
-      days: 'Domingos',
-      type: 'Descanso',
-      hours: 'Cerrado',
-    },
-  ],
-  popular: [
-    {
-      name: 'Pilates Clásico',
-      schedule: 'Lun, Mié, Vie - 9:00 AM, 6:00 PM',
-    },
-    {
-      name: 'Pilates Terapéutico',
-      schedule: 'Mar, Jue - 10:00 AM, 7:00 PM',
-    },
-    {
-      name: 'Pilates Prenatal',
-      schedule: 'Sáb - 10:00 AM',
-    },
-  ],
-};
+// Obtener datos desde el archivo MDX
+const openingHoursEntry = await getEntry('home', 'opening-hours');
+const { weeklySchedule, legend } = openingHoursEntry?.data || {};
+
+// Validar que existan los datos requeridos
+if (!weeklySchedule || !legend) {
+  throw new Error(
+    'Los datos de horarios no están configurados correctamente en opening-hours.mdx'
+  );
+}
+
+// Crear una matriz de todos los horarios para el grid
+const allTimeSlots = weeklySchedule.timeSlots;
 ---
 
 <section
@@ -47,88 +25,130 @@ const openingHours = {
   <Container>
     <div class="text-center mb-12">
       <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[var(--deep-coral)]">
-        {openingHours.title}
+        {weeklySchedule.title}
       </h2>
       <p class="text-lg text-[var(--charcoal-gray)] max-w-2xl mx-auto">
         Encuentra el horario perfecto para tu práctica de Pilates
       </p>
     </div>
 
-    <div class="max-w-4xl mx-auto">
-      <!-- Horarios Semanales -->
-      <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-        <h3
-          class="text-2xl font-bold mb-6 text-[var(--deep-coral)] text-center"
-        >
-          Horarios Semanales
-        </h3>
-        <div class="grid gap-4 md:gap-6">
+    <div class="max-w-6xl mx-auto">
+      <!-- Calendario Semanal -->
+      <div
+        class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 mb-8 overflow-x-auto"
+      >
+        <div class="text-center mb-6">
+          <h3 class="text-2xl font-bold text-[var(--deep-coral)] mb-2">
+            Calendario Semanal
+          </h3>
+          <p class="text-[var(--sage-green)] font-semibold">
+            • {weeklySchedule.subtitle}
+          </p>
+        </div>
+
+        <!-- Grid del Calendario -->
+        <div class="min-w-[800px] grid-calendar">
+          <!-- Headers de días -->
+          <div class="calendar-header">
+            <div class="time-slot-header"></div>
+            {
+              weeklySchedule.days.map((day: any) => (
+                <div class="day-header">{day.name}</div>
+              ))
+            }
+          </div>
+
+          <!-- Filas de horarios -->
           {
-            openingHours.weekly.map(schedule => (
-              <div class="flex flex-col md:flex-row md:items-center justify-between p-4 rounded-lg bg-[var(--rose-pale)] hover:bg-[var(--warm-gold)]/10 transition-colors duration-300">
-                <div class="mb-2 md:mb-0">
-                  <span class="font-bold text-lg text-[var(--trust-blue)] day">
-                    {schedule.days}
-                  </span>
-                  <span class="block md:inline md:ml-2 text-[var(--sage-green)] font-medium">
-                    {schedule.type}
-                  </span>
-                </div>
-                <span class="font-semibold text-[var(--deep-coral)] hours text-lg">
-                  {schedule.hours}
-                </span>
+            allTimeSlots.map((timeSlot: string) => (
+              <div class="calendar-row">
+                <div class="time-slot">{timeSlot}</div>
+                {weeklySchedule.days.map((day: any) => {
+                  const classAtTime = day.classes.find(
+                    (c: any) => c.time === timeSlot
+                  );
+                  return (
+                    <div
+                      class={`class-cell ${classAtTime?.available ? 'available' : 'unavailable'}`}
+                    >
+                      {classAtTime?.available ? timeSlot : ''}
+                    </div>
+                  );
+                })}
               </div>
             ))
           }
         </div>
-      </div>
 
-      <!-- Clases Populares -->
-      <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-        <h3
-          class="text-2xl font-bold mb-6 text-[var(--deep-coral)] text-center"
+        <!-- Leyenda -->
+        <div
+          class="flex flex-wrap justify-center gap-6 mt-8 pt-6 border-t border-[var(--rose-pale)]"
         >
-          Clases Populares
-        </h3>
-        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {
-            openingHours.popular.map(classInfo => (
-              <div class="p-4 rounded-lg border-2 border-[var(--sage-green)]/20 hover:border-[var(--sage-green)] transition-colors duration-300 hover:shadow-md">
-                <h4 class="font-bold text-[var(--trust-blue)] mb-2">
-                  {classInfo.name}
-                </h4>
-                <p class="text-[var(--sage-green)] text-sm">
-                  {classInfo.schedule}
-                </p>
-              </div>
-            ))
-          }
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded bg-[var(--coral-primary)]"></div>
+            <span class="text-sm font-medium text-[var(--charcoal-gray)]">
+              {legend.available}
+            </span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded bg-[var(--rose-pale)]"></div>
+            <span class="text-sm font-medium text-[var(--charcoal-gray)]">
+              {legend.unavailable}
+            </span>
+          </div>
         </div>
       </div>
 
-      <!-- Nota y CTA -->
-      <div class="text-center">
-        <p class="text-[var(--charcoal-gray)] mb-6 italic">
-          *Horarios sujetos a cambios según demanda. Consulta por WhatsApp para
-          disponibilidad específica.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <!-- Información Adicional -->
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div
+          class="bg-gradient-to-br from-[var(--coral-primary)]/10 to-[var(--warm-gold)]/10 rounded-xl p-6"
+        >
+          <h4 class="text-xl font-bold text-[var(--deep-coral)] mb-4">
+            ¿Primera vez?
+          </h4>
+          <p class="text-[var(--charcoal-gray)] mb-4">
+            Tu primera clase es totalmente gratuita. Ven a conocer nuestro
+            método personalizado.
+          </p>
           <CTAButton
             href="/servicios#clase-prueba"
             variant="primary"
-            size="lg"
+            size="md"
             class="bg-[var(--coral-primary)] hover:bg-[var(--deep-coral)]"
           >
-            Agenda tu Clase de Prueba Gratuita
+            Reservar Clase Gratuita
           </CTAButton>
+        </div>
+
+        <div
+          class="bg-gradient-to-br from-[var(--sage-green)]/10 to-[var(--trust-blue)]/10 rounded-xl p-6"
+        >
+          <h4 class="text-xl font-bold text-[var(--trust-blue)] mb-4">
+            Información de Reservas
+          </h4>
+          <ul class="space-y-2 text-[var(--charcoal-gray)] mb-4">
+            <li class="flex items-center gap-2">
+              <span class="w-2 h-2 bg-[var(--sage-green)] rounded-full"></span>
+              Duración: 55 minutos
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-2 h-2 bg-[var(--sage-green)] rounded-full"></span>
+              Reservar con anticipación
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-2 h-2 bg-[var(--sage-green)] rounded-full"></span>
+              Cancelar hasta 2 horas antes
+            </li>
+          </ul>
           <a
             href="https://wa.me/56912345678?text=Hola,%20quiero%20consultar%20horarios%20disponibles"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center px-6 py-3 bg-[var(--sage-green)] text-white font-semibold rounded-lg hover:bg-[var(--sage-green)]/80 transition-colors duration-200"
+            class="inline-flex items-center px-4 py-2 bg-[var(--sage-green)] text-white font-semibold rounded-lg hover:bg-[var(--sage-green)]/80 transition-colors duration-200 text-sm"
             aria-label="Consultar horarios por WhatsApp"
           >
-            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
               <path
                 d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"
               ></path>
@@ -137,20 +157,110 @@ const openingHours = {
           </a>
         </div>
       </div>
+
+      <!-- Nota -->
+      <div class="text-center">
+        <p class="text-[var(--charcoal-gray)] italic">
+          *Horarios sujetos a cambios según demanda. Consulta por WhatsApp para
+          disponibilidad específica.
+        </p>
+      </div>
     </div>
   </Container>
 </section>
 
 <style>
-  /* Colorido específico para días y horas según especificación */
-  .day {
-    color: var(--trust-blue);
-    font-weight: bold;
+  /* Grid Calendar Styles */
+  .grid-calendar {
+    display: grid;
+    grid-template-columns: 120px repeat(6, 1fr);
+    gap: 2px;
+    background-color: var(--rose-pale);
+    border-radius: 12px;
+    padding: 2px;
+    overflow: hidden;
   }
 
-  .hours {
-    color: var(--sage-green);
+  .calendar-header {
+    display: contents;
+  }
+
+  .time-slot-header {
+    background: linear-gradient(
+      135deg,
+      var(--deep-coral),
+      var(--coral-primary)
+    );
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px 8px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  .day-header {
+    background: linear-gradient(135deg, var(--coral-primary), var(--warm-gold));
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  .calendar-row {
+    display: contents;
+  }
+
+  .time-slot {
+    background: linear-gradient(135deg, var(--sage-green), var(--trust-blue));
+    color: white;
     font-weight: 600;
+    text-align: center;
+    padding: 16px 8px;
+    border-radius: 8px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .class-cell {
+    padding: 16px 8px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+  }
+
+  .class-cell.available {
+    background: linear-gradient(135deg, var(--coral-primary), var(--warm-gold));
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .class-cell.available:hover {
+    background: linear-gradient(
+      135deg,
+      var(--deep-coral),
+      var(--coral-primary)
+    );
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .class-cell.unavailable {
+    background: var(--rose-pale);
+    color: var(--charcoal-gray);
+    opacity: 0.5;
   }
 
   /* Progressive reveal animation */
@@ -168,8 +278,64 @@ const openingHours = {
     }
   }
 
+  /* Calendar reveal animation */
+  .grid-calendar {
+    opacity: 0;
+    transform: scale(0.95);
+    animation: revealCalendar 0.6s ease forwards;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes revealCalendar {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .grid-calendar {
+      grid-template-columns: 100px repeat(6, 1fr);
+      gap: 1px;
+      padding: 1px;
+    }
+
+    .time-slot-header,
+    .day-header,
+    .time-slot,
+    .class-cell {
+      padding: 12px 4px;
+      font-size: 11px;
+    }
+
+    .class-cell {
+      min-height: 40px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .grid-calendar {
+      grid-template-columns: 80px repeat(6, 1fr);
+    }
+
+    .time-slot-header,
+    .day-header,
+    .time-slot,
+    .class-cell {
+      padding: 10px 2px;
+      font-size: 10px;
+    }
+
+    .day-header {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+  }
+
   /* Hover effects for better interactivity */
-  .grid > div:hover {
+  .bg-gradient-to-br:hover {
     transform: translateY(-2px);
+    transition: transform 0.2s ease;
   }
 </style>

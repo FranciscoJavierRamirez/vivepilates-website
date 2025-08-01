@@ -231,10 +231,11 @@ try {
 <style>
   /* Capa de imagen de fondo animada */
   .hero-background-animated {
-    background-image: url('/images/hersosectioninicio.JPG');
+    /* Imagen optimizada para móvil por defecto */
+    background-image: url('/images/hersosectioninicio-mobile.webp');
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: scroll; /* Mejor para móviles */
     background-position: center 0%; /* Empezar desde abajo */
     opacity: 0.1;
     z-index: 1;
@@ -243,10 +244,21 @@ try {
     transform: translateZ(0); /* Optimizar rendering */
   }
 
-  /* Responsive: cambiar background-attachment en móviles */
-  @media (max-width: 768px) {
+  /* Desktop: usar imagen de mayor resolución y fixed attachment */
+  @media (min-width: 769px) {
     .hero-background-animated {
-      background-attachment: scroll;
+      background-image: url('/images/hersosectioninicio-desktop.webp');
+      background-attachment: fixed;
+    }
+  }
+
+  /* Fallback para navegadores que no soporten WebP */
+  @supports not (
+    background-image:
+      url('data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=')
+  ) {
+    .hero-background-animated {
+      background-image: url('/images/hersosectioninicio.JPG');
     }
   }
 

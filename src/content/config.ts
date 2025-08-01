@@ -130,6 +130,32 @@ const homeCollection = defineCollection({
       .optional(),
     // Datos para frases del hero
     quotes: z.array(z.string()).optional(),
+    // Datos para horarios semanales
+    weeklySchedule: z
+      .object({
+        title: z.string(),
+        subtitle: z.string(),
+        timeSlots: z.array(z.string()),
+        days: z.array(
+          z.object({
+            name: z.string(),
+            dayCode: z.string(),
+            classes: z.array(
+              z.object({
+                time: z.string(),
+                available: z.boolean(),
+              })
+            ),
+          })
+        ),
+      })
+      .optional(),
+    legend: z
+      .object({
+        available: z.string(),
+        unavailable: z.string(),
+      })
+      .optional(),
   }),
 });
 
