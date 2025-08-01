@@ -1,38 +1,45 @@
 ---
+import salaReformer from '../../assets/images/sala-reformer.jpg';
+import salaSillas from '../../assets/images/sala-sillas.jpg';
+import reformer from '../../assets/images/reformer.jpg';
+import DSCF5115 from '../../assets/images/DSCF5115.jpg';
+import thumbnail0785 from '../../assets/images/thumbnail_IMG_0785.jpg';
+import thumbnail0793 from '../../assets/images/thumbnail_IMG_0793.jpg';
+
 // Imágenes reales del estudio VivePilates
 const galleryImages = [
   {
-    src: '/images/sala-reformer.jpg',
+    src: salaReformer.src,
     alt: 'Sala de Pilates con Reformers - Vista principal del estudio',
     title: 'Sala Principal con Reformers',
     category: 'reformer',
   },
   {
-    src: '/images/sala-sillas.jpg',
+    src: salaSillas.src,
     alt: 'Sala de Pilates con Sillas - Equipamiento especializado',
     title: 'Sala Secundaria con Sillas',
     category: 'chairs',
   },
   {
-    src: '/images/reformer.JPG',
+    src: reformer.src,
     alt: 'Ambiente profesional del estudio de Pilates',
     title: 'Nuestro Espacio Profesional',
     category: 'space',
   },
   {
-    src: '/images/DSCF5115.JPG',
+    src: DSCF5115.src,
     alt: 'Instalaciones modernas y equipamiento de calidad',
     title: 'Instalaciones Modernas',
     category: 'space',
   },
   {
-    src: '/images/thumbnail_IMG_0785.jpg',
+    src: thumbnail0785.src,
     alt: 'Clases personalizadas en grupos pequeños',
     title: 'Clases Personalizadas',
     category: 'team',
   },
   {
-    src: '/images/thumbnail_IMG_0793.jpg',
+    src: thumbnail0793.src,
     alt: 'Atención profesional y dedicada',
     title: 'Atención Profesional',
     category: 'team',
@@ -189,45 +196,16 @@ const criticalImages = images.slice(0, 3);
     const categoryFilters = document.querySelectorAll('.category-filter');
     const modalRoot = document.getElementById('gallery-modal-root');
 
-    // Image data for modal - debe coincidir exactamente con galleryImages
-    const images = [
-      {
-        src: '/images/sala-reformer.jpg',
-        alt: 'Sala de Pilates con Reformers - Vista principal del estudio',
-        title: 'Sala Principal con Reformers',
-        category: 'reformer',
-      },
-      {
-        src: '/images/sala-sillas.jpg',
-        alt: 'Sala de Pilates con Sillas - Equipamiento especializado',
-        title: 'Sala Secundaria con Sillas',
-        category: 'chairs',
-      },
-      {
-        src: '/images/reformer.JPG',
-        alt: 'Ambiente profesional del estudio de Pilates',
-        title: 'Nuestro Espacio Profesional',
-        category: 'space',
-      },
-      {
-        src: '/images/DSCF5115.JPG',
-        alt: 'Instalaciones modernas y equipamiento de calidad',
-        title: 'Instalaciones Modernas',
-        category: 'space',
-      },
-      {
-        src: '/images/thumbnail_IMG_0785.jpg',
-        alt: 'Clases personalizadas en grupos pequeños',
-        title: 'Clases Personalizadas',
-        category: 'team',
-      },
-      {
-        src: '/images/thumbnail_IMG_0793.jpg',
-        alt: 'Atención profesional y dedicada',
-        title: 'Atención Profesional',
-        category: 'team',
-      },
-    ];
+    // Get image data from the gallery items in the DOM
+    const images = Array.from(galleryItems).map(item => {
+      const img = item.querySelector('img');
+      return {
+        src: img?.src || '',
+        alt: img?.alt || '',
+        title: img?.alt || '',
+        category: item.getAttribute('data-category') || ''
+      };
+    });
 
     let modalState = {
       isOpen: false,

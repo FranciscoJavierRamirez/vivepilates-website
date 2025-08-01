@@ -2,6 +2,8 @@
 import Container from '../ui/Container.astro';
 import CTAButton from '../etapa1/shared/CTAButton.astro';
 import { getEntry } from 'astro:content';
+import heroMobile from '../../assets/images/hersosectioninicio-mobile.webp';
+import heroDesktop from '../../assets/images/hersosectioninicio-desktop.webp';
 
 // Cargar frases desde archivo de contenido
 let quotes = [
@@ -27,7 +29,11 @@ try {
   aria-label="Sección principal"
 >
   <!-- Imagen de fondo animada -->
-  <div class="hero-background-animated absolute inset-0"></div>
+  <div
+    class="hero-background-animated absolute inset-0"
+    style={`--hero-mobile: url(${heroMobile.src}); --hero-desktop: url(${heroDesktop.src});`}
+  >
+  </div>
 
   <!-- Overlay rosa atenuante -->
   <div
@@ -274,7 +280,7 @@ try {
   /* Capa de imagen de fondo animada */
   .hero-background-animated {
     /* Imagen optimizada para móvil por defecto */
-    background-image: url('/images/hersosectioninicio-mobile.webp');
+    background-image: var(--hero-mobile);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: scroll; /* Mejor para móviles */
@@ -289,7 +295,7 @@ try {
   /* Desktop: usar imagen de mayor resolución y fixed attachment */
   @media (min-width: 769px) {
     .hero-background-animated {
-      background-image: url('/images/hersosectioninicio-desktop.webp');
+      background-image: var(--hero-desktop);
       background-attachment: fixed;
     }
   }

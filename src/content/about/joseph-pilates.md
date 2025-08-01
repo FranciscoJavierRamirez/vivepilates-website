@@ -12,5 +12,5 @@ Creador de un método de entrenamiento para desarrollar la fuerza y la flexibili
 
 ## Imagen
 
-Placeholder: /images/joseph-pilates.jpg
+Placeholder: ~/assets/images/jopilates.jpg
 Alt: Joseph Pilates practicando su método

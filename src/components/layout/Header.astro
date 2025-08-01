@@ -1,5 +1,6 @@
 ---
 import Container from '../ui/Container.astro';
+import logoBlanco from '../../assets/images/Vive_Pilates_logo_LOGO_Blanco.png';
 
 export interface Props {
   currentPage?: string;
@@ -42,7 +43,7 @@ const links = [
           aria-label="Ir a página de inicio"
         >
           <img
-            src="/images/Vive_Pilates_logo_LOGO_Blanco.png"
+            src={logoBlanco.src}
             alt="Logo VivePilates (Blanco)"
             width="150"
             height="40"

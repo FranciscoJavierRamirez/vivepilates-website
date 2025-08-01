@@ -28,7 +28,7 @@ section: 'classes'
 
 **Imágenes:**
 
-- Imagen Sala 1: /images/sala-reformer.jpg
-- Imagen Sala 2: /images/sala-sillas.jpg
+- Imagen Sala 1: ~/assets/images/sala-reformer.jpg
+- Imagen Sala 2: ~/assets/images/sala-sillas.jpg
 
 **Instagram:** https://instagram.com/vivepilates

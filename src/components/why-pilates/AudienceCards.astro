@@ -1,12 +1,36 @@
 ---
 import { getEntry } from 'astro:content';
+import audienceGeneral from '../../assets/images/audience-general.jpg';
+import pilatesTeens from '../../assets/images/pilates_teens.webp';
+import audiencePregnant from '../../assets/images/audience-pregnant.jpg';
+import pilatesRehabilitacion from '../../assets/images/pilates_rehabilitacion.jpg';
+import pilatesAdultoMayor from '../../assets/images/pilates_adulto_mayor.jpg';
+
+// Mapeo de imágenes optimizadas
+const imageMap: Record<string, string> = {
+  '~/assets/images/audience-general.jpg': audienceGeneral.src,
+  '~/assets/images/pilates_teens.webp': pilatesTeens.src,
+  '~/assets/images/audience-pregnant.jpg': audiencePregnant.src,
+  '~/assets/images/pilates_rehabilitacion.jpg': pilatesRehabilitacion.src,
+  '~/assets/images/pilates_adulto_mayor.jpg': pilatesAdultoMayor.src,
+  // Fallback para URLs antiguas si existen
+  '/images/audience-general.jpg': audienceGeneral.src,
+  '/images/pilates_teens.webp': pilatesTeens.src,
+  '/images/audience-pregnant.jpg': audiencePregnant.src,
+  '/images/pilates_rehabilitacion.jpg': pilatesRehabilitacion.src,
+  '/images/pilates_adulto_mayor.jpg': pilatesAdultoMayor.src,
+};
 
 // Carga el contenido desde markdown
 let audiences;
 try {
   const entry = await getEntry('why-pilates', 'audiences');
   if (entry?.data.audiences) {
-    audiences = entry.data.audiences;
+    audiences = entry.data.audiences.map(audience => ({
+      ...audience,
+      // Sobrescribir la imagen con la versión optimizada
+      image: imageMap[audience.image] || audience.image,
+    }));
   } else {
     throw new Error('No se encontraron datos de audiences en el archivo');
   }
@@ -18,7 +42,7 @@ try {
       title: 'Jóvenes y Adultos Jóvenes',
       description:
         'Pueden realizar pilates avalando estar con salud compatible a la actividad física.',
-      image: '/images/audience-general.jpg',
+      image: audienceGeneral.src,
       accent: 'var(--warm-gold)',
       accentName: 'warm-gold',
     },
@@ -26,7 +50,7 @@ try {
       title: 'Menores entre 15 a 17 años',
       description:
         'Acompañados por su apoderado, previamente informado por su médico de cabecera dependiendo de su período de crecimiento.',
-      image: '/images/pilates_teens.webp',
+      image: pilatesTeens.src,
       accent: 'var(--warm-gold)',
       accentName: 'warm-gold',
     },
@@ -34,7 +58,7 @@ try {
       title: 'Embarazadas',
       description:
         'Pueden realizar desde el 2do trimestre de embarazo clases de pilates con certificado médico al día.',
-      image: '/images/audience-pregnant.jpg',
+      image: audiencePregnant.src,
       accent: 'var(--sage-green)',
       accentName: 'sage-green',
     },
@@ -42,7 +66,7 @@ try {
       title: 'Personas en Rehabilitación Post Trauma o Post Operatorio',
       description:
         'Pueden realizar pilates bajo indicación y/o supervisión médica de ser necesario en conjunto a tratamiento kinesiológico.',
-      image: '/images/pilates_rehabilitacion.jpg',
+      image: pilatesRehabilitacion.src,
       accent: 'var(--deep-coral)',
       accentName: 'deep-coral',
     },
@@ -50,7 +74,7 @@ try {
       title: 'Adultos Mayores',
       description:
         'Pueden realizar pilates indicando visita médica previa y autorización de su médico para realizar actividad física.',
-      image: '/images/pilates_adulto_mayor.jpg',
+      image: pilatesAdultoMayor.src,
       accent: 'var(--trust-blue)',
       accentName: 'trust-blue',
     },
