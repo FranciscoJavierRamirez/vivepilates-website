@@ -1,52 +1,26 @@
 ---
-import { getEntry } from 'astro:content';
 import WhatsAppButton from '../etapa1/shared/WhatsAppButton.astro';
 
-// Carga el contenido desde markdown
-let content;
-try {
-  const entry = await getEntry('services', 'trial-class');
-  content = {
-    description:
-      'La clase de prueba debe ser agendada por WhatsApp, donde se coordinará un horario disponible y se entregará toda la información respectiva. Al contratar un plan, comienzas a contar desde el día uno contratado tus sesiones. La clase de prueba tiene por objetivo que nos conozcas y puedas decidir en base a la experiencia si deseas contratar un plan con nosotros.',
-    instructions: [
-      'Llegar 5 minutos antes de la hora de clase para registro y orientación',
-      'Venir con buzo o ropa cómoda (sin cierres metálicos en bolsillos)',
-      'Traer calcetines antideslizantes para mayor seguridad',
-      'Opcional: Puedes traer una toalla personal y una botella de agua',
-    ],
-    expectations: [
-      'Evaluación inicial de tu condición física',
-      'Introducción a los principios básicos del Pilates',
-      'Uso guiado de las máquinas Reformer',
-      'Atención personalizada del instructor',
-      'Información sobre nuestros planes y servicios',
-    ],
-    whatsapp:
-      'https://wa.me/56912345678?text=Hola,%20quiero%20agendar%20una%20clase%20de%20prueba%20gratuita',
-  };
-} catch (error) {
-  // Fallback si no se puede cargar el archivo
-  content = {
-    description:
-      'La clase de prueba debe ser agendada por WhatsApp, donde se coordinará un horario disponible y se entregará toda la información respectiva. Al contratar un plan, comienzas a contar desde el día uno contratado tus sesiones. La clase de prueba tiene por objetivo que nos conozcas y puedas decidir en base a la experiencia si deseas contratar un plan con nosotros.',
-    instructions: [
-      'Llegar 5 minutos antes de la hora de clase para registro y orientación',
-      'Venir con buzo o ropa cómoda (sin cierres metálicos en bolsillos)',
-      'Traer calcetines antideslizantes para mayor seguridad',
-      'Opcional: Puedes traer una toalla personal y una botella de agua',
-    ],
-    expectations: [
-      'Evaluación inicial de tu condición física',
-      'Introducción a los principios básicos del Pilates',
-      'Uso guiado de las máquinas Reformer',
-      'Atención personalizada del instructor',
-      'Información sobre nuestros planes y servicios',
-    ],
-    whatsapp:
-      'https://wa.me/56912345678?text=Hola,%20quiero%20agendar%20una%20clase%20de%20prueba%20gratuita',
-  };
-}
+// Contenido estático para la clase de prueba
+const content = {
+  description:
+    'La clase de prueba debe ser agendada por WhatsApp, donde se coordinará un horario disponible y se entregará toda la información respectiva. Al contratar un plan, comienzas a contar desde el día uno contratado tus sesiones. La clase de prueba tiene por objetivo que nos conozcas y puedas decidir en base a la experiencia si deseas contratar un plan con nosotros.',
+  instructions: [
+    'Llegar 5 minutos antes de la hora de clase para registro y orientación',
+    'Venir con buzo o ropa cómoda (sin cierres metálicos en bolsillos)',
+    'Traer calcetines antideslizantes para mayor seguridad',
+    'Opcional: Puedes traer una toalla personal y una botella de agua',
+  ],
+  expectations: [
+    'Evaluación inicial de tu condición física',
+    'Introducción a los principios básicos del Pilates',
+    'Uso guiado de las máquinas Reformer',
+    'Atención personalizada del instructor',
+    'Información sobre nuestros planes y servicios',
+  ],
+  whatsapp:
+    'https://wa.me/56912345678?text=Hola,%20quiero%20agendar%20una%20clase%20de%20prueba%20gratuita',
+};
 ---
 
 <section
@@ -219,23 +193,5 @@ try {
     transition:
       transform 0.2s ease,
       box-shadow 0.2s ease;
-  }
-
-  /* Gradiente animado para CTA */
-  .bg-gradient-to-r {
-    background-size: 200% 200%;
-    animation: gradientShift 6s ease infinite;
-  }
-
-  @keyframes gradientShift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
   }
 </style>
