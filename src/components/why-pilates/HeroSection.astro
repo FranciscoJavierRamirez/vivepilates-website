@@ -27,28 +27,28 @@ try {
 ---
 
 <section
-  class="py-20 bg-gradient-to-br from-[var(--cream)] via-[var(--rose-pale)] to-[var(--warm-gray)] text-center relative overflow-hidden"
+  class="py-20 bg-gradient-to-br from-[var(--cream)] via-[var(--rose-pale)] to-[var(--warm-gray)] text-center relative overflow-hidden hero-section"
 >
   <div class="container mx-auto px-4 relative z-10">
     <h1
-      class="text-4xl md:text-5xl font-bold mb-6 text-[var(--deep-coral)] leading-tight"
+      class="text-4xl md:text-5xl font-bold mb-6 text-[var(--deep-coral)] leading-tight animate-fade-in-up"
     >
       {heroContent.title}
     </h1>
     <p
-      class="text-xl md:text-2xl mt-4 text-[var(--trust-blue)] font-medium mb-6"
+      class="text-xl md:text-2xl mt-4 text-[var(--trust-blue)] font-medium mb-6 animate-fade-in-up animation-delay-300"
     >
       {heroContent.subtitle}
     </p>
     <p
-      class="text-lg mt-4 text-[var(--charcoal-gray)] max-w-3xl mx-auto leading-relaxed"
+      class="text-lg mt-4 text-[var(--charcoal-gray)] max-w-3xl mx-auto leading-relaxed animate-fade-in-up animation-delay-600"
     >
       {heroContent.description}
     </p>
 
     <!-- CTA Hero -->
     <div
-      class="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center"
+      class="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up animation-delay-900"
     >
       <CTAButton
         href="/servicios#clase-prueba"
@@ -65,44 +65,399 @@ try {
     </div>
   </div>
 
-  <!-- Elementos decorativos animados -->
-  <div
-    class="absolute top-10 left-10 w-20 h-20 bg-[var(--coral-primary)] rounded-full opacity-20 animate-pulse"
-  >
-  </div>
-  <div
-    class="absolute bottom-10 right-10 w-32 h-32 bg-[var(--warm-gold)] rounded-full opacity-10 animate-pulse delay-1000"
-  >
-  </div>
-  <div
-    class="absolute top-1/2 left-1/4 w-16 h-16 bg-[var(--sage-green)] rounded-full opacity-15 animate-pulse delay-500"
-  >
+  <!-- Fondo animado con elementos geométricos avanzados -->
+  <div class="absolute inset-0 overflow-hidden">
+    <!-- Ondas de fondo -->
+    <div class="wave-animation wave-1"></div>
+    <div class="wave-animation wave-2"></div>
+    <div class="wave-animation wave-3"></div>
+
+    <!-- Partículas flotantes geométricas -->
+    <div class="floating-elements">
+      <div class="floating-circle circle-1"></div>
+      <div class="floating-circle circle-2"></div>
+      <div class="floating-circle circle-3"></div>
+      <div class="floating-square square-1"></div>
+      <div class="floating-square square-2"></div>
+      <div class="floating-triangle triangle-1"></div>
+      <div class="floating-triangle triangle-2"></div>
+      <div class="floating-hexagon hexagon-1"></div>
+    </div>
+
+    <!-- Gradiente dinámico superpuesto -->
+    <div class="dynamic-gradient"></div>
   </div>
 </section>
 
 <style>
-  /* Animaciones personalizadas para el hero */
-  @keyframes float {
+  /* ===== ANIMACIONES AVANZADAS PARA EL HERO ===== */
+
+  /* Hero section base */
+  .hero-section {
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      var(--cream) 0%,
+      var(--rose-pale) 30%,
+      var(--warm-gray) 70%,
+      var(--cream) 100%
+    );
+  }
+
+  /* ===== ANIMACIONES DE ENTRADA PARA EL TEXTO ===== */
+
+  /* Animación principal de fadeInUp */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+    opacity: 0;
+  }
+
+  /* Delays escalonados para efecto secuencial */
+  .animation-delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  .animation-delay-600 {
+    animation-delay: 0.6s;
+  }
+
+  .animation-delay-900 {
+    animation-delay: 0.9s;
+  }
+
+  /* ===== ONDAS DE FONDO ABSTRACTAS ===== */
+  .wave-animation {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.08;
+    filter: blur(1px);
+  }
+
+  .wave-1 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, var(--deep-coral), transparent 70%);
+    top: -140px;
+    left: -140px;
+    animation: waveFloat1 18s ease-in-out infinite;
+  }
+
+  .wave-2 {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, var(--trust-blue), transparent 70%);
+    top: 60%;
+    right: -110px;
+    animation: waveFloat2 22s ease-in-out infinite reverse;
+  }
+
+  .wave-3 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, var(--sage-green), transparent 60%);
+    bottom: -175px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: waveFloat3 26s ease-in-out infinite;
+  }
+
+  @keyframes waveFloat1 {
     0%,
     100% {
-      transform: translateY(0px);
+      transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    25% {
+      transform: translate(25px, -15px) rotate(90deg) scale(1.1);
     }
     50% {
-      transform: translateY(-10px);
+      transform: translate(-15px, 25px) rotate(180deg) scale(0.9);
+    }
+    75% {
+      transform: translate(15px, 8px) rotate(270deg) scale(1.05);
     }
   }
 
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
+  @keyframes waveFloat2 {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    33% {
+      transform: translate(-20px, 20px) rotate(120deg) scale(1.15);
+    }
+    66% {
+      transform: translate(12px, -12px) rotate(240deg) scale(0.85);
+    }
   }
 
-  /* Mejoras de accesibilidad */
+  @keyframes waveFloat3 {
+    0%,
+    100% {
+      transform: translateX(-50%) translateY(0) rotate(0deg) scale(1);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-25px) rotate(180deg) scale(1.1);
+    }
+  }
+
+  /* ===== PARTÍCULAS FLOTANTES GEOMÉTRICAS ===== */
+  .floating-elements {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .floating-circle,
+  .floating-square,
+  .floating-triangle,
+  .floating-hexagon {
+    position: absolute;
+    opacity: 0.12;
+  }
+
+  /* Círculos flotantes */
+  .floating-circle {
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--coral-primary), var(--deep-coral));
+  }
+
+  .circle-1 {
+    width: 55px;
+    height: 55px;
+    top: 25%;
+    left: 12%;
+    animation: gentleFloat 9s ease-in-out infinite;
+  }
+
+  .circle-2 {
+    width: 35px;
+    height: 35px;
+    top: 65%;
+    right: 18%;
+    animation: gentleFloat 11s ease-in-out infinite reverse;
+  }
+
+  .circle-3 {
+    width: 75px;
+    height: 75px;
+    bottom: 30%;
+    left: 75%;
+    animation: gentleFloat 13s ease-in-out infinite;
+    animation-delay: -3s;
+  }
+
+  /* Cuadrados flotantes */
+  .floating-square {
+    background: linear-gradient(135deg, var(--trust-blue), var(--sage-green));
+    transform: rotate(45deg);
+  }
+
+  .square-1 {
+    width: 28px;
+    height: 28px;
+    top: 35%;
+    left: 85%;
+    animation: rotateFloat 16s linear infinite;
+  }
+
+  .square-2 {
+    width: 45px;
+    height: 45px;
+    top: 75%;
+    left: 8%;
+    animation: rotateFloat 21s linear infinite reverse;
+  }
+
+  /* Triángulos flotantes */
+  .floating-triangle {
+    width: 0;
+    height: 0;
+  }
+
+  .triangle-1 {
+    border-left: 22px solid transparent;
+    border-right: 22px solid transparent;
+    border-bottom: 38px solid var(--warm-gold);
+    top: 20%;
+    right: 12%;
+    animation: triangleFloat 15s ease-in-out infinite;
+  }
+
+  .triangle-2 {
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-bottom: 32px solid var(--vital-green);
+    bottom: 45%;
+    right: 65%;
+    animation: triangleFloat 19s ease-in-out infinite reverse;
+  }
+
+  /* Hexágonos flotantes (nuevo elemento geométrico) */
+  .floating-hexagon {
+    width: 40px;
+    height: 23px;
+    background: linear-gradient(135deg, var(--warm-gold), var(--coral-primary));
+    position: relative;
+    opacity: 0.1;
+  }
+
+  .floating-hexagon:before,
+  .floating-hexagon:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+  }
+
+  .floating-hexagon:before {
+    bottom: 100%;
+    border-bottom: 12px solid var(--warm-gold);
+  }
+
+  .floating-hexagon:after {
+    top: 100%;
+    border-top: 12px solid var(--coral-primary);
+  }
+
+  .hexagon-1 {
+    top: 50%;
+    left: 25%;
+    animation: hexagonFloat 24s ease-in-out infinite;
+  }
+
+  /* ===== ANIMACIONES DE ELEMENTOS FLOTANTES ===== */
+  @keyframes gentleFloat {
+    0%,
+    100% {
+      transform: translateY(0px) translateX(0px) scale(1);
+    }
+    25% {
+      transform: translateY(-12px) translateX(8px) scale(1.03);
+    }
+    50% {
+      transform: translateY(-20px) translateX(-4px) scale(0.97);
+    }
+    75% {
+      transform: translateY(-8px) translateX(-12px) scale(1.01);
+    }
+  }
+
+  @keyframes rotateFloat {
+    0% {
+      transform: rotate(45deg) translateY(0px);
+    }
+    25% {
+      transform: rotate(135deg) translateY(-18px);
+    }
+    50% {
+      transform: rotate(225deg) translateY(-8px);
+    }
+    75% {
+      transform: rotate(315deg) translateY(-25px);
+    }
+    100% {
+      transform: rotate(405deg) translateY(0px);
+    }
+  }
+
+  @keyframes triangleFloat {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+      opacity: 0.12;
+    }
+    50% {
+      transform: translateY(-18px) rotate(180deg);
+      opacity: 0.22;
+    }
+  }
+
+  @keyframes hexagonFloat {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg) scale(1);
+    }
+    33% {
+      transform: translateY(-15px) rotate(120deg) scale(1.1);
+    }
+    66% {
+      transform: translateY(-5px) rotate(240deg) scale(0.9);
+    }
+  }
+
+  /* Gradiente dinámico superpuesto */
+  .dynamic-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      60deg,
+      transparent 0%,
+      rgba(238, 126, 112, 0.025) 25%,
+      transparent 50%,
+      rgba(122, 143, 163, 0.025) 75%,
+      transparent 100%
+    );
+    animation: gradientShift 14s ease-in-out infinite;
+  }
+
+  @keyframes gradientShift {
+    0%,
+    100% {
+      opacity: 1;
+      transform: translateX(0%) rotate(0deg);
+    }
+    50% {
+      opacity: 0.6;
+      transform: translateX(3%) rotate(1deg);
+    }
+  }
+
+  /* ===== MEJORAS DE ACCESIBILIDAD ===== */
   @media (prefers-reduced-motion: reduce) {
-    .animate-pulse,
-    .animate-float,
-    * {
+    .wave-animation,
+    .floating-circle,
+    .floating-square,
+    .floating-triangle,
+    .floating-hexagon,
+    .dynamic-gradient,
+    .animate-fade-in-up {
       animation: none !important;
-      transition: none !important;
+    }
+
+    .animate-fade-in-up {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  /* ===== OPTIMIZACIÓN PARA DISPOSITIVOS MÓVILES ===== */
+  @media (max-width: 768px) {
+    .floating-elements {
+      opacity: 0.6;
+    }
+
+    .wave-animation {
+      opacity: 0.06;
+    }
+
+    /* Reducir elementos en móvil para mejor rendimiento */
+    .circle-3,
+    .square-2,
+    .triangle-2,
+    .hexagon-1 {
+      display: none;
     }
   }
 

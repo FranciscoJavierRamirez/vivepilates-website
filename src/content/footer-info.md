@@ -15,5 +15,8 @@ Horarios: Lunes a Viernes 8:00-20:00, Sábados 9:00-13:00 (ajusta según real)
 
 ## Columna 3: Contacto
 
-Instagram: https://instagram.com/vivepilates (placeholder)
+Email: info@vivepilates.cl
+Teléfono: +56 9 1234 5678
+WhatsApp: +56912345678
+Instagram: https://instagram.com/vivepilates (@vivepilates)
 WhatsApp Mensaje: Hola, quiero más información

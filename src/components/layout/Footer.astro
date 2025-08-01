@@ -5,13 +5,21 @@ const info = {
   title: 'VivePilates',
   address: 'Av. Kennedy 6800, Vitacura',
   hours: 'Lunes a Viernes 8:00-20:00',
+  email: 'info@vivepilates.cl',
+  phone: '+56 9 1234 5678',
+  whatsapp: '+56912345678',
   links: [
     { label: '¿Por qué Pilates?', href: '/por-que-pilates' },
     { label: 'Servicios', href: '/servicios' },
     { label: 'Sobre Nosotros', href: '/sobre-nosotros' },
     { label: 'Clase de Prueba', href: '/servicios#clase-prueba' },
   ],
-  instagram: 'https://instagram.com/vivepilates',
+  social: {
+    instagram: {
+      url: 'https://instagram.com/vivepilates',
+      handle: '@vivepilates',
+    },
+  },
 };
 const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
 ---
@@ -64,11 +72,55 @@ const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
         <h3 class="font-bold text-xl mb-4 text-[var(--coral-primary)]">
           Contacto
         </h3>
+
+        <!-- Email -->
+        <div class="mb-3 flex items-center">
+          <svg
+            class="w-4 h-4 mr-2 text-gray-300"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+            ></path>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+            ></path>
+          </svg>
+          <a
+            href={`mailto:${info.email}`}
+            class="text-gray-300 hover:text-[var(--coral-primary)] transition-colors text-sm"
+            aria-label={`Enviar email a ${info.email}`}
+          >
+            {info.email}
+          </a>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="mb-4 flex items-center">
+          <svg
+            class="w-4 h-4 mr-2 text-gray-300"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
+            ></path>
+          </svg>
+          <a
+            href={`tel:${info.whatsapp}`}
+            class="text-gray-300 hover:text-[var(--coral-primary)] transition-colors text-sm"
+            aria-label={`Llamar al ${info.phone}`}
+          >
+            {info.phone}
+          </a>
+        </div>
+
+        <!-- WhatsApp Button -->
         <a
-          href="https://wa.me/56912345678?text=Hola,%20quiero%20más%20información"
+          href={`https://wa.me/${info.whatsapp}?text=Hola,%20quiero%20más%20información`}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center bg-[var(--sage-green)] text-white px-4 py-2 rounded-lg hover-lift mb-4"
+          class="inline-flex items-center bg-[var(--sage-green)] text-white px-4 py-2 rounded-lg hover-lift mb-4 w-full justify-center"
           aria-label="Contactar por WhatsApp"
         >
           <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
@@ -78,17 +130,37 @@ const mapKey = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
           </svg>
           WhatsApp
         </a>
-        <a
-          href={info.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="block mb-4 text-gray-300 hover:text-[var(--sage-green)] transition-colors"
-        >
-          Síguenos en Instagram
-        </a>
+
+        <!-- Instagram -->
+        <div class="mb-4 flex items-center">
+          <svg
+            class="w-5 h-5 mr-2 text-gray-300"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12.017 0C8.396 0 7.989.013 7.041.048 6.094.082 5.52.204 5.012.388a6.5 6.5 0 0 0-2.346 1.267c-.905.63-1.614 1.432-2.045 2.331C.347 4.518.213 5.091.181 6.038.019 7.043.005 7.406.005 12.017c0 4.624.014 4.99.048 5.934.034.943.156 1.516.34 2.024a6.1 6.1 0 0 0 1.269 2.356c.63.905 1.432 1.614 2.331 2.045.532.274 1.105.408 2.052.44.934.035 1.297.049 5.907.049 4.624 0 4.99-.014 5.934-.048.943-.034 1.516-.156 2.024-.34a6.1 6.1 0 0 0 2.356-1.269c.905-.63 1.614-1.432 2.045-2.331.274-.532.408-1.105.44-2.052.035-.934.049-1.297.049-5.907 0-4.624-.014-4.99-.048-5.934-.034-.943-.156-1.516-.34-2.024a6.1 6.1 0 0 0-1.269-2.356c-.63-.905-1.432-1.614-2.331-2.045-.532-.274-1.105-.408-2.052-.44C16.991.033 16.628.019 12.017.019zm0 2.165c4.624 0 4.99.014 5.934.048.943.034 1.456.161 1.795.267.452.176.775.388 1.113.726.338.338.55.661.726 1.113.106.339.233.852.267 1.795.034.943.048 1.31.048 5.934s-.014 4.99-.048 5.934c-.034.943-.161 1.456-.267 1.795a3.033 3.033 0 0 1-.726 1.113 3.033 3.033 0 0 1-1.113.726c-.339.106-.852.233-1.795.267-.943.034-1.31.048-5.934.048s-4.99-.014-5.934-.048c-.943-.034-1.456-.161-1.795-.267a3.033 3.033 0 0 1-1.113-.726 3.033 3.033 0 0 1-.726-1.113c-.106-.339-.233-.852-.267-1.795-.034-.943-.048-1.31-.048-5.934s.014-4.99.048-5.934c.034-.943.161-1.456.267-1.795.176-.452.388-.775.726-1.113.338-.338.661-.55 1.113-.726.339-.106.852-.233 1.795-.267.943-.034 1.31-.048 5.934-.048z"
+            ></path>
+            <path
+              d="M12.017 15.33a3.312 3.312 0 1 1 0-6.624 3.312 3.312 0 0 1 0 6.624zM12.017 7.729a4.288 4.288 0 1 0 0 8.576 4.288 4.288 0 0 0 0-8.576z"
+            ></path>
+            <circle cx="18.406" cy="5.594" r="1.031"></circle>
+          </svg>
+          <a
+            href={info.social.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-300 hover:text-[var(--coral-primary)] transition-colors"
+            aria-label={`Seguir en Instagram ${info.social.instagram.handle}`}
+          >
+            <span class="text-sm">{info.social.instagram.handle}</span>
+          </a>
+        </div>
+
+        <!-- CTA Button -->
         <a
           href="/servicios#clase-prueba"
-          class="inline-block bg-[var(--coral-primary)] text-white px-6 py-2 rounded-lg hover-lift transition-all"
+          class="inline-block bg-[var(--coral-primary)] text-white px-6 py-2 rounded-lg hover-lift transition-all w-full text-center"
         >
           Agenda tu Clase de Prueba
         </a>
