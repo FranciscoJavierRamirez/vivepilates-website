@@ -6,149 +6,171 @@ import BenefitsCategorized from '../components/why-pilates/BenefitsCategorized.t
 import AudienceCards from '../components/why-pilates/AudienceCards.astro';
 import TestimonialsCarousel from '../components/why-pilates/TestimonialsCarousel.tsx';
 import CTAButton from '../components/etapa1/shared/CTAButton.astro';
+import { getEntry } from 'astro:content';
 
 const title = '¿Por qué Pilates? - VivePilates';
 const description =
   'Descubre los beneficios del Pilates para tu cuerpo, mente y salud. Conoce los principios fundamentales, testimonios reales y cómo se adapta a todas las edades en Vitacura.';
 const currentPage = 'por-que-pilates';
 
-// Datos para los componentes React (parsear de .md en producción)
-const benefits = [
-  // Físicos
-  {
-    text: 'Mejora la postura corporal',
-    category: 'physical',
-    audiences: ['general', 'seniors'],
-  },
-  {
-    text: 'Aumenta la flexibilidad muscular',
-    category: 'physical',
-    audiences: ['general', 'pregnant'],
-  },
-  {
-    text: 'Mejora la fuerza en piernas y espalda',
-    category: 'physical',
-    audiences: ['general', 'rehab'],
-  },
-  {
-    text: 'Aumenta la capacidad para activar el transverso abdominal',
-    category: 'physical',
-    audiences: ['pregnant', 'general'],
-  },
-  {
-    text: 'Fortalece el transverso abdominal – CORE',
-    category: 'physical',
-    audiences: ['general', 'pregnant'],
-  },
-  {
-    text: 'Equilibra la musculatura flexora y extensora de tronco',
-    category: 'physical',
-    audiences: ['rehab', 'general'],
-  },
-  {
-    text: 'Mejora el equilibrio y coordinación',
-    category: 'physical',
-    audiences: ['seniors', 'general'],
-  },
+// Cargar datos desde archivos de contenido
+let benefits: any[] = [];
+let testimonials: any[] = [];
 
-  // Mentales
-  {
-    text: 'Mejora la calidad del sueño',
-    category: 'mental',
-    audiences: ['general', 'seniors'],
-  },
-  {
-    text: 'Aumenta la concentración y enfoque mental',
-    category: 'mental',
-    audiences: ['general', 'youth'],
-  },
+try {
+  const benefitsEntry = await getEntry('why-pilates', 'benefits');
+  if (benefitsEntry?.data.benefits) {
+    benefits = benefitsEntry.data.benefits;
+  }
+} catch (error) {
+  console.warn('No se pudo cargar benefits.mdx:', error);
+  // Fallback con datos hardcodeados
+  benefits = [
+    // Físicos
+    {
+      text: 'Mejora la postura corporal',
+      category: 'physical',
+      audiences: ['general', 'seniors'],
+    },
+    {
+      text: 'Aumenta la flexibilidad muscular',
+      category: 'physical',
+      audiences: ['general', 'pregnant'],
+    },
+    {
+      text: 'Mejora la fuerza en piernas y espalda',
+      category: 'physical',
+      audiences: ['general', 'rehab'],
+    },
+    {
+      text: 'Aumenta la capacidad para activar el transverso abdominal',
+      category: 'physical',
+      audiences: ['pregnant', 'general'],
+    },
+    {
+      text: 'Fortalece el transverso abdominal – CORE',
+      category: 'physical',
+      audiences: ['general', 'pregnant'],
+    },
+    {
+      text: 'Equilibra la musculatura flexora y extensora de tronco',
+      category: 'physical',
+      audiences: ['rehab', 'general'],
+    },
+    {
+      text: 'Mejora el equilibrio y coordinación',
+      category: 'physical',
+      audiences: ['seniors', 'general'],
+    },
 
-  // Médicos
-  {
-    text: 'Ayuda a disminuir algunos grados de escoliosis no estructural',
-    category: 'medical',
-    audiences: ['rehab', 'youth'],
-  },
-  {
-    text: 'Mejora problemas en la espalda y columna vertebral',
-    category: 'medical',
-    audiences: ['general', 'seniors', 'rehab'],
-  },
-];
+    // Mentales
+    {
+      text: 'Mejora la calidad del sueño',
+      category: 'mental',
+      audiences: ['general', 'seniors'],
+    },
+    {
+      text: 'Aumenta la concentración y enfoque mental',
+      category: 'mental',
+      audiences: ['general', 'youth'],
+    },
 
-const testimonials = [
-  {
-    name: 'Inés Ariztía',
-    text: 'Me encanta ir a pilates, el mejor break de la semana. El servicio increíble, la Lore me transmite demasiada calma y paz en sus clases, me sirve mucho para despejarme y relajarme',
-    benefit: 'Relajación',
-    audience: 'general',
-    rating: 5,
-  },
-  {
-    name: 'Paola Giordani',
-    text: 'Me encanta, me siento mejor con más energía y más fuerza. Se nota mayor musculatura y mejor manejo de mi dolor',
-    benefit: 'Fuerza',
-    audience: 'general',
-    rating: 5,
-  },
-  {
-    name: 'Carolina Dibarrart',
-    text: 'Me ha ayudado mucho con mis dolores de espalda y me genera mucho relajo',
-    benefit: 'Dolor espalda',
-    audience: 'general',
-    rating: 5,
-  },
-  {
-    name: 'Viviana Navarrete',
-    text: 'Es un ambiente no tan solo para practicar deporte o una disciplina, sino que también es entretenido',
-    benefit: 'Entretenimiento',
-    audience: 'general',
-    rating: 5,
-  },
-  {
-    name: 'Simone Felix',
-    text: 'Llevo poco tiempo en el Pilates y me siento bien en las clases. La profesora Lorena es muy atenta y dedicada',
-    benefit: 'Atención',
-    audience: 'general',
-    rating: 5,
-  },
-  {
-    name: 'Cristian Rodriguez',
-    age: 62,
-    text: 'He visto mejorar mi elasticidad y agilidad',
-    benefit: 'Flexibilidad',
-    audience: 'seniors',
-    rating: 5,
-  },
-  {
-    name: 'Orietta Rossi',
-    text: 'Me ha dado cierta flexibilidad sobre todo altura de la cervical y sobre todo llena de energía después del pilates',
-    benefit: 'Flexibilidad',
-    audience: 'general',
-    rating: 5,
-  },
-  {
-    name: 'Gabriela Luco',
-    text: 'Beneficios como relajo, ejercicio, moverse son lo que me motiva seguir',
-    benefit: 'Relajo',
-    audience: 'general',
-    rating: 5,
-  },
-  {
-    name: 'Alejandra Concha',
-    text: 'Me encanta venir, las clases son entretenidas y el ambiente es super bueno',
-    benefit: 'Ambiente',
-    audience: 'general',
-    rating: 5,
-  },
-  {
-    name: 'Patricia Camus',
-    text: 'Me encanta, la puntualidad, el espacio los elementos, la rutina de cada clase siempre diferente',
-    benefit: 'Variedad',
-    audience: 'general',
-    rating: 5,
-  },
-];
+    // Médicos
+    {
+      text: 'Ayuda a disminuir algunos grados de escoliosis no estructural',
+      category: 'medical',
+      audiences: ['rehab', 'youth'],
+    },
+    {
+      text: 'Mejora problemas en la espalda y columna vertebral',
+      category: 'medical',
+      audiences: ['general', 'seniors', 'rehab'],
+    },
+  ];
+}
+
+try {
+  const testimonialsEntry = await getEntry('why-pilates', 'testimonials');
+  if (testimonialsEntry?.data.testimonials) {
+    testimonials = testimonialsEntry.data.testimonials;
+  }
+} catch (error) {
+  console.warn('No se pudo cargar testimonials.mdx:', error);
+  // Fallback con datos hardcodeados
+  testimonials = [
+    {
+      name: 'Inés Ariztía',
+      text: 'Me encanta ir a pilates, el mejor break de la semana. El servicio increíble, la Lore me transmite demasiada calma y paz en sus clases, me sirve mucho para despejarme y relajarme',
+      benefit: 'Relajación',
+      audience: 'general',
+      rating: 5,
+    },
+    {
+      name: 'Paola Giordani',
+      text: 'Me encanta, me siento mejor con más energía y más fuerza. Se nota mayor musculatura y mejor manejo de mi dolor',
+      benefit: 'Fuerza',
+      audience: 'general',
+      rating: 5,
+    },
+    {
+      name: 'Carolina Dibarrart',
+      text: 'Me ha ayudado mucho con mis dolores de espalda y me genera mucho relajo',
+      benefit: 'Dolor espalda',
+      audience: 'general',
+      rating: 5,
+    },
+    {
+      name: 'Viviana Navarrete',
+      text: 'Es un ambiente no tan solo para practicar deporte o una disciplina, sino que también es entretenido',
+      benefit: 'Entretenimiento',
+      audience: 'general',
+      rating: 5,
+    },
+    {
+      name: 'Simone Felix',
+      text: 'Llevo poco tiempo en el Pilates y me siento bien en las clases. La profesora Lorena es muy atenta y dedicada',
+      benefit: 'Atención',
+      audience: 'general',
+      rating: 5,
+    },
+    {
+      name: 'Cristian Rodriguez',
+      age: 62,
+      text: 'He visto mejorar mi elasticidad y agilidad',
+      benefit: 'Flexibilidad',
+      audience: 'seniors',
+      rating: 5,
+    },
+    {
+      name: 'Orietta Rossi',
+      text: 'Me ha dado cierta flexibilidad sobre todo altura de la cervical y sobre todo llena de energía después del pilates',
+      benefit: 'Flexibilidad',
+      audience: 'general',
+      rating: 5,
+    },
+    {
+      name: 'Gabriela Luco',
+      text: 'Beneficios como relajo, ejercicio, moverse son lo que me motiva seguir',
+      benefit: 'Relajo',
+      audience: 'general',
+      rating: 5,
+    },
+    {
+      name: 'Alejandra Concha',
+      text: 'Me encanta venir, las clases son entretenidas y el ambiente es super bueno',
+      benefit: 'Ambiente',
+      audience: 'general',
+      rating: 5,
+    },
+    {
+      name: 'Patricia Camus',
+      text: 'Me encanta, la puntualidad, el espacio los elementos, la rutina de cada clase siempre diferente',
+      benefit: 'Variedad',
+      audience: 'general',
+      rating: 5,
+    },
+  ];
+}
 ---
 
 <BaseLayout title={title} description={description} currentPage={currentPage}>

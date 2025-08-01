@@ -1,8 +1,9 @@
 ---
 import Container from '../ui/Container.astro';
+import { getEntry } from 'astro:content';
 
-// Beneficios categorizados (en un proyecto real, esto vendría de content collections)
-const benefits = {
+// Cargar beneficios desde archivo de contenido
+let benefits = {
   fisicos: [
     'Mejora la postura y alineación corporal',
     'Aumenta la flexibilidad y movilidad articular',
@@ -29,11 +30,23 @@ const benefits = {
   ],
 };
 
-const categories = [
+let categories = [
   { id: 'fisicos', title: 'Físicos', icon: 'muscle', color: 'coral' },
   { id: 'mentales', title: 'Mentales', icon: 'brain', color: 'sage-green' },
   { id: 'medicos', title: 'Médicos', icon: 'heart', color: 'vital-green' },
 ];
+
+try {
+  const benefitsEntry = await getEntry('home', 'benefits');
+  if (benefitsEntry?.data.benefits) {
+    benefits = benefitsEntry.data.benefits;
+  }
+  if (benefitsEntry?.data.categories) {
+    categories = benefitsEntry.data.categories;
+  }
+} catch (error) {
+  console.warn('No se pudo cargar benefits.mdx:', error);
+}
 
 const getIcon = (iconName: string) => {
   const icons: Record<string, string> = {

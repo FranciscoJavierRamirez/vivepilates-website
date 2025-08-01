@@ -1,15 +1,25 @@
 ---
 import Container from '../ui/Container.astro';
 import CTAButton from '../etapa1/shared/CTAButton.astro';
+import { getEntry } from 'astro:content';
 
-// Frases de Joseph Pilates (en un proyecto real, esto vendría de content collections)
-const quotes = [
+// Cargar frases desde archivo de contenido
+let quotes = [
   'Cada persona es el arquitecto de su propia felicidad',
   'La aptitud física es el primer requisito de la felicidad',
   'La contrología es la coordinación completa de cuerpo, mente y espíritu',
   'La contrología no es un sistema de ejercicios al azar',
   'La contrología desarrolla el cuerpo uniformemente',
 ];
+
+try {
+  const quotesEntry = await getEntry('home', 'hero-quotes');
+  if (quotesEntry?.data.quotes) {
+    quotes = quotesEntry.data.quotes;
+  }
+} catch (error) {
+  console.warn('No se pudo cargar hero-quotes.mdx:', error);
+}
 ---
 
 <section
@@ -133,20 +143,12 @@ const quotes = [
   </Container>
 </section>
 
-<script>
+<script define:vars={{ quotes }}>
   // Rotación de quotes
-  const quotes = [
-    'Cada persona es el arquitecto de su propia felicidad',
-    'La aptitud física es el primer requisito de la felicidad',
-    'La contrología es la coordinación completa de cuerpo, mente y espíritu',
-    'La contrología no es un sistema de ejercicios al azar',
-    'La contrología desarrolla el cuerpo uniformemente',
-  ];
-
   const quoteDisplay = document.getElementById('quote-display');
   let currentQuoteIndex = 0;
 
-  if (quoteDisplay) {
+  if (quoteDisplay && quotes && quotes.length > 0) {
     function rotateQuotes() {
       if (quoteDisplay) {
         quoteDisplay.style.opacity = '0';

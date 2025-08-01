@@ -1,8 +1,9 @@
 ---
 import Container from '../ui/Container.astro';
+import { getEntry } from 'astro:content';
 
-// Diferenciadores clave (en un proyecto real, esto vendría de content collections)
-const differentiators = [
+// Cargar diferenciadores desde archivo de contenido
+let differentiators = [
   {
     title: 'Máximo 6 Personas',
     description: 'Atención verdaderamente personalizada en cada clase',
@@ -40,6 +41,15 @@ const differentiators = [
     color: 'vital-green',
   },
 ];
+
+try {
+  const differentiatorsEntry = await getEntry('home', 'differentiators');
+  if (differentiatorsEntry?.data.differentiators) {
+    differentiators = differentiatorsEntry.data.differentiators;
+  }
+} catch (error) {
+  console.warn('No se pudo cargar differentiators.mdx:', error);
+}
 
 const getIcon = (iconName: string) => {
   const icons: Record<string, string> = {

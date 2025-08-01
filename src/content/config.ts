@@ -45,6 +45,28 @@ const whyPilatesCollection = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     section: z.string(),
+    // Permitir datos estructurados para beneficios y testimonios
+    benefits: z
+      .array(
+        z.object({
+          text: z.string(),
+          category: z.string(),
+          audiences: z.array(z.string()),
+        })
+      )
+      .optional(),
+    testimonials: z
+      .array(
+        z.object({
+          name: z.string(),
+          text: z.string(),
+          benefit: z.string(),
+          audience: z.string(),
+          rating: z.number(),
+          age: z.number().optional(),
+        })
+      )
+      .optional(),
   }),
 });
 
@@ -58,10 +80,64 @@ const servicesCollection = defineCollection({
   }),
 });
 
+// Configuración para la página Home
+const homeCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    section: z.string(),
+    // Datos para diferenciadores
+    differentiators: z
+      .array(
+        z.object({
+          title: z.string(),
+          description: z.string(),
+          icon: z.string(),
+          color: z.string(),
+        })
+      )
+      .optional(),
+    // Datos para beneficios
+    benefits: z.record(z.array(z.string())).optional(),
+    categories: z
+      .array(
+        z.object({
+          id: z.string(),
+          title: z.string(),
+          icon: z.string(),
+          color: z.string(),
+        })
+      )
+      .optional(),
+    // Datos para testimonios
+    testimonial: z
+      .object({
+        author: z.string(),
+        content: z.string(),
+        rating: z.number(),
+        benefit: z.string(),
+      })
+      .optional(),
+    additional_testimonials: z
+      .array(
+        z.object({
+          author: z.string(),
+          content: z.string(),
+          rating: z.number(),
+        })
+      )
+      .optional(),
+    // Datos para frases del hero
+    quotes: z.array(z.string()).optional(),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
   testimonios: testimoniosCollection,
   about: aboutCollection,
   'why-pilates': whyPilatesCollection,
   services: servicesCollection,
+  home: homeCollection,
 };
