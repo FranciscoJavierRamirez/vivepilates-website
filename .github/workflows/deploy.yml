@@ -39,6 +39,11 @@ jobs:
 
       - name: Build with Astro
         run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: List dist contents (debug)
+        run: ls -la dist/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
