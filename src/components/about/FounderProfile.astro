@@ -26,7 +26,7 @@ const founder = {
 ---
 
 <section
-  class="section-padding bg-[var(--cream)]"
+  class="py-16 md:py-24 bg-[var(--cream)]"
   aria-label="Perfil de la fundadora"
 >
   <Container>
@@ -40,14 +40,14 @@ const founder = {
     </div>
 
     <div class="max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         <!-- Imagen de la fundadora -->
         <div class="relative">
           <div class="relative overflow-hidden rounded-2xl shadow-2xl">
             <img
               src={founder.image}
               alt={`${founder.name}, ${founder.title} de VivePilates`}
-              class="w-full h-[500px] object-cover transition-transform duration-500 hover:scale-105"
+              class="w-full h-[700px] object-contain transition-transform duration-500 hover:scale-105"
               loading="lazy"
             />
             <!-- Overlay decorativo -->
@@ -66,12 +66,12 @@ const founder = {
         </div>
 
         <!-- Información de la fundadora -->
-        <div class="space-y-6">
-          <div>
-            <h3 class="text-3xl font-bold text-[var(--deep-coral)] mb-2">
+        <div class="space-y-10">
+          <div class="space-y-4">
+            <h3 class="text-3xl font-bold text-[var(--deep-coral)]">
               {founder.name}
             </h3>
-            <p class="text-xl text-[var(--trust-blue)] font-semibold mb-1">
+            <p class="text-xl text-[var(--trust-blue)] font-semibold">
               {founder.title}
             </p>
             <p class="text-lg text-[var(--sage-green)] font-medium">
@@ -84,14 +84,14 @@ const founder = {
           </p>
 
           <!-- Especialidades -->
-          <div>
-            <h4 class="text-xl font-semibold text-[var(--deep-coral)] mb-3">
+          <div class="space-y-6">
+            <h4 class="text-xl font-semibold text-[var(--deep-coral)]">
               Especialidades
             </h4>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-4">
               {
                 founder.specialties.map((specialty: string) => (
-                  <span class="bg-[var(--rose-pale)] text-[var(--deep-coral)] px-3 py-1 rounded-full text-sm font-medium">
+                  <span class="bg-[var(--rose-pale)] text-[var(--deep-coral)] px-4 py-2 rounded-full text-sm font-medium">
                     {specialty}
                   </span>
                 ))
@@ -100,16 +100,16 @@ const founder = {
           </div>
 
           <!-- Certificaciones -->
-          <div>
-            <h4 class="text-xl font-semibold text-[var(--deep-coral)] mb-3">
+          <div class="space-y-6">
+            <h4 class="text-xl font-semibold text-[var(--deep-coral)]">
               Certificaciones
             </h4>
-            <ul class="space-y-2">
+            <ul class="space-y-4">
               {
                 founder.certifications.map((cert: string) => (
                   <li class="flex items-center text-[var(--charcoal-gray)]">
                     <svg
-                      class="w-5 h-5 text-[var(--sage-green)] mr-2 flex-shrink-0"
+                      class="w-5 h-5 text-[var(--sage-green)] mr-4 flex-shrink-0"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -129,14 +129,14 @@ const founder = {
           </div>
 
           <!-- CTA personalizado -->
-          <div class="pt-4">
+          <div class="pt-8">
             <a
               href={founder.ctaLink}
-              class="inline-flex items-center bg-[var(--coral-primary)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--deep-coral)] transition-colors duration-200 hover-lift"
+              class="inline-flex items-center bg-[var(--coral-primary)] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[var(--deep-coral)] transition-colors duration-200 hover-lift"
               aria-label="Agenda una clase con Lorena"
             >
               <svg
-                class="w-5 h-5 mr-2"
+                class="w-5 h-5 mr-3"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -174,6 +174,13 @@ const founder = {
 
   /* Hover lift effect */
   .hover-lift {
-    @apply transition-all duration-200 hover:-translate-y-1 hover:shadow-lg;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 10px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
 </style>

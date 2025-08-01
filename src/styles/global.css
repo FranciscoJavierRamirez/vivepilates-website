@@ -1,16 +1,16 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Variables CSS de VivePilates */
 :root {
-  --coral-primary: #EE7E70;
-  --warm-gold: #D4A574;
-  --deep-coral: #C65A47;
-  --sage-green: #9CAF88;
-  --rose-pale: #FEEBE6;
-  --trust-blue: #7A8FA3;
-  --cream: #FAF8F5;
-  --charcoal-gray: #4A4A4A;
-  --vital-green: #7CB342;
+  --coral-primary: #ee7e70;
+  --warm-gold: #d4a574;
+  --deep-coral: #c65a47;
+  --sage-green: #9caf88;
+  --rose-pale: #feebe6;
+  --trust-blue: #7a8fa3;
+  --cream: #faf8f5;
+  --charcoal-gray: #4a4a4a;
+  --vital-green: #7cb342;
   --white: #ffffff;
 }
 
@@ -57,7 +57,7 @@ body {
 
 /* Navegación con línea animada */
 .nav-link {
-  @apply relative;
+  position: relative;
 }
 
 .nav-link::after {
@@ -82,12 +82,36 @@ body {
 
 /* Hover lift effect para cards */
 .hover-lift {
-  @apply transition-all duration-200 hover:-translate-y-1 hover:shadow-lg;
+  transition: all 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Grid auto-responsivo */
 .auto-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  @apply gap-8;
+  gap: 2rem;
+}
+
+/* Espaciado entre secciones */
+.section-spacing {
+  height: 4rem;
+}
+
+@media (min-width: 768px) {
+  .section-spacing {
+    height: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-spacing {
+    height: 8rem;
+  }
 }

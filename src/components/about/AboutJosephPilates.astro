@@ -1,10 +1,7 @@
 ---
-import { getEntry } from 'astro:content';
-
 // Carga el contenido desde markdown
 let content;
 try {
-  const entry = await getEntry('about', 'joseph-pilates');
   content = {
     text: 'Creador de un método de entrenamiento para desarrollar la fuerza y la flexibilidad del cuerpo junto con mejorar la postura, fortaleciendo el CORE lo que da como resultado la protección de la columna lumbar y un menor riesgo de lesiones. Él sufría de raquitismo, asma y fiebre reumática. Luego de crear un programa de ejercicios denominado contrología, adquirió un cuerpo musculoso y superó sus problemas de salud, y contribuyó a mejorar la calidad de vida de muchas personas dando a conocer su método de ejercicios, utilizando máquinas creadas por él mismo.',
     image: '/images/joseph-pilates.jpg',
@@ -21,7 +18,7 @@ try {
 ---
 
 <section
-  class="py-12 bg-[var(--rose-pale)]"
+  class="py-16 md:py-24 bg-[var(--rose-pale)]"
   role="region"
   aria-labelledby="joseph-pilates-title"
 >
@@ -102,29 +99,7 @@ try {
 
 <style>
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(238, 126, 112, 0.15);
-  }
-
-  blockquote {
-    position: relative;
-  }
-
-  blockquote::before {
-    content: '"';
-    font-size: 3rem;
-    color: var(--coral-primary);
-    position: absolute;
-    left: -20px;
-    top: -10px;
-  }
-
-  blockquote::after {
-    content: '"';
-    font-size: 3rem;
-    color: var(--coral-primary);
-    position: absolute;
-    right: -20px;
-    bottom: -20px;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 </style>

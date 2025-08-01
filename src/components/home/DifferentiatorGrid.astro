@@ -106,21 +106,21 @@ const getColorClasses = (color: string) => {
       </p>
     </div>
 
-    <div class="auto-grid">
+    <div class="auto-grid gap-12">
       {
         differentiators.map(item => {
           const colorClasses = getColorClasses(item.color);
           if (!colorClasses) return null;
           return (
             <div
-              class={`p-8 rounded-xl text-center hover:transform hover:scale-105 transition-transform duration-300 border ${colorClasses.border}`}
+              class={`p-12 rounded-xl text-center hover:transform hover:scale-105 transition-transform duration-300 border ${colorClasses.border}`}
               style="background-color: var(--cream);"
             >
               <div
-                class={`w-16 h-16 ${colorClasses.bg} rounded-full flex items-center justify-center mx-auto mb-4`}
+                class={`w-20 h-20 ${colorClasses.bg} rounded-full flex items-center justify-center mx-auto mb-8`}
               >
                 <svg
-                  class={`w-8 h-8 ${colorClasses.text}`}
+                  class={`w-10 h-10 ${colorClasses.text}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -133,10 +133,12 @@ const getColorClasses = (color: string) => {
                   />
                 </svg>
               </div>
-              <h3 class="text-xl font-semibold mb-3 text-charcoal-gray-500">
+              <h3 class="text-2xl font-semibold mb-6 text-charcoal-gray-500">
                 {item.title}
               </h3>
-              <p class="text-charcoal-gray-400">{item.description}</p>
+              <p class="text-lg text-charcoal-gray-400 leading-relaxed">
+                {item.description}
+              </p>
             </div>
           );
         })
