@@ -1,0 +1,11 @@
+name = "vivepilates-website"
+compatibility_date = "2024-01-01"
+
+[build]
+command = "npm run build"
+cwd = "."
+watch_dir = "src"
+
+[build.upload]
+format = "directory"
+dir = "dist"
